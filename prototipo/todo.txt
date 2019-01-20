@@ -1,0 +1,14 @@
+- setas
+- andares
+- log de ações
+- chat
+
+- person acoes
+- foto
+- acoes do selecionado:
+ - ver life
+ - virar
+ - andar
+ - ver acoes
+ - ver time
+ 

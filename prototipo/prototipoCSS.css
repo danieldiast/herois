@@ -1,0 +1,114 @@
+			body { margin: 15px;}
+
+
+			#molde {
+				margin-right: 15px;
+				width: 600px;
+				height: 600px;
+				border: 1px solid green;
+				overflow: hidden;
+				background-color: dimgray;
+				float: left;
+			}
+
+			#avisos {
+				width: 430px;
+				min-height: 20px;
+				height: auto;
+				border: 1px solid green;
+				overflow: hidden;
+				margin-bottom: 5px;
+			}
+
+			#acoes {
+				width: 400px;
+				min-height: 200px;
+				height: auto;
+				border: 1px solid green;
+				padding: 15px;
+				overflow: hidden;
+			}
+
+
+			#tabuleiro {
+				/*margin: 15px;*/
+				top: -60px;
+				left: -16px;
+				position: relative;
+				background-color: yellow;
+				user-select: none;
+			}
+			#pad {
+  				width: 100%;
+  				height: 100%;
+  				border: 0;
+  				position: absolute;
+			}
+			.noPointerEvents {
+  				pointer-events: none;
+			}
+
+			#canvasTabuleiro {
+  				width: 100%;
+  				height: 100%;
+  				/*z-index: 2;*/
+  				/*background: rgba(0,233,23,0.1); */
+  				position: absolute;
+  				pointer-events: none;
+  				border: 0;
+			}
+
+			#tabuleiro .linha {
+				width: 6600px;
+				height: 66px;
+				border: 0px solid gray;
+				background-color: blue;
+			}
+
+			#tabuleiro .celula {
+				width: 64px;
+				height: 64px;
+				border: 1px solid black;
+				float: left;
+				background-color: white;
+			}
+			#tabuleiro .celula.caminhoSimulado {
+				
+				background-color: rgba(115, 115, 115,0.5);
+			}
+			.celula .peca, .person{
+				background-size: cover;
+  				width: 100%;
+  				height: 100%;
+			}
+			.person{
+  				z-index: 3;
+  				transition: all 1s;
+  				pointer-events: none;
+			}
+
+			.peca[data-looking='up'] .person{ 
+			  	transform: rotate(0deg);
+			}
+			.peca[data-looking='down'] .person{
+			  	transform: rotate(180deg);
+			}
+			.peca[data-looking='left'] .person{
+			  	transform: rotate(270deg);
+			}
+			.peca[data-looking='right'] .person{
+			  	transform: rotate(90deg);
+			}
+
+			.person.spiderman{
+				background-image:  url('spiderman_GIF.gif');
+				/*filter:  grayscale(100%);*/
+			}
+
+			.celula .peca.selected{
+				background-color: rgba(0,255,0,0.1);
+			}
+
+			.spanCelula{
+				display: none;
+			}
