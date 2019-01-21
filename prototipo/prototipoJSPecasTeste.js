@@ -105,7 +105,11 @@
 			pad.removeEventListener('mousemove', mirar, false);
 			limpaCanvas();
 			document.querySelector("button#mirar").addEventListener('click', ativaMirar, false);
-			document.querySelector("button#mirar").removeEventListener('click', desativaMirar, false);
+			document.querySelector("button#mirar").removeEventListener('click', desativaMirar, false)
+			
+			var person = document.querySelector('.peca.selected .person');
+    		person.style.removeProperty('transition');
+    		person.style.removeProperty('transform');
 
 		}
 
@@ -162,15 +166,49 @@
 			}
 		}
 
+		const VELO_MOVER_PECA = 300;
+		let animation;
 		function moverPeca(){
-			if(arrayCaminho.length > 0){
-				let celula = arrayCaminho.shift();
-				let selecionada = document.querySelector('.peca.selected');
-		    	celula.classList.remove("caminhoSimulado");	
-		    	celula.appendChild(selecionada);
-				console.log(celula);
-				setTimeout(moverPeca,100);
+			if(arrayCaminho.length == 0){
+				return;
 			}
+			let celula = arrayCaminho.shift();
+			let personSelecionada = document.querySelector('.peca.selected .person');
+			let pecaSelecionada = personSelecionada.parentElement;
+			let celulaAtual = pecaSelecionada.parentElement;
+	    	
+			// console.log(celula, celulaAtual);
+			var animTop = "0%", animLeft = "0%";
+			console.log("x",celulaAtual.dataset.coordX,celula.dataset.coordX)
+			console.log("y",celulaAtual.dataset.coordY,celula.dataset.coordY)
+			if(celula.dataset.coordX > celulaAtual.dataset.coordX){
+				console.log('right')
+				pecaSelecionada.dataset.looking = 'right';
+				 animLeft = "100%"
+			} if(celula.dataset.coordX < celulaAtual.dataset.coordX){
+				console.log('left')
+				pecaSelecionada.dataset.looking = 'left';
+				 animLeft = "-100%"
+			} if(celula.dataset.coordY > celulaAtual.dataset.coordY){
+				console.log('down')
+				pecaSelecionada.dataset.looking = 'down';
+				animTop = "100%";
+			} if(celula.dataset.coordY < celulaAtual.dataset.coordY){
+				console.log('right')
+				pecaSelecionada.dataset.looking = 'up';
+				animTop = "-100%";
+			}
+			animation = personSelecionada.animate([
+	    		 {top: "0%",left: "0%"},
+	   			 {top: animTop,left: animLeft}
+	   			],VELO_MOVER_PECA
+			);
+			setTimeout(() => {
+				celula.appendChild(pecaSelecionada)
+	    		celula.classList.remove("caminhoSimulado");
+	    		animation.finish()
+			},VELO_MOVER_PECA);
+			setTimeout(moverPeca,VELO_MOVER_PECA);
 		}
 
 		var arrayCaminho = [];
@@ -190,13 +228,13 @@
 			arrayCaminho = [];
 			if(primeiroHorizontal){
 				let x=xOrigem;
-				while(x!=xDest && x<100 && x>0){
+				while(x!=xDest && x<100 && x>=0){
 					if(x < xDest) {x++}
 					else {x--}
 					arrayCaminho.push(arrayCelulas[yOrigem][x]);
 				}
 				let y=yOrigem;
-				while(y!=yDest && y<100 && y>0){
+				while(y!=yDest && y<100 && y>=0){
 					if(y<yDest) {y++}
 					else {y--}
 					arrayCaminho.push(arrayCelulas[y][xDest]);

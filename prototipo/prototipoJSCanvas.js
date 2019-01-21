@@ -16,8 +16,7 @@
 				console.log('y '+e.offsetY);
 				
 				 // ctx.fillRect(0,0,250,200);
-				
-				var selecionado = document.getElementsByClassName('selected')[0];
+				var selecionado = document.querySelector('.peca.selected');
 				if(!selecionado)return;
 				let beginX = selecionado.offsetLeft + sizeAtualCelula/2;
 				let beginY = selecionado.offsetTop + sizeAtualCelula/2;
@@ -32,24 +31,17 @@
 			    ctx.moveTo(beginX, beginY);
 			    ctx.lineTo(e.offsetX, e.offsetY);
 			    ctx.stroke();
+
+
+				var person = selecionado.querySelector('.person');
+
+			    var mouseX = e.clientX;
+        		var mouseY = e.clientY;
+
+				var centerY = beginY;
+				var centerX = beginX;
+	    		var radians = Math.atan2(mouseX - centerX, mouseY - centerY);
+	    		var degrees = (radians * (180 / Math.PI) * -1) + 180; 
+	    		person.style.transition = 'none';
+	    		person.style.transform = 'rotate('+degrees+'deg)';
 		}
-
-
-		function moveTabuleiro(e) {
-			console.log('moveTabuleiro');
-			var tabuleiro = document.getElementById("tabuleiro");
-			if(e.ctrlKey){
-				if(e.movementY>1)posAtualTabTop+=1;
-				if(e.movementY<0)posAtualTabTop-=1;
-				if(e.movementX>1)posAtualTabLeft+=1;
-				if(e.movementX<0)posAtualTabLeft-=1;
-			}else if(e.shiftKey){
-				posAtualTabTop+=e.movementY*10;
-				posAtualTabLeft+=e.movementX*10;
-
-			} else{
-				posAtualTabTop+=e.movementY;
-				posAtualTabLeft+=e.movementX;
-			}
-			moveTabuleiroLimitaRange();
-		};

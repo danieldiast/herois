@@ -80,11 +80,13 @@
 				background-size: cover;
   				width: 100%;
   				height: 100%;
+  				position: relative;
 			}
 			.person{
   				z-index: 3;
   				transition: all 1s;
   				pointer-events: none;
+  				position: relative;
 			}
 
 			.peca[data-looking='up'] .person{ 
@@ -116,4 +118,10 @@
 
 			.spanCelula{
 				display: none;
+			}
+
+
+			@keyframes moveRight {
+			    from {left: 0%;}
+			    to {left: 100%;}
 			}
