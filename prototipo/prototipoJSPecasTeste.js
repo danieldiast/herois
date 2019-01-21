@@ -181,19 +181,19 @@
 			var animTop = "0%", animLeft = "0%";
 			console.log("x",celulaAtual.dataset.coordX,celula.dataset.coordX)
 			console.log("y",celulaAtual.dataset.coordY,celula.dataset.coordY)
-			if(celula.dataset.coordX > celulaAtual.dataset.coordX){
+			if(parseInt(celula.dataset.coordX) > parseInt(celulaAtual.dataset.coordX)){
 				console.log('right')
 				pecaSelecionada.dataset.looking = 'right';
 				 animLeft = "100%"
-			} if(celula.dataset.coordX < celulaAtual.dataset.coordX){
+			} if(parseInt(celula.dataset.coordX) < parseInt(celulaAtual.dataset.coordX)){
 				console.log('left')
 				pecaSelecionada.dataset.looking = 'left';
 				 animLeft = "-100%"
-			} if(celula.dataset.coordY > celulaAtual.dataset.coordY){
+			} if(parseInt(celula.dataset.coordY) > parseInt(celulaAtual.dataset.coordY)){
 				console.log('down')
 				pecaSelecionada.dataset.looking = 'down';
 				animTop = "100%";
-			} if(celula.dataset.coordY < celulaAtual.dataset.coordY){
+			} if(parseInt(celula.dataset.coordY) < parseInt(celulaAtual.dataset.coordY)){
 				console.log('right')
 				pecaSelecionada.dataset.looking = 'up';
 				animTop = "-100%";
@@ -204,11 +204,11 @@
 	   			],VELO_MOVER_PECA
 			);
 			setTimeout(() => {
-				celula.appendChild(pecaSelecionada)
+				celula.appendChild(pecaSelecionada);
 	    		celula.classList.remove("caminhoSimulado");
-	    		animation.finish()
+	    		animation.finish();
+	    		moverPeca();
 			},VELO_MOVER_PECA);
-			setTimeout(moverPeca,VELO_MOVER_PECA);
 		}
 
 		var arrayCaminho = [];
