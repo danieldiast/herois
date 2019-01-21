@@ -105,6 +105,11 @@
 				/*filter:  grayscale(100%);*/
 			}
 
+			.person.wolverine{
+				background-image:  url('wolverine_GIF.gif');
+				/*filter:  grayscale(100%);*/
+			}
+
 			.celula .peca.selected{
 				background-color: rgba(0,255,0,0.1);
 			}

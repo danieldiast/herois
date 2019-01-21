@@ -1,25 +1,34 @@
 // peca teste
 		console.log('pecas teste');
 		{
-			let peca = document.createElement("div");	
-			let person = document.createElement("div");	
-			peca.classList.add('peca');
-			person.classList.add('person');
-			person.classList.add('spiderman');
-			peca.dataset.looking = "up";
-			peca.appendChild(person);	
+			let pecaSpider = document.createElement("div");	
+			let personSpider = document.createElement("div");	
+			pecaSpider.classList.add('peca');
+			personSpider.classList.add('person');
+			personSpider.classList.add('spiderman');
+			pecaSpider.dataset.looking = "up";
+			pecaSpider.appendChild(personSpider);	
+
+			let pecaWolv = document.createElement("div");	
+			let personWolf = document.createElement("div");	
+			pecaWolv.classList.add('peca');
+			personWolf.classList.add('person');
+			personWolf.classList.add('wolverine');
+			pecaWolv.dataset.looking = "up";
+			pecaWolv.appendChild(personWolf);	
 
 			// let celulas = document.getElementsByClassName("celula");
 			// celulas[4].appendChild(peca);	
-			arrayCelulas[4][4].appendChild(peca);
-			peca.addEventListener('mousedown', mouseDownPeca, false);
+			arrayCelulas[4][4].appendChild(pecaSpider);
+			arrayCelulas[2][2].appendChild(pecaWolv);
+			pecaSpider.addEventListener('mousedown', mouseDownPeca, false);
+			pecaWolv.addEventListener('mousedown', mouseDownPeca, false);
 		}
 		
 
 
 		function mouseDownPeca(e) {
 			console.log('mouseDownPeca');
-			e.preventDefault();  // para o botao direito nao abrir
 			e.stopPropagation();  //apenas para cima
 		//	e.stopImmediatePropagation(); << inclui o próprio elemento  
 
