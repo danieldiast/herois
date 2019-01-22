@@ -13,6 +13,8 @@
 		var moldeWidth = 600;
 		var moldeHeight = 600;
 
+		var selecionado;
+
 		//inicia tabuleiro
 		function iniciaTabuleiro() {
 			for(let i= 0;i<100;i++){
