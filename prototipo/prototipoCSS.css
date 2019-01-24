@@ -88,6 +88,9 @@
 			}
 			.duasCelulas .person{
   				height: 200%;
+  				position: relative;
+  				z-index: 4;
+  				transition: all 0s;
 			}
 
 			.peca[data-looking='up'] .person{ 
@@ -106,7 +109,7 @@
 
 			.peca[data-looking='up'].duasCelulas .person{ 
 			  	/*transform-origin: top center;*/
-			  	top: -50%;
+			  	top: -100%;
 			}
 			.peca[data-looking='down'].duasCelulas .person{
 			  	/*transform-origin: top center;*/
@@ -114,11 +117,13 @@
 			}
 			.peca[data-looking='left'].duasCelulas .person{
 			  	/*transform-origin: right center;*/
-				left: 50%;
+				right: 50%;
+			  	top: -50%;
 			}
 			.peca[data-looking='right'].duasCelulas .person{
 			  	/*transform-origin: left center;*/
-				left: -50%;
+				left: 50%;
+			  	top: -50%;
 			}
 
 			.person.spiderman{
