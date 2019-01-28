@@ -103,6 +103,10 @@
 			#tabuleiro .celula span.passo {
  				vertical-align: middle;
   				display: inline-flex;
+  				pointer-events: none;
+			}
+			#tabuleiro .celula span.passo[data-parcial=true] {
+				color: white;
 			}
 			.celula .peca, .person{
 				background-size: cover;

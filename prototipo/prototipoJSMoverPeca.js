@@ -1,6 +1,5 @@
 
 
-
 		function ativaAndar(e){
 			console.log("ativaAndar");
 			arrayCaminhosParciais = [];
@@ -115,6 +114,9 @@
 			for(let celula of anteriores){
 		    	celula.classList.remove("caminhoSimulado");
 		    	celula.classList.add("caminhoParcial");
+		    	passo = celula.querySelector('.passo:last-child');
+		    	//console.log("passo "+passo);
+		    	passo.dataset.parcial = true;
 			}
 			xOrigem = parseInt(ultimaCel.dataset.coordX);
 			yOrigem =  parseInt(ultimaCel.dataset.coordY);
@@ -124,14 +126,11 @@
 			let index = arrayCaminhosParciais.length;
 			if(index==0) return;
 			ultimoCaminho = arrayCaminhosParciais.pop();
-			console.log("index = "+ index);
-			console.log("length = "+ arrayCaminhosParciais.length);
-			console.log("ultimoCaminho = "+ ultimoCaminho);
-			console.log("arrayCaminhosParciais = "+ arrayCaminhosParciais);
 			for(let celula of ultimoCaminho){
-		    	passos = Array.from(celula.getElementsByClassName('passo'));
+		    	passos = Array.from(celula.querySelectorAll('.passo[data-parcial=true]'));
 		    	if(passos.length > 0){
 		    		celula.removeChild(passos.pop());
+		    		console.log(celula.innerHTML);
 		    	}	
 		    	if(passos.length == 0){	
 		    		celula.classList.remove("caminhoParcial");
@@ -146,26 +145,38 @@
 			}
 			xOrigem = parseInt(ultimaCel.dataset.coordX);
 			yOrigem =  parseInt(ultimaCel.dataset.coordY);
-			preparaCaminho(e);	
+			preparaCaminho(e,true);	
 		}
 
 		var arrayCaminhosParciais = [];
 		var arrayCaminho = [];
 		var	xOrigem = 0;
 		var	yOrigem =  0;
-		function preparaCaminho(e){
+		function preparaCaminho(e, force = false){
 			console.log("preparaCaminho");
-			if(e.target == celulaDestino && e.type == "mousemove") {
-				return
-			}else if(!e.target.dataset.coordX) {
+			console.log('force '+force);	
+			if(e.target == celulaDestino && e.type == "mousemove" && force == false) {
+				console.log('saida 1 ');	
 				return
 			}
 			celulaDestino = e.target;
+			while(!celulaDestino.dataset.coordX){ //ate chegar na celula, caso haja algo dentro
+				if(celulaDestino.parentNode == null){ //mal funcionamento que o obj fica sem pai
+					alert(celulaDestino);
+					alert(celulaDestino.innerHTML);
+				}
+				celulaDestino = celulaDestino.parentNode;
+				if(celulaDestino == tabuleiro){
+					return
+				}
+			}
 			// var celulaSelecionada = document.querySelector('.peca.selected').parentElement;
 			// let xOrigem = parseInt(celulaSelecionada.dataset.coordX);
 			// let yOrigem =  parseInt(celulaSelecionada.dataset.coordY);
 			let xDest =  parseInt(celulaDestino.dataset.coordX);
 			let yDest =  parseInt(celulaDestino.dataset.coordY);
+			console.log('xDest '+xDest);
+			console.log('yDest '+yDest);
 			arrayCaminho = [];
 			var anteriores = Array.from(document.getElementsByClassName('caminhoSimulado'));
 			for(let celula of anteriores){
@@ -240,57 +251,4 @@
 			celula.appendChild(passo);
 		}
 
-
-		// function preparaCaminho2(e){
-		// 	console.log("preparaCaminho");
-		// 	if(e.target == celulaDestino && e.type == "mousemove") {
-		// 		return
-		// 	}else if(!e.target.dataset.coordX) {
-		// 		return
-		// 	}
-		// 	celulaDestino = e.target;
-		// 	var celulaSelecionada = document.querySelector('.peca.selected').parentElement;
-		// 	let xOrigem = parseInt(celulaSelecionada.dataset.coordX);
-		// 	let yOrigem =  parseInt(celulaSelecionada.dataset.coordY);
-		// 	let xDest =  parseInt(celulaDestino.dataset.coordX);
-		// 	let yDest =  parseInt(celulaDestino.dataset.coordY);
-		// 	arrayCaminho = [];
-		// 	if(primeiroHorizontal){
-		// 		let x=xOrigem;
-		// 		while(x!=xDest && x<100 && x>=0){
-		// 			if(x < xDest) {x++}
-		// 			else {x--}
-		// 			arrayCaminho.push(arrayCelulas[yOrigem][x]);
-		// 		}
-		// 		let y=yOrigem;
-		// 		while(y!=yDest && y<100 && y>=0){
-		// 			if(y<yDest) {y++}
-		// 			else {y--}
-		// 			arrayCaminho.push(arrayCelulas[y][xDest]);
-		// 		}
-		// 	}else{
-		// 		console.log("primeiroVertical");
-		// 		let y=yOrigem;
-		// 		while(y!=yDest){
-		// 			if(y<yDest) {y++}
-		// 			else {y--}
-		// 			arrayCaminho.push(arrayCelulas[y][xOrigem]);
-		// 		}
-		// 		let x=xOrigem;
-		// 		while(x!=xDest){
-		// 			console.log(xOrigem,x,xDest);
-		// 			if(x < xDest) {x++}
-		// 			else {x--}
-		// 			arrayCaminho.push(arrayCelulas[yDest][x]);
-		// 		}
-		// 	}
-
-		// 	var anteriores = Array.from(document.getElementsByClassName('caminhoSimulado'));
-		// 	for(let celula of anteriores){
-		//     	celula.classList.remove("caminhoSimulado");
-		// 	}
-		// 	for(let celula of arrayCaminho){
-		// 		celula.classList.add('caminhoSimulado');
-		// 	}
-		// }
 

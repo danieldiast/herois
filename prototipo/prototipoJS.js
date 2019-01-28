@@ -57,12 +57,14 @@
 		function mouseUpMoveTabuleiro() {
 		    window.removeEventListener('mousemove', moveTabuleiro, true);
 			avisos.innerHTML = "";		
+			tabuleiro.style.cursor = "default";	
 		}
 
 		function mouseDownMoveTabuleiro(e) {
 			if(e.button == 0){
 		    	window.addEventListener('mousemove', moveTabuleiro, true);
 				avisos.innerHTML = "CTRL: mais devagar - SHIFT: mais rápido";
+				tabuleiro.style.cursor = "move";
 			}else if(e.button == 2){
 				e.preventDefault();  	
 				if(e.target.classList.contains("celula")){
