@@ -19,12 +19,25 @@
 			pecaWolv.dataset.char = "wolverine";
 			pecaWolv.appendChild(personWolf);	
 
+
+
+			let pecaSubz = document.createElement("div");	
+			let personSubz = document.createElement("div");	
+			pecaSubz.classList.add('peca');
+			personSubz.classList.add('person');
+			personSubz.classList.add('subzero');
+			pecaSubz.dataset.looking = "down";
+			pecaSubz.dataset.char = "subzero";
+			pecaSubz.appendChild(personSubz);	
+
 			// let celulas = document.getElementsByClassName("celula");
 			// celulas[4].appendChild(peca);	
 			arrayCelulas[4][4].appendChild(pecaSpider);
 			arrayCelulas[2][2].appendChild(pecaWolv);
+			arrayCelulas[5][2].appendChild(pecaSubz);
 			pecaSpider.addEventListener('mousedown', mouseDownPeca, false);
 			pecaWolv.addEventListener('mousedown', mouseDownPeca, false);
+			pecaSubz.addEventListener('mousedown', mouseDownPeca, false);
 		}
 		
 
@@ -44,7 +57,7 @@
 			selecionado = e.target;
 			selecionado.classList.add("selected");
 			//var currentSize = window.getComputedStyle(celulas[4])
-			acoes.innerHTML = "Orientação: ";
+			//acoes.innerHTML = "Orientação: ";
 			let bleft = document.createElement("button");	
 			bleft.innerHTML = "&larr;"
 			bleft.value = "left"
@@ -129,28 +142,6 @@
 		}
 
 
-		function ativaAndar(e){
-			console.log("ativaAndar");
-			tabuleiro.addEventListener('mousemove', preparaCaminho, false);
-			tabuleiro.addEventListener('mousedown', preparaCaminhoInverte, false);
-			avisos.innerHTML = "ESC: sair";
-			this.removeEventListener('click', ativaAndar, false);
-			this.addEventListener('click', desativaAndar, false);
-		}
-		
-		function desativaAndar(){
-			console.log("desativaAndar");
-			avisos.innerHTML = "";
-			tabuleiro.removeEventListener('mousemove', preparaCaminho, false);
-			tabuleiro.removeEventListener('mousedown', preparaCaminhoInverte, false);
-			document.querySelector("button#andar").addEventListener('click', ativaAndar, false);
-			document.querySelector("button#andar").removeEventListener('click', desativaAndar, false);
-			var anteriores = Array.from(document.getElementsByClassName('caminhoSimulado'));
-			for(let celula of anteriores){
-		    	celula.classList.remove("caminhoSimulado");
-			}
-		}
-
 		function deselecionaTudo(){
 			var elements = Array.from(document.getElementsByClassName('selected'));
 			[].forEach.call(elements, function(el) {
@@ -167,174 +158,6 @@
 			var selecionada = document.querySelector('.peca.selected');
 			selecionada.dataset.looking = newLooking;
 		}
-
-		var celulaDestino;
-		var primeiroHorizontal = true;
-		function preparaCaminhoInverte(e){
-			console.log("preparaCaminhoInverte");
-			if(e.button == 2){
-				primeiroHorizontal = !primeiroHorizontal;
-				preparaCaminho(e);
-			}
-			if(e.button == 0){
-				console.log("moverPeca");
-				moverPeca();
-			}
-		}
-
-		const VELO_MOVER_PECA = 300;
-		let animation;
-		function moverPeca(){
-			if(arrayCaminho.length == 0){
-				return;
-			}
-			let celula = arrayCaminho.shift();
-			let personSelecionada = document.querySelector('.peca.selected .person');
-			let pecaSelecionada = personSelecionada.parentElement;
-			let celulaAtual = pecaSelecionada.parentElement;
-	    	
-			// console.log(celula, celulaAtual);
-			var animTop = "0%", animLeft = "0%";
-			console.log("x",celulaAtual.dataset.coordX,celula.dataset.coordX)
-			console.log("y",celulaAtual.dataset.coordY,celula.dataset.coordY)
-			if(parseInt(celula.dataset.coordX) > parseInt(celulaAtual.dataset.coordX)){
-				console.log('right')
-				pecaSelecionada.dataset.looking = 'right';
-				 animLeft = "100%"
-			} if(parseInt(celula.dataset.coordX) < parseInt(celulaAtual.dataset.coordX)){
-				console.log('left')
-				pecaSelecionada.dataset.looking = 'left';
-				 animLeft = "-100%"
-			} if(parseInt(celula.dataset.coordY) > parseInt(celulaAtual.dataset.coordY)){
-				console.log('down')
-				pecaSelecionada.dataset.looking = 'down';
-				animTop = "100%";
-			} if(parseInt(celula.dataset.coordY) < parseInt(celulaAtual.dataset.coordY)){
-				console.log('right')
-				pecaSelecionada.dataset.looking = 'up';
-				animTop = "-100%";
-			}
-			animation = personSelecionada.animate([
-	    		 {top: "0%",left: "0%"},
-	   			 {top: animTop,left: animLeft}
-	   			],VELO_MOVER_PECA
-			);
-			setTimeout(() => {
-				celula.appendChild(pecaSelecionada);
-	    		celula.classList.remove("caminhoSimulado");
-	    		animation.finish();
-	    		moverPeca();
-			},VELO_MOVER_PECA);
-		}
-
-		var arrayCaminho = [];
-		function preparaCaminho(e){
-			console.log("preparaCaminho");
-			if(e.target == celulaDestino && e.type == "mousemove") {
-				return
-			}else if(!e.target.dataset.coordX) {
-				return
-			}
-			celulaDestino = e.target;
-			var celulaSelecionada = document.querySelector('.peca.selected').parentElement;
-			let xOrigem = parseInt(celulaSelecionada.dataset.coordX);
-			let yOrigem =  parseInt(celulaSelecionada.dataset.coordY);
-			let xDest =  parseInt(celulaDestino.dataset.coordX);
-			let yDest =  parseInt(celulaDestino.dataset.coordY);
-			arrayCaminho = [];
-			if(primeiroHorizontal){
-				let x=xOrigem;
-				while(x!=xDest && x<100 && x>=0){
-					if(x < xDest) {x++}
-					else {x--}
-					arrayCaminho.push(arrayCelulas[yOrigem][x]);
-				}
-				let y=yOrigem;
-				while(y!=yDest && y<100 && y>=0){
-					if(y<yDest) {y++}
-					else {y--}
-					arrayCaminho.push(arrayCelulas[y][xDest]);
-				}
-			}else{
-				console.log("primeiroVertical");
-				let y=yOrigem;
-				while(y!=yDest){
-					if(y<yDest) {y++}
-					else {y--}
-					arrayCaminho.push(arrayCelulas[y][xOrigem]);
-				}
-				let x=xOrigem;
-				while(x!=xDest){
-					console.log(xOrigem,x,xDest);
-					if(x < xDest) {x++}
-					else {x--}
-					arrayCaminho.push(arrayCelulas[yDest][x]);
-				}
-			}
-
-			var anteriores = Array.from(document.getElementsByClassName('caminhoSimulado'));
-			for(let celula of anteriores){
-		    	celula.classList.remove("caminhoSimulado");
-			}
-			for(let celula of arrayCaminho){
-				celula.classList.add('caminhoSimulado');
-			}
-		}
-
-
-		function preparaCaminho2(e){
-			console.log("preparaCaminho");
-			if(e.target == celulaDestino && e.type == "mousemove") {
-				return
-			}else if(!e.target.dataset.coordX) {
-				return
-			}
-			celulaDestino = e.target;
-			var celulaSelecionada = document.querySelector('.peca.selected').parentElement;
-			let xOrigem = parseInt(celulaSelecionada.dataset.coordX);
-			let yOrigem =  parseInt(celulaSelecionada.dataset.coordY);
-			let xDest =  parseInt(celulaDestino.dataset.coordX);
-			let yDest =  parseInt(celulaDestino.dataset.coordY);
-			arrayCaminho = [];
-			if(primeiroHorizontal){
-				let x=xOrigem;
-				while(x!=xDest && x<100 && x>=0){
-					if(x < xDest) {x++}
-					else {x--}
-					arrayCaminho.push(arrayCelulas[yOrigem][x]);
-				}
-				let y=yOrigem;
-				while(y!=yDest && y<100 && y>=0){
-					if(y<yDest) {y++}
-					else {y--}
-					arrayCaminho.push(arrayCelulas[y][xDest]);
-				}
-			}else{
-				console.log("primeiroVertical");
-				let y=yOrigem;
-				while(y!=yDest){
-					if(y<yDest) {y++}
-					else {y--}
-					arrayCaminho.push(arrayCelulas[y][xOrigem]);
-				}
-				let x=xOrigem;
-				while(x!=xDest){
-					console.log(xOrigem,x,xDest);
-					if(x < xDest) {x++}
-					else {x--}
-					arrayCaminho.push(arrayCelulas[yDest][x]);
-				}
-			}
-
-			var anteriores = Array.from(document.getElementsByClassName('caminhoSimulado'));
-			for(let celula of anteriores){
-		    	celula.classList.remove("caminhoSimulado");
-			}
-			for(let celula of arrayCaminho){
-				celula.classList.add('caminhoSimulado');
-			}
-		}
-
 
 		function ativaGarra(e){
 			console.log("ativaGarra");

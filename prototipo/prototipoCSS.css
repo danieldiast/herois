@@ -1,8 +1,25 @@
-			body { margin: 15px;}
+			body { margin: 0px;}
 
+			
+
+			#pecasJogador, #pecasAdversario  {
+				width: 1284px;
+				height: 66px;
+				border: 1px solid green;
+				clear: left;
+				background-color: #aaa;
+			}
+
+			#menuEsquerdo {
+				width: 250px;
+				height: 600px;
+				border: 1px solid green;
+				float: left; 
+				background-color: #aaa;
+			}
 
 			#molde {
-				margin-right: 15px;
+				margin-right: 0px;
 				width: 600px;
 				height: 600px;
 				border: 1px solid green;
@@ -13,20 +30,22 @@
 
 			#avisos {
 				width: 430px;
-				min-height: 20px;
+				min-height: 218px;
 				height: auto;
 				border: 1px solid green;
 				overflow: hidden;
-				margin-bottom: 5px;
+				margin-bottom: 0px;
+				background-color: #aaa;
 			}
 
 			#acoes {
 				width: 400px;
-				min-height: 200px;
+				min-height: 350px;
 				height: auto;
 				border: 1px solid green;
 				padding: 15px;
 				overflow: hidden;
+				background-color: #aaa;
 			}
 
 
@@ -71,15 +90,25 @@
 				border: 1px solid black;
 				float: left;
 				background-color: white;
+				text-align: center; 
 			}
 			#tabuleiro .celula.caminhoSimulado {
 				
 				background-color: rgba(115, 115, 115,0.5);
 			}
+			#tabuleiro .celula.caminhoParcial {
+				
+				background-color: rgba(195, 195, 195,0.6);
+			}
+			#tabuleiro .celula span.passo {
+ 				vertical-align: middle;
+  				display: inline-flex;
+			}
 			.celula .peca, .person{
 				background-size: cover;
   				width: 100%;
   				height: 100%;
+  				position: relative;
 			}
 			.person{
   				z-index: 3;
@@ -133,6 +162,11 @@
 
 			.person.wolverine{
 				background-image:  url('Wolverine_128.gif');
+				/*filter:  grayscale(100%);*/
+			}
+
+			.person.subzero{
+				background-image:  url('Subzero_128.gif');
 				/*filter:  grayscale(100%);*/
 			}
 

@@ -131,7 +131,7 @@
 				newSize = sizeAtualCelula + factor;
 			}
 			console.log(newSize);
-			if(newSize < 19 || newSize > 128) {
+			if(newSize < 6 || newSize > 128) {
 				return;
 			}else{
 				sizeAtualCelula = newSize;
