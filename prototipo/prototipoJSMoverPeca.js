@@ -26,10 +26,9 @@
 			for(let celula of anteriores){
 		    	celula.classList.remove("caminhoParcial");
 		    	celula.classList.remove("caminhoSimulado");
-		    	passos = Array.from(celula.getElementsByClassName('passo'));
-		    	for(let passo of passos){
+		    	Array.from(celula.getElementsByClassName('passo')).forEach(passo => {
 		    		celula.removeChild(passo);
-		    	}			
+		    	})		
 			}
 			arrayCaminhosParciais = [];
 			arrayCaminho = [];
