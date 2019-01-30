@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r11">
+    <folder id="0">
+        <file id="0" name="Spiderman_GIF.gif" width="64" height="64" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="1" name="Subzero_128.gif" width="128" height="128" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="2" name="Wolverine_128.gif" width="1536" height="1536" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="3" name="Wolverine_spinning.gif" width="384" height="384" pivot_x="0.5" pivot_y="0.5"/>
+    </folder>
+    <entity id="0" name="entity_000">
+        <animation id="0" name="NewAnimation" length="1000" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                </key>
+                <key id="1" time="64">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                </key>
+                <key id="2" time="136">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                </key>
+                <key id="3" time="198">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                </key>
+                <key id="4" time="247">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="Subzero_128">
+                <key id="0" spin="-1">
+                    <object folder="0" file="1" x="-6" y="-2" angle="359.34894" scale_x="1" scale_y="1"/>
+                </key>
+                <key id="1" time="136">
+                    <object folder="0" file="1" x="-6" y="-2" angle="225.20536" scale_x="1" scale_y="1"/>
+                </key>
+                <key id="2" time="198">
+                    <object folder="0" file="1" x="-6" y="-2" angle="234.831404" scale_x="1.867716" scale_y="1.867716"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="Wolverine_spinning">
+                <key id="0" time="64" spin="-1">
+                    <object folder="0" file="3" x="184" y="-84" angle="53.756689" scale_y="1"/>
+                </key>
+                <key id="1" time="247">
+                    <object folder="0" file="3" x="184" y="-84" angle="349.339652" scale_x="1" scale_y="1"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>

@@ -20,7 +20,6 @@
 			pecaWolv.appendChild(personWolf);	
 
 
-
 			let pecaSubz = document.createElement("div");	
 			let personSubz = document.createElement("div");	
 			pecaSubz.classList.add('peca');
@@ -30,16 +29,34 @@
 			pecaSubz.dataset.char = "subzero";
 			pecaSubz.appendChild(personSubz);	
 
+
+
 			// let celulas = document.getElementsByClassName("celula");
 			// celulas[4].appendChild(peca);	
 			arrayCelulas[4][4].appendChild(pecaSpider);
 			arrayCelulas[2][2].appendChild(pecaWolv);
 			arrayCelulas[5][2].appendChild(pecaSubz);
+			arrayCelulas[1][2].appendChild(createSoldier());
+			arrayCelulas[5][3].appendChild(createSoldier());
+			arrayCelulas[7][7].appendChild(createSoldier());
+
 			pecaSpider.addEventListener('mousedown', mouseDownPeca, false);
 			pecaWolv.addEventListener('mousedown', mouseDownPeca, false);
 			pecaSubz.addEventListener('mousedown', mouseDownPeca, false);
 		}
 		
+		function createSoldier(){
+			let pecaSoldier = document.createElement("div");	
+			let personSoldier = document.createElement("div");	
+			pecaSoldier.classList.add('peca');
+			personSoldier.classList.add('person');
+			personSoldier.classList.add('soldier');
+			pecaSoldier.dataset.looking = "down";
+			pecaSoldier.dataset.char = "subzero";
+			pecaSoldier.appendChild(personSoldier);	
+			pecaSoldier.addEventListener('mousedown', mouseDownPeca, false);
+			return pecaSoldier;
+		}
 
 
 		function mouseDownPeca(e) {

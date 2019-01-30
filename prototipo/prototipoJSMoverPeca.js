@@ -45,13 +45,11 @@
 				preparaCaminho(e);
 				e.preventDefault();
 			}
-			if(e.button == 2){ // bot esquerdo
+			if(e.button == 2){ // bot direito
 				//volta parcial
 				voltaCaminhoParcial(e);
 			}
-			if(e.button == 0){ // bot direito
-				console.log("moverPeca");
-				//moverPeca();
+			if(e.button == 0){ // bot esquerdo
 				preparaCaminhoParcial(e);
 			}
 			// if apertar 2x >> moverPeca();
@@ -105,20 +103,22 @@
 
 		
 		function preparaCaminhoParcial(e){
+			if(arrayCaminho.length<=0){
+				return false;
+			}
 			let index = arrayCaminhosParciais.length;
 			arrayCaminhosParciais[index] = arrayCaminho;
 			ultimaCel = arrayCaminho[arrayCaminho.length-1]
 			arrayCaminho = [];
+			xOrigem = parseInt(ultimaCel.dataset.coordX);
+			yOrigem =  parseInt(ultimaCel.dataset.coordY);
 			var anteriores = Array.from(document.getElementsByClassName('caminhoSimulado'));
 			for(let celula of anteriores){
 		    	celula.classList.remove("caminhoSimulado");
 		    	celula.classList.add("caminhoParcial");
 		    	passo = celula.querySelector('.passo:last-child');
-		    	//console.log("passo "+passo);
 		    	passo.dataset.parcial = true;
 			}
-			xOrigem = parseInt(ultimaCel.dataset.coordX);
-			yOrigem =  parseInt(ultimaCel.dataset.coordY);
 		}
 
 		function voltaCaminhoParcial(e){
@@ -142,8 +142,12 @@
 			}else{
 				ultimaCel = document.querySelector('.peca.selected').parentElement;
 			}
-			xOrigem = parseInt(ultimaCel.dataset.coordX);
-			yOrigem =  parseInt(ultimaCel.dataset.coordY);
+			if(ultimaCel != null){
+				xOrigem = parseInt(ultimaCel.dataset.coordX);
+				yOrigem =  parseInt(ultimaCel.dataset.coordY);
+			}else{
+				log.error("voltaCaminhoParcial - ultimaCel null");
+			}
 			preparaCaminho(e,true);	
 		}
 
@@ -177,17 +181,15 @@
 			console.log('xDest '+xDest);
 			console.log('yDest '+yDest);
 			arrayCaminho = [];
-			var anteriores = Array.from(document.getElementsByClassName('caminhoSimulado'));
-			for(let celula of anteriores){
+			Array.from(document.getElementsByClassName('caminhoSimulado')).forEach(celula => {
 		    	celula.classList.remove("caminhoSimulado");
 		    	// if(!celula.classList.contains("caminhoParcial")){
 		    	// }
-
 		    	passos = Array.from(celula.getElementsByClassName('passo'));
 		    	if(passos.length > 0){
 		    		celula.removeChild(passos.pop());
 		    	}
-			}
+			});
 
 			if(primeiroHorizontal){
 				let x=xOrigem;
@@ -195,14 +197,18 @@
 					var direcao = 'r'
 					if(x < xDest) {x++;}
 					else {x--; direcao = 'l'}
-					pushCelula(arrayCaminho,arrayCelulas[yOrigem][x],direcao)
+					if(!pushCelula(arrayCaminho,arrayCelulas[yOrigem][x],direcao)){
+						return bloqueiaPreparaCaminho();
+					}
 				}
 				let y=yOrigem;
 				while(y!=yDest && y<100 && y>=0){
 					var direcao = 'd'
 					if(y<yDest) {y++}
 					else {y--; direcao = 'u'}
-					pushCelula(arrayCaminho,arrayCelulas[y][xDest],direcao)
+					if(!pushCelula(arrayCaminho,arrayCelulas[y][xDest],direcao)){
+						return bloqueiaPreparaCaminho();
+					}
 				}
 			}else{
 				let y=yOrigem;
@@ -210,14 +216,18 @@
 					var direcao = 'd'
 					if(y<yDest) {y++}
 					else {y--; direcao = 'u'}
-					pushCelula(arrayCaminho,arrayCelulas[y][xOrigem],direcao)
+					if(!pushCelula(arrayCaminho,arrayCelulas[y][xOrigem],direcao)){
+						return bloqueiaPreparaCaminho();
+					}
 				}
 				let x=xOrigem;
 				while(x!=xDest && x<100 && x>=0){
 					var direcao = 'r'
 					if(x < xDest) {x++}
 					else {x--; direcao = 'l'}
-					pushCelula(arrayCaminho,arrayCelulas[yDest][x],direcao)
+					if(!pushCelula(arrayCaminho,arrayCelulas[yDest][x],direcao)){
+						return bloqueiaPreparaCaminho();
+					}
 				}
 			}
 
@@ -227,6 +237,9 @@
 		}
 
 		function pushCelula(arrayCaminho, celula, direcao){
+			if(celula.querySelector(".peca")!=null){
+				return false;
+			}
 			arrayCaminho.push(celula);
 			let passo = document.createElement("span");	
 			passo.classList.add('passo');
@@ -248,6 +261,14 @@
 			}
 			celula.classList.add('caminhoSimulado');
 			celula.appendChild(passo);
+			return true;
+		}
+
+
+
+		function bloqueiaPreparaCaminho(){
+
+
 		}
 
 
