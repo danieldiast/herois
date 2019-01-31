@@ -54,10 +54,12 @@
 		window.addEventListener('mouseup', mouseUpMoveTabuleiro, false);
 		tabuleiro.addEventListener('mousewheel', resizeTabuleiro, false);
 
+		var justMoved = false;
 		function mouseUpMoveTabuleiro() {
 		    window.removeEventListener('mousemove', moveTabuleiro, true);
 			avisos.innerHTML = "";		
 			tabuleiro.style.cursor = "default";	
+			justMoved = false;
 		}
 
 		function mouseDownMoveTabuleiro(e) {
@@ -93,6 +95,7 @@
 				posAtualTabLeft+=e.movementX;
 			}
 			moveTabuleiroLimitaRange();
+			justMoved = true;
 		};
 
 

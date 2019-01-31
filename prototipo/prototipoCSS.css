@@ -104,6 +104,7 @@
  				vertical-align: middle;
   				display: inline-flex;
   				pointer-events: none;
+  				position: absolute;
 			}
 			#tabuleiro .celula span.passo[data-parcial=true] {
 				color: white;
