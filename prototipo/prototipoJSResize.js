@@ -6,6 +6,26 @@
 
 	function resizeTabuleiro(e) {
 		console.log('resizeTabuleiro');
+		console.log(e.target);
+
+		let celulaCentroResize = e.target;
+		while(!celulaCentroResize.dataset.coordX){ //ate chegar na celula, caso haja algo dentro
+			if(celulaCentroResize.parentNode == null){ //mal funcionamento que o obj fica sem pai
+				console.error(celulaCentroResize);
+			}
+			celulaCentroResize = celulaCentroResize.parentNode;
+			if(celulaCentroResize == tabuleiro){
+				return;
+			}
+		}
+		
+		let sizeAtualCelula = tabSize[percentualAtualTabSize];
+		let distanceLeftMolde = (sizeAtualCelula * celulaCentroResize.dataset.coordX + posAtualTabLeft);
+		let distanceTopMolde = (sizeAtualCelula * celulaCentroResize.dataset.coordY + posAtualTabTop);
+		console.log("tabuleiro.style.width > "+sizeAtualTabuleiro);
+		console.log("distanceWidth > "+distanceLeftMolde);
+		console.log("distanceHeight > "+distanceTopMolde);
+
 		e.preventDefault();  	
 		var y = event.deltaY;
 		var factor = 5;
@@ -21,8 +41,9 @@
 		}
 		console.log(newPercentual);
 		percentualAtualTabSize = newPercentual;
-		let sizeAtualCelula = tabSize[percentualAtualTabSize];
+		sizeAtualCelula = tabSize[percentualAtualTabSize];
 		sizeAtualTabuleiro = ((sizeAtualCelula+OUTSIDE_BORDER_CELULA_ADD)*QUANT_CELULAS)
+		zoomVal.innerHTML = percentualAtualTabSize+"%";
 		
 		var celulas = document.getElementsByClassName("celula");
 		for(var i=0;i<celulas.length;i++){
@@ -49,5 +70,17 @@
 
 		canvasTabuleiro.height = sizeAtualTabuleiro;
 		canvasTabuleiro.width = sizeAtualTabuleiro;
+
+		console.log("(-1 * sizeAtualCelula) * celulaCentroResize.dataset.coordY > "+ (-1 * sizeAtualCelula) * celulaCentroResize.dataset.coordY);
+		console.log("+ distanceTopMolde > "+ distanceTopMolde);
+		console.log("conta > "+ (-1 * sizeAtualCelula) * celulaCentroResize.dataset.coordY + distanceTopMolde);
+		console.log("conta > "+ (-1 * sizeAtualCelula) * celulaCentroResize.dataset.coordX + distanceLeftMolde);
+
+		posAtualTabTop =  (-1 * sizeAtualCelula * celulaCentroResize.dataset.coordY + distanceTopMolde);
+		posAtualTabLeft = (-1 * sizeAtualCelula * celulaCentroResize.dataset.coordX + distanceLeftMolde);
+
+		console.log("posAtualTabTop > "+posAtualTabTop);
+		console.log("posAtualTabLeft > "+posAtualTabLeft);
+
 		moveTabuleiroLimitaRange();
 	};

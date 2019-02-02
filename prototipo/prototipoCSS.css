@@ -1,19 +1,23 @@
-			body { margin: 0px;}
+			body { margin: 0px; display: inline-flex;}
 
 			
 
 			#pecasJogador, #pecasAdversario  {
-				width: 1284px;
+				width: 852px;
 				height: 66px;
-				border: 1px solid green;
+				border: 1px solid gray;
 				clear: left;
 				background-color: #aaa;
+			}
+			#pecasJogador  {
+				/*width: 1284px;*/
+
 			}
 
 			#menuEsquerdo {
 				width: 250px;
 				height: 600px;
-				border: 1px solid green;
+				border: 1px solid gray;
 				float: left; 
 				background-color: #aaa;
 			}
@@ -22,7 +26,7 @@
 				margin-right: 0px;
 				width: 600px;
 				height: 600px;
-				border: 1px solid green;
+				border: 1px solid gray;
 				overflow: hidden;
 				background-color: dimgray;
 				float: left;
@@ -30,9 +34,9 @@
 
 			#avisos {
 				width: 430px;
-				min-height: 218px;
+				min-height: 168px;
 				height: auto;
-				border: 1px solid green;
+				border: 1px solid gray;
 				overflow: hidden;
 				margin-bottom: 0px;
 				background-color: #aaa;
@@ -40,13 +44,47 @@
 
 			#acoes {
 				width: 400px;
-				min-height: 350px;
+				min-height: 300px;
 				height: auto;
-				border: 1px solid green;
+				border: 1px solid gray;
+				padding: 15px;
+				overflow: hidden;
+				background-color: #aaa;
+				user-select: none;
+			}
+
+			#acoes img.portrait {
+				width: 100px;
+				height: auto;
+				border: 1px solid gray;
+				float: left;
+				margin-right: 10px;
+			}
+			#acoes button {
+				margin: 1px;
+
+			}
+
+			#controlTab {
+				width: 400px;
+				min-height: 204px;
+				height: auto;
+				border: 1px solid gray;
+				padding: 15px;
+				overflow: hidden;
+				background-color: #aaa;
+				display: inline-flex;
+			}
+
+			#painelFinal {
+				width: auto;
+				height: auto;
+				border: 1px solid gray;
 				padding: 15px;
 				overflow: hidden;
 				background-color: #aaa;
 			}
+
 
 
 			#tabuleiro {
@@ -77,10 +115,44 @@
   				border: 0;
 			}
 
+			#canvasMiniTab {
+  				width: 200px;
+  				height: 200px;
+				border: 1px solid gray;
+				background-color: white;
+				float: left;
+				margin-right: 10px;
+			}
+			#zoom_menos, #zoom_mais  {
+				background-image: url('zoom_menos.png');
+  				background-size: cover;
+  				background-repeat: no-repeat;
+  				position: relative;
+				width: 50px;
+				height: 50px;
+			}
+			#zoom_mais {
+				background-image: url('zoom_mais.png');
+				left: -20px;
+			}
+			span#zoomVal {
+			    top: 35px;
+			    left: -10px;
+			    position: relative;
+			}
+			#controleDirecionais {
+				background-image: url('setas.png');
+  				background-size: cover;
+  				background-repeat: no-repeat;
+  				position: relative;
+				width: 100px;
+				height: 100px;
+			}
+
+
 			#tabuleiro .linha {
 				/*width: 6600px;
 				height: 66px;*/
-				border: 0px solid gray;
 				background-color: blue;
 			}
 

@@ -7,23 +7,38 @@
  		<link rel="stylesheet" type="text/css" href="prototipoCSS.css">
 	</head>
 	<body>
-		<div id="pecasAdversario">
-		</div>	
-		<div id="menuEsquerdo">
-		</div>	
-		<div id="molde">
-			<div id="tabuleiro">
-				<canvas id="canvasTabuleiro"></canvas>
-				<div id="pad" class="noPointerEvents"></div>
+		<div id="paineisEsquerda">
+			<div id="pecasAdversario">
+			</div>	
+			<div id="menuEsquerdo">
+			</div>	
+			<div id="molde">
+				<div id="tabuleiro">
+					<canvas id="canvasTabuleiro"></canvas>
+					<div id="pad" class="noPointerEvents"></div>
+				</div>
 			</div>
+
+			<div id="pecasJogador">
+			</div>	
 		</div>
-		<div id="avisos">
-		</div>	
-		<div id="acoes">
-			<!-- <button value="t1" title="t2">t3</button> -->
-		</div>	
-		<div id="pecasJogador">
-		</div>	
+		<div id="paineisDireita">
+
+			<div id="avisos">
+			</div>	
+			<div id="acoes">
+				<!-- <button value="t1" title="t2">t3</button> -->
+			</div>	
+			<div id="controlTab">
+					<canvas id="canvasMiniTab"></canvas>
+					<div id="zoom_menos"></div>
+					<span id="zoomVal">100%</span>
+					<div id="zoom_mais"></div>
+					<!-- <div id="controleDirecionais"></div> -->
+			</div>	
+		</div>
+		<div id="painelFinal">
+		</div>
 	
 	<script type="text/javascript" src="prototipoJSTabSizes.js"></script>
 	<script type="text/javascript" src="prototipoJS.js"></script>

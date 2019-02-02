@@ -52,7 +52,7 @@
 			personSoldier.classList.add('person');
 			personSoldier.classList.add('soldier');
 			pecaSoldier.dataset.looking = "down";
-			pecaSoldier.dataset.char = "subzero";
+			pecaSoldier.dataset.char = "soldier";
 			pecaSoldier.appendChild(personSoldier);	
 			pecaSoldier.addEventListener('mousedown', mouseDownPeca, false);
 			return pecaSoldier;
@@ -73,7 +73,12 @@
 			deselecionaTudo();
 			selecionado = e.target;
 			selecionado.classList.add("selected");
-			//var currentSize = window.getComputedStyle(celulas[4])
+
+			let imgPortrait = document.createElement("img");	
+			imgPortrait.classList.add("portrait");
+			imgPortrait.src = "portrait/"+selecionado.dataset.char+".jpg";
+			acoes.appendChild(imgPortrait);	
+
 			//acoes.innerHTML = "Orientação: ";
 			let bleft = document.createElement("button");	
 			bleft.innerHTML = "&larr;"

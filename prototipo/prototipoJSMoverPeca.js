@@ -266,8 +266,7 @@
 			celulaDestino = e.target;
 			while(!celulaDestino.dataset.coordX){ //ate chegar na celula, caso haja algo dentro
 				if(celulaDestino.parentNode == null){ //mal funcionamento que o obj fica sem pai
-					alert(celulaDestino);
-					alert(celulaDestino.innerHTML);
+					console.error(celulaDestino);
 				}
 				celulaDestino = celulaDestino.parentNode;
 				if(celulaDestino == tabuleiro){
