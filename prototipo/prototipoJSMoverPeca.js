@@ -62,57 +62,58 @@
 			}
 		}
 
-		const VELO_MOVER_PECA = 1900; //maior =  mais lento
+		const VELO_MOVER_PECA = 200; //maior =  mais lento
 		let animation;
 		function moverPeca(){
 			if(arrayCaminhosParciais.length == 0){
 				return;
 			}
-			desativaAndar();
-			setTimeout(moverPecaAnimar(),0);
-		}
-
-		function moverPecaAnimar(){
-
 			let personSelecionada = document.querySelector('.peca.selected .person');
 			let pecaSelecionada = personSelecionada.parentElement;
 			let celulaAtual = pecaSelecionada.parentElement;
-			let celulaAnterior = celulaAtual;
+			//let celulaAnterior = celulaAtual;
+			setTimeout(moverPecaAnimar(personSelecionada, pecaSelecionada, celulaAtual, 0, 0),0);
+		}
 
-			let animTop = 0, animLeft = 0;
-			while(arrayCaminhosParciais.length > 0) {
-				let caminhoParcial = arrayCaminhosParciais.shift();
+		function moverPecaAnimar(personSelecionada, pecaSelecionada, celulaAnterior, animTop, animLeft){
+			if(arrayCaminhosParciais.length > 0) {
+				console.log('moverPecaAnimar - arrayCaminhosParciais.length = '+arrayCaminhosParciais.length);
+				let caminhoParcial = arrayCaminhosParciais[0];
 				if(caminhoParcial.length == 0){
-					console.dir("length 0 > "+caminhoParcial);
-					continue;
+					arrayCaminhosParciais.shift();
+					return moverPecaAnimar(personSelecionada, pecaSelecionada, celulaAnterior, animTop, animLeft);
 				}
-				while(caminhoParcial.length > 0) {
+				if(caminhoParcial.length > 0) {
+					console.log('moverPecaAnimar - caminhoParcial.length = '+caminhoParcial.length);
 					let proxCelula = caminhoParcial.shift();
+					let animTopFinal = animTop;
+					let animLeftFinal = animLeft;
 					console.dir(proxCelula);
 					if(parseInt(proxCelula.dataset.coordX) > parseInt(celulaAnterior.dataset.coordX)){
 						console.log('right')
 						pecaSelecionada.dataset.looking = 'right';
-						 animLeft += 100
+						animLeftFinal += 100
 					} if(parseInt(proxCelula.dataset.coordX) < parseInt(celulaAnterior.dataset.coordX)){
 						console.log('left')
 						pecaSelecionada.dataset.looking = 'left';
-						 animLeft += 100
+						 animLeftFinal -= 100
 					} if(parseInt(proxCelula.dataset.coordY) > parseInt(celulaAnterior.dataset.coordY)){
 						console.log('down')
 						pecaSelecionada.dataset.looking = 'down';
-						animTop += 100;
+						animTopFinal += 100;
 					} if(parseInt(proxCelula.dataset.coordY) < parseInt(celulaAnterior.dataset.coordY)){
 						console.log('right')
 						pecaSelecionada.dataset.looking = 'up';
-						animTop += -100;
+						animTopFinal -= 100;
 					}
 					animation = personSelecionada.animate([
-			    		 {top: "0%",left: "0%"},
-			   			 {top: animTop+"%",left: animLeft+"%"}
+			   			 {top: animTop+"%",left: animLeft+"%"},
+			   			 {top: animTopFinal+"%",left: animLeftFinal+"%"}
 			   			],VELO_MOVER_PECA
 					);
-					sleep(1000);
-					// animation.onfinish()
+					animation.onfinish = function(){
+						moverPecaAnimar(personSelecionada, pecaSelecionada, proxCelula, animTopFinal, animLeftFinal);
+					};
 			    	passos = Array.from(proxCelula.querySelectorAll('.passo[data-parcial=true]'));
 			    	if(passos.length > 0){
 			    		proxCelula.removeChild(passos.shift());
@@ -121,10 +122,12 @@
 			    		proxCelula.classList.remove("caminhoParcial");
 			    	}	
 			    	celulaAnterior = proxCelula;
-			    	if(arrayCaminhosParciais.length == 0 && caminhoParcial.length == 0){
-						proxCelula.appendChild(pecaSelecionada);
-			    	}
+			    	
 				}
+			}else{
+				console.log('ultimaCelula - '+celulaAnterior)
+				celulaAnterior.appendChild(pecaSelecionada);
+				desativaAndar();
 			}
 		}
 

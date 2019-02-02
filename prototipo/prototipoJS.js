@@ -7,9 +7,10 @@
 		var posAtualTabTop = 0;
 		var posAtualTabLeft = 0;
 
-		var sizeAtualCelula = 64;
-		var sizeAtualTabuleiro = 6600;
-
+		const QUANT_CELULAS = 100;
+		const OUTSIDE_BORDER_CELULA_ADD = 0;
+		var percentualAtualTabSize = 100;
+		var sizeAtualTabuleiro = (tabSize[100]+OUTSIDE_BORDER_CELULA_ADD)*QUANT_CELULAS;
 		var moldeWidth = 600;
 		var moldeHeight = 600;
 
@@ -17,12 +18,15 @@
 
 		//inicia tabuleiro
 		function iniciaTabuleiro() {
-			for(let i= 0;i<100;i++){
+			let sizeAtualCelula = tabSize[100];
+			for(let i= 0;i<QUANT_CELULAS;i++){
 				let linha = document.createElement("div");	
 				linha.classList.add('linha');
 				linha.dataset.coordX = i;
+				linha.style.width = sizeAtualTabuleiro+"px";
+				linha.style.height = sizeAtualCelula+"px";
 				arrayCelulas[i] = [];
-				for(var j= 0;j<100;j++){
+				for(var j= 0;j<QUANT_CELULAS;j++){
 					let celula = document.createElement("div");	
 					celula.style.width = sizeAtualCelula+"px";
 					celula.style.height = sizeAtualCelula+"px";
@@ -82,7 +86,6 @@
 		tabuleiro.addEventListener('mousedown', mouseDownMoveTabuleiro, false);
 		
 		window.addEventListener('mouseup', mouseUpMoveTabuleiro, false);
-		tabuleiro.addEventListener('mousewheel', resizeTabuleiro, false);
 
 		var justMoved = false;
 		function mouseUpMoveTabuleiro() {
@@ -106,8 +109,6 @@
 			}
 		}
 
-
-
 		function moveTabuleiro(e) {
 			console.log('moveTabuleiro');
 			var tabuleiro = document.getElementById("tabuleiro");
@@ -127,7 +128,6 @@
 			moveTabuleiroLimitaRange();
 			justMoved = true;
 		};
-
 
 		function moveTabuleiroLimitaRange(){
 			const ESPACO_EXTRA= 100;
@@ -150,58 +150,7 @@
 		    tabuleiro.style.left = posAtualTabLeft+"px";
 		}
 
-		function resizeTabuleiro(e) {
-			console.log('resizeTabuleiro');
-			e.preventDefault();  	
-			var y = event.deltaY;
-			var factor = 5;
-			if(e.ctrlKey){
-				factor = 1;
-			}else if(e.shiftKey){
-				factor = 10
-			}
-			if (y > 0) {
-				newSize = sizeAtualCelula - factor;
-			} else {
-				newSize = sizeAtualCelula + factor;
-			}
-			console.log(newSize);
-			if(newSize < 6 || newSize > 128) {
-				return;
-			}else{
-				sizeAtualCelula = newSize;
-				sizeAtualTabuleiro = ((newSize+2)*100)
-			}
-			var celulas = document.getElementsByClassName("celula");
-			for(var i=0;i<celulas.length;i++){
-				celulas[i].style.width = sizeAtualCelula + "px";
-				celulas[i].style.height = sizeAtualCelula + "px";
-			}
-			var pecas = document.getElementsByClassName("peca");
-			for(var i=0;i<pecas.length;i++){
-				pecas[i].style.width = sizeAtualCelula + "px";
-				pecas[i].style.height = sizeAtualCelula + "px";
-			}
-			var linhas = document.getElementsByClassName("linha")
-			for(var i=0;i<linhas.length;i++){
-				linhas[i].style.width = sizeAtualTabuleiro + "px";
-				linhas[i].style.height = sizeAtualCelula + "px";
-			}
-
-
-			tabuleiro.style.width = sizeAtualTabuleiro + "px";
-			tabuleiro.style.height = sizeAtualTabuleiro + "px";
-			var canvasTabuleiro = document.getElementById("canvasTabuleiro");
-			canvasTabuleiro.style.width = sizeAtualTabuleiro + "px";
-			canvasTabuleiro.style.height = sizeAtualTabuleiro + "px";
-
-			canvasTabuleiro.height = sizeAtualTabuleiro;
-			canvasTabuleiro.width = sizeAtualTabuleiro;
-			moveTabuleiroLimitaRange();
-		};
-
-
-
+		
 		function sleep(milliseconds) {
 		  var start = new Date().getTime();
 		  for (var i = 0; i < 1e7; i++) {
