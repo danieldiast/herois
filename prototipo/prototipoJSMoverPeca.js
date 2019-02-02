@@ -62,9 +62,80 @@
 			}
 		}
 
-		const VELO_MOVER_PECA = 300;
+		const VELO_MOVER_PECA = 1900; //maior =  mais lento
 		let animation;
 		function moverPeca(){
+			if(arrayCaminhosParciais.length == 0){
+				return;
+			}
+			desativaAndar();
+			setTimeout(moverPecaAnimar(),0);
+		}
+
+		function moverPecaAnimar(){
+
+			let personSelecionada = document.querySelector('.peca.selected .person');
+			let pecaSelecionada = personSelecionada.parentElement;
+			let celulaAtual = pecaSelecionada.parentElement;
+			let celulaAnterior = celulaAtual;
+
+			let animTop = 0, animLeft = 0;
+			while(arrayCaminhosParciais.length > 0) {
+				let caminhoParcial = arrayCaminhosParciais.shift();
+				if(caminhoParcial.length == 0){
+					console.dir("length 0 > "+caminhoParcial);
+					continue;
+				}
+				while(caminhoParcial.length > 0) {
+					let proxCelula = caminhoParcial.shift();
+					console.dir(proxCelula);
+					if(parseInt(proxCelula.dataset.coordX) > parseInt(celulaAnterior.dataset.coordX)){
+						console.log('right')
+						pecaSelecionada.dataset.looking = 'right';
+						 animLeft += 100
+					} if(parseInt(proxCelula.dataset.coordX) < parseInt(celulaAnterior.dataset.coordX)){
+						console.log('left')
+						pecaSelecionada.dataset.looking = 'left';
+						 animLeft += 100
+					} if(parseInt(proxCelula.dataset.coordY) > parseInt(celulaAnterior.dataset.coordY)){
+						console.log('down')
+						pecaSelecionada.dataset.looking = 'down';
+						animTop += 100;
+					} if(parseInt(proxCelula.dataset.coordY) < parseInt(celulaAnterior.dataset.coordY)){
+						console.log('right')
+						pecaSelecionada.dataset.looking = 'up';
+						animTop += -100;
+					}
+					animation = personSelecionada.animate([
+			    		 {top: "0%",left: "0%"},
+			   			 {top: animTop+"%",left: animLeft+"%"}
+			   			],VELO_MOVER_PECA
+					);
+					sleep(1000);
+					// animation.onfinish()
+			    	passos = Array.from(proxCelula.querySelectorAll('.passo[data-parcial=true]'));
+			    	if(passos.length > 0){
+			    		proxCelula.removeChild(passos.shift());
+			    	}	
+			    	if(passos.length == 0){	
+			    		proxCelula.classList.remove("caminhoParcial");
+			    	}	
+			    	celulaAnterior = proxCelula;
+			    	if(arrayCaminhosParciais.length == 0 && caminhoParcial.length == 0){
+						proxCelula.appendChild(pecaSelecionada);
+			    	}
+				}
+			}
+		}
+
+		// arr.forEach((val, key, arr) => {
+	 //      if (Object.is(arr.length - 1, key)) {
+	 //        // execute last item logic
+	 //        console.log(`Last callback call at index ${key} with value ${val}` ); 
+	 //      }
+	 //    });
+
+		function moverPecaANTIGO(){
 			if(arrayCaminhosParciais.length == 0){
 				return;
 			}

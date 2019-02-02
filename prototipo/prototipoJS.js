@@ -35,6 +35,29 @@
 				}
 				tabuleiro.appendChild(linha);	
 			}
+			arrayCelulas[2][3].appendChild(getParede('north'));
+			arrayCelulas[2][3].appendChild(getParede('west'));
+			arrayCelulas[3][3].appendChild(getParede('west'));
+			arrayCelulas[4][3].appendChild(getParede('west'));
+			arrayCelulas[5][3].appendChild(getParede('west'));
+			arrayCelulas[6][3].appendChild(getParede('west'));
+			arrayCelulas[6][3].appendChild(getParede('south'));
+			arrayCelulas[6][4].appendChild(getParede('south'));
+			arrayCelulas[6][5].appendChild(getParede('south'));
+			arrayCelulas[6][6].appendChild(getParede('south'));
+			arrayCelulas[6][7].appendChild(getParede('south'));
+			arrayCelulas[6][7].appendChild(getParede('east'));
+			arrayCelulas[5][7].appendChild(getParede('east'));
+			arrayCelulas[3][7].appendChild(getParede('east'));
+			arrayCelulas[2][7].appendChild(getParede('east'));
+			arrayCelulas[2][7].appendChild(getParede('north'));
+			arrayCelulas[2][6].appendChild(getParede('north'));
+			arrayCelulas[2][5].appendChild(getParede('north'));
+
+			arrayCelulas[1][7].appendChild(getParede('north'));
+			arrayCelulas[1][7].appendChild(getParede('south'));
+			arrayCelulas[1][7].appendChild(getParede('west'));
+			arrayCelulas[1][7].appendChild(getParede('east'));
 
 			tabuleiro.style.top = posAtualTabTop+"px";
 			tabuleiro.style.left = posAtualTabLeft+"px";
@@ -45,6 +68,13 @@
 
 			canvasTabuleiro.height = sizeAtualTabuleiro;
 			canvasTabuleiro.width = sizeAtualTabuleiro;
+		}
+
+		function getParede(paredeClass){
+			let parede = document.createElement("div");	
+			parede.classList.add('parede');	
+			parede.classList.add(paredeClass);	
+			return parede;
 		}
 		iniciaTabuleiro();
 		tabuleiro.addEventListener('contextmenu', event => event.preventDefault());
