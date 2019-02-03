@@ -40,8 +40,24 @@
 			newPercentual = Math.min(percentualAtualTabSize + factor, 200);
 		}
 		console.log(newPercentual);
-		percentualAtualTabSize = newPercentual;
+		mudaPercentual(newPercentual);
+
 		sizeAtualCelula = tabSize[percentualAtualTabSize];
+		posAtualTabTop =  (-1 * sizeAtualCelula * celulaCentroResize.dataset.coordY + distanceTopMolde);
+		posAtualTabLeft = (-1 * sizeAtualCelula * celulaCentroResize.dataset.coordX + distanceLeftMolde);
+
+		console.log("posAtualTabTop > "+posAtualTabTop);
+		console.log("posAtualTabLeft > "+posAtualTabLeft);
+
+		moveTabuleiroLimitaRange();
+		
+	};
+
+	function mudaPercentual(newPercentual){
+
+		percentualAtualTabSize = newPercentual;
+
+		let sizeAtualCelula = tabSize[percentualAtualTabSize];
 		sizeAtualTabuleiro = ((sizeAtualCelula+OUTSIDE_BORDER_CELULA_ADD)*QUANT_CELULAS)
 		zoomVal.innerHTML = percentualAtualTabSize+"%";
 		
@@ -70,17 +86,15 @@
 
 		canvasTabuleiro.height = sizeAtualTabuleiro;
 		canvasTabuleiro.width = sizeAtualTabuleiro;
+	}
 
-		console.log("(-1 * sizeAtualCelula) * celulaCentroResize.dataset.coordY > "+ (-1 * sizeAtualCelula) * celulaCentroResize.dataset.coordY);
-		console.log("+ distanceTopMolde > "+ distanceTopMolde);
-		console.log("conta > "+ (-1 * sizeAtualCelula) * celulaCentroResize.dataset.coordY + distanceTopMolde);
-		console.log("conta > "+ (-1 * sizeAtualCelula) * celulaCentroResize.dataset.coordX + distanceLeftMolde);
-
-		posAtualTabTop =  (-1 * sizeAtualCelula * celulaCentroResize.dataset.coordY + distanceTopMolde);
-		posAtualTabLeft = (-1 * sizeAtualCelula * celulaCentroResize.dataset.coordX + distanceLeftMolde);
-
-		console.log("posAtualTabTop > "+posAtualTabTop);
-		console.log("posAtualTabLeft > "+posAtualTabLeft);
-
-		moveTabuleiroLimitaRange();
-	};
+	function changeTabuleiroTamanhoTotalIdeal(tamanhoIdeal){
+		console.log("entrou changeTabuleiroTamanhoTotalIdeal")
+		for(let i=10;i<=200;i++){
+			if(tamanhoIdeal<=tabSize[i]*QUANT_CELULAS || i==200){
+				console.log("newPercentual",i)
+				mudaPercentual(i);
+				return;
+			}
+		}
+	}

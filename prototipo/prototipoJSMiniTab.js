@@ -37,28 +37,19 @@
 
 					let celula = arrayCelulas[j][i];
 					let paredes = celula.querySelectorAll(".parede")
-					if(paredes.length > 0){
-		    			ctxMT.fillStyle = 'brown';
-						paredes.forEach(parede => {
-							if(parede.classList.contains("north")){
-								ctxMT.fillRect(i*2+1,j*2+1,2,1);
-							}
-							if(parede.classList.contains("south")){
-								ctxMT.fillRect(i*2+2,j*2+2,2,1);
-							}
-							if(parede.classList.contains("west")){
-								ctxMT.fillRect(i*2+1,j*2+1,1,2);
-							}
-							if(parede.classList.contains("east")){
-								ctxMT.fillRect(i*2+2,j*2+2,1,2);
-							}
-						});
-					}
+					desenhaParedes(paredes,i,j);
+
 					peca = celula.querySelector(".peca");
 					if(peca != null){
 						//console.log("PECA x="+celula.dataset.coordX, "y="+celula.dataset.coordY);
-		    			ctxMT.fillStyle = 'blue';
+		    			ctxMT.fillStyle = 'green';
 						ctxMT.fillRect(i*2+1,j*2+1,2,2);
+					}
+					if(celula.classList.contains("caminhoParcial")){
+						fillRectCelula(i,j,'#8baee8');
+					}
+					if(celula.classList.contains("caminhoSimulado")){
+						fillRectCelula(i,j,'blue');
 					}
 
 				}
@@ -70,46 +61,187 @@
 			let mtTop = Math.round(posAtualTabTop / sizeAtualTabuleiro * SIZE_MT *-1 );
 			let mtLeft = Math.round(posAtualTabLeft / sizeAtualTabuleiro  * SIZE_MT *-1);
 			
-			console.log("sizeAtualTabuleiro",sizeAtualTabuleiro);
-			console.log("mtMoldeHeight",mtMoldeHeight,"mtMoldeWidth",mtMoldeWidth);
+			console.log("sizeAtualTabuleiro",sizeAtualTabuleiro,"mtMoldeHeight",mtMoldeHeight,"mtMoldeWidth",mtMoldeWidth);
 			console.log("posAtualTabTop / sizeAtualTabuleiro",posAtualTabTop / sizeAtualTabuleiro, "posAtualTabLeft / sizeAtualTabuleiro",posAtualTabLeft / sizeAtualTabuleiro);
 			console.log("posAtualTabTop",posAtualTabTop, "posAtualTabLeft",posAtualTabLeft);
 
 			console.log("mtTop",mtTop);
-			console.log("mtTop",mtLeft);
+			console.log("mtLeft",mtLeft);
 
 		    ctxMT.strokeStyle = 'red';
-		    ctxMT.strokeWidth = 1;
+		    ctxMT.lineWidth = 1;
 
+		    // faz o contorno vermelho na visão, não deixando exceder os limites do molde do minitab
 			ctxMT.strokeRect(Math.max(mtLeft,0), Math.max(mtTop,0),
-							Math.min(mtMoldeHeight,SIZE_MT), Math.min(mtMoldeWidth,SIZE_MT));
+							Math.min(mtMoldeWidth,(SIZE_MT-Math.abs(mtLeft))), 
+								Math.min(mtMoldeHeight,(SIZE_MT-Math.abs(mtTop))));
 
-		}
-
-		function drawPixel (x, y, r, g, b, a) {
-		    var index = (x + y * SIZE_MT) * 4;
-
-		    canvasMTData.data[index + 0] = r;
-		    canvasMTData.data[index + 1] = g;
-		    canvasMTData.data[index + 2] = b;
-		    canvasMTData.data[index + 3] = a;
 		}
 
 		atualizaMiniTab();
 
+		function desenhaParedes(paredes,i,j){
+			if(paredes.length > 0){
+    			ctxMT.fillStyle = 'brown';
+				paredes.forEach(parede => {
+					if(parede.classList.contains("north")){
+						ctxMT.fillRect(i*2+1,j*2+1,2,1);
+					}
+					if(parede.classList.contains("south")){
+						ctxMT.fillRect(i*2+2,j*2+2,2,1);
+					}
+					if(parede.classList.contains("west")){
+						ctxMT.fillRect(i*2+1,j*2+1,1,2);
+					}
+					if(parede.classList.contains("east")){
+						ctxMT.fillRect(i*2+2,j*2+2,1,2);
+					}
+				});
+			}
+		}
+
+		function fillRectCelula(i,j, color){
+			ctxMT.fillStyle = color;
+			ctxMT.fillRect(i*2+1,j*2+1,2,2);
+		}
+
 
 		canvasMiniTab.addEventListener('contextmenu', event => event.preventDefault());
+
+		controlTab.addEventListener('contextmenu', event => event.preventDefault());
 		
 		canvasMiniTab.addEventListener('mousedown', mouseDownMiniTab, false);
 		
-		//window.addEventListener('mouseup', mouseUpMoveTabuleiro, false);
+		window.addEventListener('mouseup', mouseUpMiniTab, false);
 
+
+    
 		function mouseDownMiniTab(e) {
 			if(e.button == 0){ // botao esquerdo
-				avisos.innerHTML = "Minimap X: "+e.offsetX;
-				avisos.innerHTML += "<br/>Minimap Y: "+e.offsetY;
+				canvasMiniTab.addEventListener('mousemove', moveMiniTab, true);
+				moveMiniTab(e);
+
 			}else if(e.button == 2){ // botao direito
-				e.preventDefault();  	
+				origemLeft = e.offsetX;
+				origemTop = e.offsetY;
+				canvasMiniTab.addEventListener('mousemove', constroiMoldeMiniTab, true);
 			}
 		}
+		
+		function mouseUpMiniTab(e) {
+		    canvasMiniTab.removeEventListener('mousemove', moveMiniTab, true);
+		    if(constroindoMoldeMiniTab){		    	
+				constroindoMoldeMiniTab = false;
+		    	canvasMiniTab.removeEventListener('mousemove', constroiMoldeMiniTab, true);
+		    	executaNovoMoldeMT();
+		    }
+
+		}
+
+
+		function moveMiniTab(e) {
+			if(e.button == 0){ // botao esquerdo
+				let clickLeft = e.offsetX;
+				let clickTop = e.offsetY;
+
+				avisos.innerHTML = "Minimap X: "+clickLeft;
+				avisos.innerHTML += "<br/>Minimap Y: "+clickTop;
+
+
+				let mtMoldeHeight = Math.round(moldeHeight * SIZE_MT / sizeAtualTabuleiro);
+				let mtMoldeWidth = Math.round(moldeWidth * SIZE_MT / sizeAtualTabuleiro);
+
+				let disvioLeft = e.offsetX - mtMoldeWidth/2;
+				let desvioTop = e.offsetY - mtMoldeHeight/2;
+
+				posAtualTabTop = Math.round(desvioTop * sizeAtualTabuleiro / SIZE_MT  *-1 )
+				posAtualTabLeft = Math.round(disvioLeft * sizeAtualTabuleiro / SIZE_MT  *-1 )
+
+
+				moveTabuleiroLimitaRange();
+
+
+			}else if(e.button == 2){ // botao direito
+				//e.preventDefault();  	
+			}
+		}
+
+		function executaNovoMoldeMT(){
+			//inver origens se for o caso
+			if(sizeLateral < 0){
+				sizeLateral = -sizeLateral;
+				origemLeft -= sizeLateral;
+			}
+			if(sizeVertical < 0){
+				sizeVertical = -sizeVertical;
+				origemTop -= sizeVertical;
+			}
+
+
+			let  idealSizeAtualTabuleiro = Math.round(moldeWidth * SIZE_MT / sizeLateral);
+			idealSizeAtualTabuleiro = Math.round(moldeHeight * SIZE_MT / sizeVertical);// por enquanto está redundante, pois tabuleiro é sempre quadrado
+
+			changeTabuleiroTamanhoTotalIdeal(idealSizeAtualTabuleiro);
+
+			console.log("idealSizeAtualTabuleiro",idealSizeAtualTabuleiro);
+			posAtualTabTop = Math.round(origemTop * sizeAtualTabuleiro / SIZE_MT  *-1 )
+			posAtualTabLeft = Math.round(origemLeft * sizeAtualTabuleiro / SIZE_MT  *-1 )
+			console.log("posAtualTabTop",posAtualTabTop);
+			console.log("posAtualTabLeft",posAtualTabLeft);
+
+			moveTabuleiroLimitaRange();
+
+
+
+		}
+
+
+		let origemLeft = 0;
+		let origemTop = 0;
+		let sizeLateral = 0;
+		let sizeVertical = 0;
+		let constroindoMoldeMiniTab = false;
+		function constroiMoldeMiniTab(e) {
+			constroindoMoldeMiniTab = true;
+			moveTabuleiroLimitaRange();
+			let destinoLeft = e.offsetX;
+			let destinoTop = e.offsetY;
+		
+			sizeLateral = origemLeft - destinoLeft;
+			sizeVertical = origemTop - destinoTop;
+			if(Math.abs(sizeVertical)>Math.abs(sizeLateral)){
+				sizeLateral = -1*Math.abs(sizeVertical)*Math.sign(sizeLateral);
+				sizeVertical = -sizeVertical;
+			}else{
+				sizeVertical = -1*Math.abs(sizeLateral)*Math.sign(sizeVertical);
+				sizeLateral = -sizeLateral;
+			}
+
+
+			ctxMT.beginPath();
+			ctxMT.strokeStyle = 'yellow';
+		    ctxMT.lineWidth = 4;
+
+			ctxMT.strokeRect(origemLeft,origemTop,
+							sizeLateral, 
+							sizeVertical);
+
+
+		    // ctxMT.moveTo(origemLeft,origemTop);
+		    // ctxMT.lineTo(origemLeft,destinoTop);
+		    // ctxMT.lineTo(destinoLeft,destinoTop);
+		    // ctxMT.lineTo(destinoLeft,origemTop);
+		    // ctxMT.lineTo(origemLeft,origemTop);
+		    // ctxMT.stroke();
+
+			// let mtMoldeHeight = Math.round(moldeHeight * SIZE_MT / sizeAtualTabuleiro);
+			// let mtMoldeWidth = Math.round(moldeWidth * SIZE_MT / sizeAtualTabuleiro);
+
+			// let centerLeft = e.offsetX - mtMoldeWidth/2;
+			// let centerTop = e.offsetY - mtMoldeHeight/2;
+
+			// posAtualTabTop = Math.round(centerTop * sizeAtualTabuleiro / SIZE_MT  *-1 )
+			// posAtualTabLeft = Math.round(centerLeft * sizeAtualTabuleiro / SIZE_MT  *-1 )
+		}
+
 
