@@ -61,12 +61,6 @@
 			let mtTop = Math.round(posAtualTabTop / sizeAtualTabuleiro * SIZE_MT *-1 );
 			let mtLeft = Math.round(posAtualTabLeft / sizeAtualTabuleiro  * SIZE_MT *-1);
 			
-			console.log("sizeAtualTabuleiro",sizeAtualTabuleiro,"mtMoldeHeight",mtMoldeHeight,"mtMoldeWidth",mtMoldeWidth);
-			console.log("posAtualTabTop / sizeAtualTabuleiro",posAtualTabTop / sizeAtualTabuleiro, "posAtualTabLeft / sizeAtualTabuleiro",posAtualTabLeft / sizeAtualTabuleiro);
-			console.log("posAtualTabTop",posAtualTabTop, "posAtualTabLeft",posAtualTabLeft);
-
-			console.log("mtTop",mtTop);
-			console.log("mtLeft",mtLeft);
 
 		    ctxMT.strokeStyle = 'red';
 		    ctxMT.lineWidth = 1;
@@ -183,11 +177,9 @@
 
 			changeTabuleiroTamanhoTotalIdeal(idealSizeAtualTabuleiro);
 
-			console.log("idealSizeAtualTabuleiro",idealSizeAtualTabuleiro);
 			posAtualTabTop = Math.round(origemTop * sizeAtualTabuleiro / SIZE_MT  *-1 )
 			posAtualTabLeft = Math.round(origemLeft * sizeAtualTabuleiro / SIZE_MT  *-1 )
-			console.log("posAtualTabTop",posAtualTabTop);
-			console.log("posAtualTabLeft",posAtualTabLeft);
+	
 
 			moveTabuleiroLimitaRange();
 

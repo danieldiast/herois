@@ -17,11 +17,12 @@
 				
 				 // ctx.fillRect(0,0,250,200);
 				var selecionado = document.querySelector('.peca.selected');
-				if(!selecionado)return;
-				let beginX = selecionado.offsetLeft + sizeAtualCelula/2;
-				let beginY = selecionado.offsetTop + sizeAtualCelula/2;
-				console.log(' selecionado x '+beginX);
-				console.log('selecionado y '+beginY);
+				if(!selecionado) return;
+				let celula = selecionado.parentElement;
+				console.dir(celula);
+				let beginX = celula.offsetLeft + tabSize[percentualAtualTabSize]/2;
+				let beginY = celula.offsetTop + tabSize[percentualAtualTabSize]/2;
+				console.log('selecionado x '+beginX,' y '+beginY);
 				
 				limpaCanvas();
 			    ctx.strokeStyle = 'red';
@@ -44,4 +45,6 @@
 	    		var degrees = (radians * (180 / Math.PI) * -1) + 180; 
 	    		person.style.transition = 'none';
 	    		person.style.transform = 'rotate('+degrees+'deg)';
+				console.log('rotate('+degrees+'deg)');
+	    		
 		}

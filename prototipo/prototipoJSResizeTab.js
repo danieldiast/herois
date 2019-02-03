@@ -83,6 +83,10 @@
 		var canvasTabuleiro = document.getElementById("canvasTabuleiro");
 		canvasTabuleiro.style.width = sizeAtualTabuleiro + "px";
 		canvasTabuleiro.style.height = sizeAtualTabuleiro + "px";
+		pad.style.width = sizeAtualTabuleiro + "px";
+		pad.style.height = sizeAtualTabuleiro + "px";
+
+
 
 		canvasTabuleiro.height = sizeAtualTabuleiro;
 		canvasTabuleiro.width = sizeAtualTabuleiro;

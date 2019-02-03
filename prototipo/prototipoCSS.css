@@ -103,11 +103,13 @@
 				background-color: yellow;
 				user-select: none;
 			}
+
 			#pad {
   				width: 100%;
   				height: 100%;
   				border: 0;
   				position: absolute;
+  				z-index: 30;
 			}
 			.noPointerEvents {
   				pointer-events: none;
@@ -116,7 +118,7 @@
 			#canvasTabuleiro {
   				width: 100%;
   				height: 100%;
-  				/*z-index: 2;*/
+  				z-index: 30;
   				/*background: rgba(0,233,23,0.1); */
   				position: absolute;
   				pointer-events: none;
