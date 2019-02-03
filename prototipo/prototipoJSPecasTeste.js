@@ -36,9 +36,14 @@
 			arrayCelulas[4][4].appendChild(pecaSpider);
 			arrayCelulas[2][2].appendChild(pecaWolv);
 			arrayCelulas[5][2].appendChild(pecaSubz);
+			arrayCelulas[0][1].appendChild(createSoldier());
 			arrayCelulas[1][2].appendChild(createSoldier());
 			arrayCelulas[5][3].appendChild(createSoldier());
 			arrayCelulas[7][7].appendChild(createSoldier());
+			arrayCelulas[8][8].appendChild(createSoldier());
+			arrayCelulas[18][9].appendChild(createSoldier());
+			arrayCelulas[23][18].appendChild(createSoldier());
+			arrayCelulas[18][28].appendChild(createSoldier());
 
 			pecaSpider.addEventListener('mousedown', mouseDownPeca, false);
 			pecaWolv.addEventListener('mousedown', mouseDownPeca, false);

@@ -127,6 +127,7 @@
 			}else{
 				console.log('ultimaCelula - '+celulaAnterior)
 				celulaAnterior.appendChild(pecaSelecionada);
+				atualizaMiniTab();
 				desativaAndar();
 			}
 		}

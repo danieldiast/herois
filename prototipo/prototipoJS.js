@@ -4,8 +4,8 @@
 		var tabuleiro = document.getElementById("tabuleiro");
 		var arrayCelulas = [];
 
-		var posAtualTabTop = 0;
-		var posAtualTabLeft = 0;
+		var posAtualTabTop = 100;
+		var posAtualTabLeft = -500;
 
 		const QUANT_CELULAS = 100;
 		const OUTSIDE_BORDER_CELULA_ADD = 0;
@@ -81,6 +81,7 @@
 			return parede;
 		}
 		iniciaTabuleiro();
+
 		tabuleiro.addEventListener('contextmenu', event => event.preventDefault());
 		
 		tabuleiro.addEventListener('mousedown', mouseDownMoveTabuleiro, false);
@@ -148,6 +149,7 @@
 			}
 		    tabuleiro.style.top = posAtualTabTop+"px";
 		    tabuleiro.style.left = posAtualTabLeft+"px";
+		    atualizaMiniTab();
 		}
 
 		
