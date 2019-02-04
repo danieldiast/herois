@@ -226,7 +226,11 @@
 					var direcao = 'r'
 					if(x < xDest) {x++;}
 					else {x--; direcao = 'l'}
-					if(!pushCelula(arrayCaminho,arrayCelulas[yOrigem][x],direcao)){
+					let celulaAnterior = arrayCaminho[arrayCaminho.length-1]
+					if(celulaAnterior == null){
+						celulaAnterior = arrayCelulas[yOrigem][xOrigem];
+					}
+					if(!pushCelula(arrayCaminho, arrayCelulas[yOrigem][x], direcao, celulaAnterior)){
 						return bloqueiaPreparaCaminho();
 					}
 				}
@@ -235,7 +239,11 @@
 					var direcao = 'd'
 					if(y<yDest) {y++}
 					else {y--; direcao = 'u'}
-					if(!pushCelula(arrayCaminho,arrayCelulas[y][xDest],direcao)){
+					let celulaAnterior = arrayCaminho[arrayCaminho.length-1]
+					if(celulaAnterior == null){
+						celulaAnterior = arrayCelulas[yOrigem][xOrigem];
+					}
+					if(!pushCelula(arrayCaminho, arrayCelulas[y][xDest], direcao, celulaAnterior)){
 						return bloqueiaPreparaCaminho();
 					}
 				}
@@ -245,7 +253,11 @@
 					var direcao = 'd'
 					if(y<yDest) {y++}
 					else {y--; direcao = 'u'}
-					if(!pushCelula(arrayCaminho,arrayCelulas[y][xOrigem],direcao)){
+					let celulaAnterior = arrayCaminho[arrayCaminho.length-1]
+					if(celulaAnterior == null){
+						celulaAnterior = arrayCelulas[yOrigem][xOrigem];
+					}
+					if(!pushCelula(arrayCaminho, arrayCelulas[y][xOrigem], direcao, celulaAnterior)){
 						return bloqueiaPreparaCaminho();
 					}
 				}
@@ -254,7 +266,11 @@
 					var direcao = 'r'
 					if(x < xDest) {x++}
 					else {x--; direcao = 'l'}
-					if(!pushCelula(arrayCaminho,arrayCelulas[yDest][x],direcao)){
+					let celulaAnterior = arrayCaminho[arrayCaminho.length-1]
+					if(celulaAnterior == null){
+						celulaAnterior = arrayCelulas[yOrigem][xOrigem];
+					}
+					if(!pushCelula(arrayCaminho, arrayCelulas[yDest][x], direcao, celulaAnterior)){
 						return bloqueiaPreparaCaminho();
 					}
 				}
@@ -267,29 +283,54 @@
 			// }
 		}
 
-		function pushCelula(arrayCaminho, celula, direcao){
+		function pushCelula(arrayCaminho, celula, direcao, celulaAnterior = null){
 			if(celula.querySelector(".peca")!=null){
 				return false;
 			}
-			arrayCaminho.push(celula);
 			let passo = document.createElement("span");	
 			passo.classList.add('passo');
 			if(direcao == 'u' || direcao == 'up' || direcao == 'w'){
 				passo.dataset.passo = 'u';
 				passo.innerHTML = '&uarr;';
+				if(celula.querySelector(".parede.south")){
+					return false;
+				}
+				if(celulaAnterior != null && celulaAnterior.querySelector(".parede.north")) {
+					return false;
+				}
 			}else if(direcao == 'd' || direcao == 'down' || direcao == 's'){
 				passo.dataset.passo = 'd';
 				passo.innerHTML = '&darr;';
+				if(celula.querySelector(".parede.north")){
+					return false;
+				}
+				if(celulaAnterior != null && celulaAnterior.querySelector(".parede.south")) {
+					return false;
+				}
 
 			}else if(direcao == 'l' || direcao == 'left' || direcao == 'a'){
 				passo.dataset.passo = 'l';
 				passo.innerHTML = '&larr;';
+				if(celula.querySelector(".parede.east")){
+					return false;
+				}
+				if(celulaAnterior != null && celulaAnterior.querySelector(".parede.west")) {
+					return false;
+				}
+
 
 			}else if(direcao == 'r' || direcao == 'right' || direcao == 'd'){
 				passo.dataset.passo = 'r';
 				passo.innerHTML = '&rarr;';
+				if(celula.querySelector(".parede.west")){
+					return false;
+				}
+				if(celulaAnterior != null && celulaAnterior.querySelector(".parede.east")) {
+					return false;
+				}
 
 			}
+			arrayCaminho.push(celula);
 			celula.classList.add('caminhoSimulado');
 			celula.appendChild(passo);
 			return true;

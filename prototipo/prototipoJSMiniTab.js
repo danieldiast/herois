@@ -43,6 +43,9 @@
 					if(peca != null){
 						//console.log("PECA x="+celula.dataset.coordX, "y="+celula.dataset.coordY);
 		    			ctxMT.fillStyle = 'green';
+		    			if(peca.classList.contains("selected")){
+		    				ctxMT.fillStyle = 'orange';
+		    			}
 						ctxMT.fillRect(i*2+1,j*2+1,2,2);
 					}
 					if(celula.classList.contains("caminhoParcial")){
@@ -66,9 +69,18 @@
 		    ctxMT.lineWidth = 1;
 
 		    // faz o contorno vermelho na visão, não deixando exceder os limites do molde do minitab
-			ctxMT.strokeRect(Math.max(mtLeft,0), Math.max(mtTop,0),
-							Math.min(mtMoldeWidth,(SIZE_MT-Math.abs(mtLeft))), 
-								Math.min(mtMoldeHeight,(SIZE_MT-Math.abs(mtTop))));
+
+		    let widthContorno = Math.min(mtMoldeWidth,(SIZE_MT-Math.abs(mtLeft)))
+		    if(mtLeft < 0){
+		    	widthContorno += mtLeft; //ra verdade subtrai, pois é nagativo
+		    	mtLeft = 0;
+		    }
+		    let heightContorno = Math.min(mtMoldeHeight,(SIZE_MT-Math.abs(mtTop)))
+		    if(mtTop < 0){
+		    	heightContorno += mtTop;
+		    	mtTop = 0;
+		    }
+			ctxMT.strokeRect(mtLeft, mtTop, widthContorno, heightContorno);
 
 		}
 

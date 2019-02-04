@@ -30,12 +30,24 @@
 			pecaSubz.appendChild(personSubz);	
 
 
+			let pecaCyclops = document.createElement("div");	
+			let personCyclops = document.createElement("div");	
+			pecaCyclops.classList.add('peca');
+			personCyclops.classList.add('person');
+			personCyclops.classList.add('cyclops');
+			pecaCyclops.dataset.looking = "up";
+			pecaCyclops.dataset.char = "cyclops";
+			pecaCyclops.appendChild(personCyclops);	
+
+
+
 
 			// let celulas = document.getElementsByClassName("celula");
 			// celulas[4].appendChild(peca);	
 			arrayCelulas[4][4].appendChild(pecaSpider);
 			arrayCelulas[2][2].appendChild(pecaWolv);
 			arrayCelulas[5][2].appendChild(pecaSubz);
+			arrayCelulas[6][6].appendChild(pecaCyclops);
 			arrayCelulas[0][1].appendChild(createSoldier());
 			arrayCelulas[1][2].appendChild(createSoldier());
 			arrayCelulas[5][3].appendChild(createSoldier());
@@ -48,6 +60,7 @@
 			pecaSpider.addEventListener('mousedown', mouseDownPeca, false);
 			pecaWolv.addEventListener('mousedown', mouseDownPeca, false);
 			pecaSubz.addEventListener('mousedown', mouseDownPeca, false);
+			pecaCyclops.addEventListener('mousedown', mouseDownPeca, false);
 		}
 		
 		function createSoldier(){
@@ -132,6 +145,7 @@
 				acoes.appendChild(document.createElement("br"));	
 				acoes.appendChild(bGarra);	
 			}
+			atualizaMiniTab();
 
 		}
 
@@ -141,6 +155,7 @@
 				console.log('desativa');
 				desativaMirar();
 				desativaAndar();
+				atualizaMiniTab();
 			}
 		},false)
 		

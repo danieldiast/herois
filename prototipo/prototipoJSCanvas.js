@@ -7,6 +7,7 @@
 			ctx.clearRect(0,0,sizeAtualTabuleiro,sizeAtualTabuleiro);
 		}
 
+		let offsetDash = 0;
 		function mirar(e){
 	
 				console.log(e.target.className);
@@ -25,10 +26,18 @@
 				console.log('selecionado x '+beginX,' y '+beginY);
 				
 				limpaCanvas();
-			    ctx.strokeStyle = 'red';
+			    ctx.strokeStyle = 'rgba(255,0,0,0.3)';
 			    ctx.lineWidth = 3;
 			    ctx.beginPath();
-			    
+
+
+			    ctx.setLineDash([4, 2]);
+  				ctx.lineDashOffset = -offsetDash;
+  				offsetDash++;
+  				if(offsetDash>20){
+  					offsetDash = 0;
+  				}
+
 			    ctx.moveTo(beginX, beginY);
 			    ctx.lineTo(e.offsetX, e.offsetY);
 			    ctx.stroke();

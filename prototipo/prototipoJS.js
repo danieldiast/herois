@@ -78,13 +78,42 @@
 			let parede = document.createElement("div");	
 			parede.classList.add('parede');	
 			parede.classList.add(paredeClass);	
+			parede.dataset.posicao = paredeClass;
 			return parede;
 		}
 		
 		iniciaTabuleiro();
 
 		tabuleiro.addEventListener('contextmenu', event => event.preventDefault());
+		tabuleiro.addEventListener('mouseover', mouseOverObjs);
 		
+		function mouseOverObjs(e){
+			//e.target;
+			//console.log(e.target);
+			celula = e.target;
+			while(!celula.classList.contains("celula")){
+				celula = celula.parentElement;
+				if(celula == tabuleiro){
+					celula = null;
+					break;
+				}
+			}
+			panelMouseOver.innerHTML = "";
+			if(celula != null){
+				panelMouseOver.innerHTML +="celula "+celula.dataset.coordX+" - "+celula.dataset.coordY+" <br /> ";
+			}
+			if(e.target.classList.contains("parede")){
+				panelMouseOver.innerHTML +=" parede "+e.target.dataset.posicao+" <br />";
+			}
+			if(e.target.classList.contains("person")){
+				peca = e.target.parentElement; 
+				panelMouseOver.innerHTML +="char "+peca.dataset.char+" <br />" ;
+			}
+			if(e.target.classList.contains("peca")){
+				peca = e.target; 
+				panelMouseOver.innerHTML +="char "+peca.dataset.char+" <br />" ;
+			}
+		}
 
 		
 		function sleep(milliseconds) {
@@ -95,3 +124,4 @@
 		    }
 		  }
 		}
+

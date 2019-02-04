@@ -6,7 +6,8 @@
 
 	function resizeTabuleiro(e) {
 		console.log('resizeTabuleiro');
-		console.log(e.target);
+		console.dir(e.target);
+		e.preventDefault();  
 
 		let celulaCentroResize = e.target;
 		while(!celulaCentroResize.dataset.coordX){ //ate chegar na celula, caso haja algo dentro
@@ -15,18 +16,27 @@
 			}
 			celulaCentroResize = celulaCentroResize.parentNode;
 			if(celulaCentroResize == tabuleiro){
-				return;
+				celulaCentroResize= null;
+				break;
 			}
 		}
+		let distanceLeftMolde;
+		let distanceTopMolde;
 		
 		let sizeAtualCelula = tabSize[percentualAtualTabSize];
-		let distanceLeftMolde = (sizeAtualCelula * celulaCentroResize.dataset.coordX + posAtualTabLeft);
-		let distanceTopMolde = (sizeAtualCelula * celulaCentroResize.dataset.coordY + posAtualTabTop);
+		if(celulaCentroResize!=null){
+			distanceLeftMolde = (sizeAtualCelula * celulaCentroResize.dataset.coordX + posAtualTabLeft);
+			distanceTopMolde = (sizeAtualCelula * celulaCentroResize.dataset.coordY + posAtualTabTop);
+		}else{ //se não é celula, é o Pad (tamanho do Tabuleiro)
+			distanceLeftMolde = e.offsetX + posAtualTabLeft;
+			distanceTopMolde = e.offsetY + posAtualTabTop;
+		}
+
+		let sizeAntigoTabuleiro = sizeAtualTabuleiro;
 		console.log("tabuleiro.style.width > "+sizeAtualTabuleiro);
 		console.log("distanceWidth > "+distanceLeftMolde);
 		console.log("distanceHeight > "+distanceTopMolde);
-
-		e.preventDefault();  	
+	
 		var y = event.deltaY;
 		var factor = 5;
 		if(e.ctrlKey){
@@ -42,9 +52,17 @@
 		console.log(newPercentual);
 		mudaPercentual(newPercentual);
 
+		console.log("posAtualTabTop ANTES > "+posAtualTabTop);
+		console.log("posAtualTabLeft ANTES > "+posAtualTabLeft);
 		sizeAtualCelula = tabSize[percentualAtualTabSize];
-		posAtualTabTop =  (-1 * sizeAtualCelula * celulaCentroResize.dataset.coordY + distanceTopMolde);
-		posAtualTabLeft = (-1 * sizeAtualCelula * celulaCentroResize.dataset.coordX + distanceLeftMolde);
+		if(celulaCentroResize!=null){
+			posAtualTabTop =  (-1 * sizeAtualCelula * celulaCentroResize.dataset.coordY + distanceTopMolde);
+			posAtualTabLeft = (-1 * sizeAtualCelula * celulaCentroResize.dataset.coordX + distanceLeftMolde);
+		}else{ //se não é celula, é o Pad (tamanho do Tabuleiro)
+
+			posAtualTabTop =  (-1 * (e.offsetY * sizeAtualTabuleiro / sizeAntigoTabuleiro) + distanceTopMolde);
+			posAtualTabLeft = (-1 * (e.offsetX * sizeAtualTabuleiro / sizeAntigoTabuleiro) + distanceLeftMolde);
+		}
 
 		console.log("posAtualTabTop > "+posAtualTabTop);
 		console.log("posAtualTabLeft > "+posAtualTabLeft);

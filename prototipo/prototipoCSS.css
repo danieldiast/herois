@@ -16,11 +16,17 @@
 			}
 
 			#menuEsquerdo {
-				width: 250px;
-				height: 600px;
+				width: 230px;
+				height: 580px;
 				border: 1px solid gray;
 				float: left; 
 				background-color: #aaa;
+				padding: 10px;
+			}
+
+			#menuEsquerdo #panelMouseOver{
+  				color: slategrey;
+ 				font-family: monospace;
 			}
 
 			#molde {
@@ -184,6 +190,7 @@
 				height: 100%;
 				position: absolute;
 				background-color: brown;
+				z-index: 10;
 			}
 			#tabuleiro .celula .parede.west{
 				width: 16%;
@@ -279,17 +286,18 @@
 
 			.person.wolverine{
 				background-image:  url('Wolverine_128.gif');
-				/*filter:  grayscale(100%);*/
+			}
+
+			.person.cyclops{
+				background-image:  url('Cyclops.gif');
 			}
 
 			.person.subzero{
 				background-image:  url('Subzero_128.gif');
-				/*filter:  grayscale(100%);*/
 			}
 
 			.person.soldier{
-				background-image:  url('soldier.gif');
-				/*filter:  grayscale(100%);*/
+				background-image:  url('Soldier_regular.gif');
 			}
 
 			.garra .person.wolverine{
@@ -298,7 +306,7 @@
 			}
 
 			.celula .peca.selected{
-				background-color: rgba(0,255,0,0.1);
+				background-color: rgba(255,255,0,0.5);
 			}
 
 			.spanCelula{
