@@ -29,7 +29,7 @@
 		}
 
 		function moveTabuleiro(e) {
-			console.log('moveTabuleiro');
+			// console.log('moveTabuleiro');
 			var tabuleiro = document.getElementById("tabuleiro");
 			if(e.ctrlKey){
 				if(e.movementY>1)posAtualTabTop+=1;

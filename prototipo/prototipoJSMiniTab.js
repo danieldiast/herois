@@ -20,7 +20,7 @@
 
 		function atualizaMiniTab(){
 			limpaCanvasMT();
-			console.log("atualizaMiniTab");
+			// console.log("atualizaMiniTab");
 		    ctxMT.fillStyle = 'orange';
 		    ctxMT.lineWidth = 1;
 		    ctxMT.beginPath();
@@ -127,13 +127,8 @@
 			let origemLeft = e.offsetX;
 			let origemTop = e.offsetY;
 
-			console.log("origemLeft",origemLeft);
-			console.log("origemTop",origemTop);
 			let x = Math.round(QUANT_CELULAS * origemLeft / SIZE_MT);
 			let y = Math.round(QUANT_CELULAS * origemTop / SIZE_MT);
-
-			console.log("x",x);
-			console.log("y",y);
 
 			let celulaCentroResize = arrayCelulas[y][x];
 

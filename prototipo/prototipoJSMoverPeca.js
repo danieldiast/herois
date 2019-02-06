@@ -20,8 +20,8 @@
 			avisos.innerHTML = "";
 			tabuleiro.removeEventListener('mousemove', preparaCaminho, false);
 			tabuleiro.removeEventListener('mousedown', preparaCaminhoMouse, false);
-			document.querySelector("button#andar").addEventListener('click', ativaAndar, false);
-			document.querySelector("button#andar").removeEventListener('click', desativaAndar, false);
+			
+
 			var anteriores = Array.from(document.getElementsByClassName('caminhoSimulado'));
 			anteriores = anteriores.concat(Array.from(document.getElementsByClassName('caminhoParcial')));
 			for(let celula of anteriores){
@@ -33,6 +33,11 @@
 			}
 			arrayCaminhosParciais = [];
 			arrayCaminho = [];
+
+			if(document.querySelector(".peca.selected")!=null){
+				document.querySelector("button#andar").addEventListener('click', ativaAndar, false);
+				document.querySelector("button#andar").removeEventListener('click', desativaAndar, false);
+			}
 		}
 
 

@@ -5,8 +5,6 @@
 	tabuleiro.addEventListener('mousewheel', resizeTabuleiro, false);
 
 	function resizeTabuleiro(e) {
-		console.log('resizeTabuleiro');
-		console.dir(e.target);
 		e.preventDefault();  
 		clearInterval(desenhaMiraCanvasInterval);
 
@@ -32,9 +30,7 @@
 			factor = 15
 		}
 
-		var y = e.deltaY;
-		console.log("y",y);
-		
+		var y = e.deltaY;		
 		if (y > 0) {
 			factor = factor*-1;
 		} 
@@ -60,19 +56,13 @@
 		}
 
 		let sizeAntigoTabuleiro = sizeAtualTabuleiro;
-		console.log("tabuleiro.style.width > "+sizeAtualTabuleiro);
-		console.log("distanceWidth > "+distanceLeftMolde);
-		console.log("distanceHeight > "+distanceTopMolde);
 
 		newPercentual = percentualAtualTabSize + factor;
 		newPercentual = Math.max(newPercentual, 10);
 		newPercentual = Math.min(newPercentual, 200);
 
-		console.log(newPercentual);
 		mudaPercentual(newPercentual);
 
-		console.log("posAtualTabTop ANTES > "+posAtualTabTop);
-		console.log("posAtualTabLeft ANTES > "+posAtualTabLeft);
 		sizeAtualCelula = tabSize[percentualAtualTabSize];
 		if(celulaCentroResize!=null){
 			posAtualTabTop =  (-1 * sizeAtualCelula * celulaCentroResize.dataset.coordY + distanceTopMolde);
@@ -82,9 +72,6 @@
 			posAtualTabTop =  (-1 * (offsetYCelula * sizeAtualTabuleiro / sizeAntigoTabuleiro) + distanceTopMolde);
 			posAtualTabLeft = (-1 * (offsetXCelula * sizeAtualTabuleiro / sizeAntigoTabuleiro) + distanceLeftMolde);
 		}
-
-		console.log("posAtualTabTop > "+posAtualTabTop);
-		console.log("posAtualTabLeft > "+posAtualTabLeft);
 
 		moveTabuleiroLimitaRange();
 		
@@ -130,10 +117,8 @@
 	}
 
 	function changeTabuleiroTamanhoTotalIdeal(tamanhoIdeal){
-		console.log("entrou changeTabuleiroTamanhoTotalIdeal")
 		for(let i=10;i<=200;i++){
 			if(tamanhoIdeal<=tabSize[i]*QUANT_CELULAS || i==200){
-				console.log("newPercentual",i)
 				mudaPercentual(i);
 				return;
 			}

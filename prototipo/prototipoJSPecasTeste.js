@@ -203,13 +203,15 @@
 
 			clearInterval(desenhaMiraCanvasInterval); // var on canvas js file...
 			limpaCanvas();
-			document.querySelector("button#mirar").addEventListener('click', ativaMirar, false);
-			document.querySelector("button#mirar").removeEventListener('click', desativaMirar, false)
-			
-			var person = document.querySelector('.peca.selected .person');
-    		person.style.removeProperty('transition');
-    		person.style.removeProperty('transform');
 
+			var person = document.querySelector('.peca.selected .person');
+			if(person != null){
+	    		person.style.removeProperty('transition');
+	    		person.style.removeProperty('transform');
+
+				document.querySelector("button#mirar").addEventListener('click', ativaMirar, false);
+				document.querySelector("button#mirar").removeEventListener('click', desativaMirar, false)
+			}
 		}
 
 
