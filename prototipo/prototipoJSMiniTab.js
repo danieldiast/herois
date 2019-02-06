@@ -121,10 +121,25 @@
 		window.addEventListener('mouseup', mouseUpMiniTab, false);
 
 		function mouseWheelMiniTab(e){
+			e.preventDefault();
 
-			// origemLeft = e.offsetX;
-			// origemTop = e.offsetY;
-			resizeTabuleiro(e);
+			moveMiniTab(e);
+			let origemLeft = e.offsetX;
+			let origemTop = e.offsetY;
+
+			console.log("origemLeft",origemLeft);
+			console.log("origemTop",origemTop);
+			let x = Math.round(QUANT_CELULAS * origemLeft / SIZE_MT);
+			let y = Math.round(QUANT_CELULAS * origemTop / SIZE_MT);
+
+			console.log("x",x);
+			console.log("y",y);
+
+			let celulaCentroResize = arrayCelulas[y][x];
+
+			let offsetXCelula = tabSize[percentualAtualTabSize]/2;
+			let offsetYCelula = tabSize[percentualAtualTabSize]/2;
+			resizeTabuleiro2(e, celulaCentroResize, offsetXCelula, offsetYCelula, getFactorResize(e));
 		}
     
 		function mouseDownMiniTab(e) {

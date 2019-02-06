@@ -21,6 +21,32 @@
 				break;
 			}
 		}
+		resizeTabuleiro2(e, celulaCentroResize, e.offsetX, e.offsetY, getFactorResize(e));
+	}
+
+	function getFactorResize(e){
+		var factor = 5;
+		if(e.ctrlKey){
+			factor = 1;
+		}else if(e.shiftKey){
+			factor = 15
+		}
+
+		var y = e.deltaY;
+		console.log("y",y);
+		
+		if (y > 0) {
+			factor = factor*-1;
+		} 
+		if (Math.abs(y) > 175) {
+			factor = factor*2
+		}
+
+		return factor;
+	}
+
+
+	function resizeTabuleiro2(e, celulaCentroResize, offsetXCelula, offsetYCelula, factor) {
 		let distanceLeftMolde;
 		let distanceTopMolde;
 		
@@ -29,27 +55,19 @@
 			distanceLeftMolde = (sizeAtualCelula * celulaCentroResize.dataset.coordX + posAtualTabLeft);
 			distanceTopMolde = (sizeAtualCelula * celulaCentroResize.dataset.coordY + posAtualTabTop);
 		}else{ //se não é celula, é o Pad (tamanho do Tabuleiro)
-			distanceLeftMolde = e.offsetX + posAtualTabLeft;
-			distanceTopMolde = e.offsetY + posAtualTabTop;
+			distanceLeftMolde = offsetXCelula + posAtualTabLeft;
+			distanceTopMolde = offsetYCelula + posAtualTabTop;
 		}
 
 		let sizeAntigoTabuleiro = sizeAtualTabuleiro;
 		console.log("tabuleiro.style.width > "+sizeAtualTabuleiro);
 		console.log("distanceWidth > "+distanceLeftMolde);
 		console.log("distanceHeight > "+distanceTopMolde);
-	
-		var y = event.deltaY;
-		var factor = 5;
-		if(e.ctrlKey){
-			factor = 1;
-		}else if(e.shiftKey){
-			factor = 15
-		}
-		if (y > 0) {
-			newPercentual = Math.max(percentualAtualTabSize - factor, 10);
-		} else {
-			newPercentual = Math.min(percentualAtualTabSize + factor, 200);
-		}
+
+		newPercentual = percentualAtualTabSize + factor;
+		newPercentual = Math.max(newPercentual, 10);
+		newPercentual = Math.min(newPercentual, 200);
+
 		console.log(newPercentual);
 		mudaPercentual(newPercentual);
 
@@ -61,8 +79,8 @@
 			posAtualTabLeft = (-1 * sizeAtualCelula * celulaCentroResize.dataset.coordX + distanceLeftMolde);
 		}else{ //se não é celula, é o Pad (tamanho do Tabuleiro)
 
-			posAtualTabTop =  (-1 * (e.offsetY * sizeAtualTabuleiro / sizeAntigoTabuleiro) + distanceTopMolde);
-			posAtualTabLeft = (-1 * (e.offsetX * sizeAtualTabuleiro / sizeAntigoTabuleiro) + distanceLeftMolde);
+			posAtualTabTop =  (-1 * (offsetYCelula * sizeAtualTabuleiro / sizeAntigoTabuleiro) + distanceTopMolde);
+			posAtualTabLeft = (-1 * (offsetXCelula * sizeAtualTabuleiro / sizeAntigoTabuleiro) + distanceLeftMolde);
 		}
 
 		console.log("posAtualTabTop > "+posAtualTabTop);

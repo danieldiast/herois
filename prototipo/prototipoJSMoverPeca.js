@@ -188,7 +188,6 @@
 		var	xOrigem = 0;
 		var	yOrigem =  0;
 		function preparaCaminho(e, force = false){
-			console.log("preparaCaminho: force="+force);
 			if(e.target == celulaDestino && e.type == "mousemove" && force == false) {
 				return;
 			}
@@ -207,8 +206,6 @@
 			// let yOrigem =  parseInt(celulaSelecionada.dataset.coordY);
 			let xDest =  parseInt(celulaDestino.dataset.coordX);
 			let yDest =  parseInt(celulaDestino.dataset.coordY);
-			console.log('xDest '+xDest);
-			console.log('yDest '+yDest);
 			arrayCaminho = [];
 			Array.from(document.getElementsByClassName('caminhoSimulado')).forEach(celula => {
 		    	celula.classList.remove("caminhoSimulado");

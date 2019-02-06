@@ -50,12 +50,22 @@
 			arrayCelulas[6][6].appendChild(pecaCyclops);
 			arrayCelulas[0][1].appendChild(createSoldier());
 			arrayCelulas[1][2].appendChild(createSoldier());
-			arrayCelulas[5][3].appendChild(createSoldier());
+			arrayCelulas[6][3].appendChild(createSoldier());
 			arrayCelulas[7][7].appendChild(createSoldier());
+			arrayCelulas[7][8].appendChild(createSoldier());
 			arrayCelulas[8][8].appendChild(createSoldier());
 			arrayCelulas[18][9].appendChild(createSoldier());
 			arrayCelulas[23][18].appendChild(createSoldier());
 			arrayCelulas[18][28].appendChild(createSoldier());
+
+
+			arrayCelulas[10][10].appendChild(createSoldier());
+			arrayCelulas[10][12].appendChild(createSoldier());
+			arrayCelulas[11][11].appendChild(createSoldier());
+			arrayCelulas[11][9].appendChild(createSoldier());
+			arrayCelulas[11][13].appendChild(createSoldier());
+			arrayCelulas[12][12].appendChild(createSoldier());
+			arrayCelulas[14][13].appendChild(createSoldier());
 
 			pecaSpider.addEventListener('mousedown', mouseDownPeca, false);
 			pecaWolv.addEventListener('mousedown', mouseDownPeca, false);
@@ -178,6 +188,10 @@
 
 			removeClassSelection(".naMira","naMira");	
 			removeClassSelection(".caminhoMira", "caminhoMira")
+			Array.from(tabuleiro.getElementsByClassName('percentPassagem')).forEach(span => {
+	    		span.parentElement.removeChild(span);
+	    	})	;
+
 			avisos.innerHTML = "";
 			//pad.classList.add("noPointerEvents")
 			// pad.removeEventListener('mousemove', mirar, false);

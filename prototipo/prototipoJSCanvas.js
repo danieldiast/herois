@@ -13,20 +13,20 @@
 				clearInterval(desenhaMiraCanvasInterval);
 				removeClassSelection(".naMira","naMira");
 				removeClassSelection(".caminhoMira", "caminhoMira")
+				Array.from(tabuleiro.getElementsByClassName('percentPassagem')).forEach(span => {
+		    		span.parentElement.removeChild(span);
+		    	})	;
 				// if(!e.target.classList.contains("tabuleiro")){return}
 				let celulaDestino = e.target;
 				 while(!celulaDestino.classList.contains("celula")){
 				 	celulaDestino = celulaDestino.parentElement;
 				 	if(celulaDestino == tabuleiro){
-				 		console.error("mirar com target não filho de  celula ",e.target)
+				 		console.error("mirar com target não filho de celula ",e.target)
 				 		return;
 				 	}
 				 }
-				// console.log('mirar','x '+e.offsetX,'y '+e.offsetY);
 				let destinoOffsetX = e.offsetX + (celulaDestino.dataset.coordX * tabSize[percentualAtualTabSize]);
 				let destinoOffsetY = e.offsetY + (celulaDestino.dataset.coordY * tabSize[percentualAtualTabSize]);
-				// console.log('destino','x '+destinoOffsetX,'y '+destinoOffsetY);
-
 				
 				 // ctx.fillRect(0,0,250,200);
 				var selecionado = document.querySelector('.peca.selected');
@@ -35,44 +35,115 @@
 
 
 				let caminhoDeMira = tracaCaminhoDeMiraPorHipotenusa(celulaOrigem,celulaDestino);
-				let alvoNaMira = false;
-				let celulaAnterior = celulaOrigem;
+				let alvoNaMira = null;
+				let celulaAnterior = null;
 				for(let i=0;i<caminhoDeMira.length;i++){
 				 	let celula = caminhoDeMira[i][0];
-				 	celula.classList.add("caminhoMira");
-
-					// paredes: simples, se tem na ida ou na volta, as acerta, se não, passa reto
+					// paredes: 'simples', se tem na ida ou na volta, as acerta, se não, passa reto
 					if(i>0){
 						celulaAnterior = caminhoDeMira[i-1][0];
 					}
-				 	let direcaoVinda = direcaoUmParaOutro(celulaAnterior,celula);
-		 			let parede = false;
-		 			console.log("direcaoVinda",direcaoVinda);
-				 	switch(direcaoVinda){
+
+				 	let direcaoIndo1 = direcaoUmParaOutro(celulaAnterior,celula);
+			 		let paredes = [], paredesEs, paredesNo, paredesWe, paredesSo;
+				 	switch(direcaoIndo1){
 				 		case "up":
-				 			parede = celula.querySelector(".parede.south");
-		 					console.log("parede",parede);
+				 			paredes = Array.from(celula.querySelectorAll(".parede.south"));
 		 					break;
 				 		case "down":
-				 			parede = celula.querySelector(".parede.north");
-		 					console.log("parede",parede);
+				 			paredes = Array.from(celula.querySelectorAll(".parede.north"));
 		 					break;
 				 		case "left":
-				 			parede = celula.querySelector(".parede.east");
-		 					console.log("parede",parede);
+				 			paredes = Array.from(celula.querySelectorAll(".parede.east"));
 		 					break;
 				 		case "right":
-				 			parede = celula.querySelector(".parede.west");
-		 					console.log("parede",parede);
+				 			paredes = Array.from(celula.querySelectorAll(".parede.west"));
+		 					break;
+		 				case "right-up":
+				 			paredesWe = Array.from(celula.querySelectorAll(".parede.west"));
+				 			paredesSo =  Array.from(celula.querySelectorAll(".parede.south"));
+				 			if(paredesWe.length > 0 && paredesSo.length >0){
+				 				paredes= paredes.concat(paredesWe);
+				 				paredes= paredes.concat(paredesSo);
+				 			}else if(paredesWe.length > 0){
+				 				if(temParedeEmBaixo(celula,".west")){
+				 					paredes= paredes.concat(paredesWe);
+				 				}
+				 			}else if(paredesSo.length > 0){
+				 				if(temParedeAEsquerda(celula,".south")){
+				 					paredes= paredes.concat(paredesSo);
+				 				}
+				 			}
+		 					break;
+		 				case "right-down":
+		 					paredesWe = Array.from(celula.querySelectorAll(".parede.west"));
+				 			paredesNo =  Array.from(celula.querySelectorAll(".parede.north"));
+				 			if(paredesWe.length > 0 && paredesNo.length >0){
+				 				paredes= paredes.concat(paredesWe);
+				 				paredes= paredes.concat(paredesNo);
+				 			}else if(paredesWe.length > 0){
+				 				if(temParedeEmCima(celula,".west")){
+				 					paredes= paredes.concat(paredesWe);
+				 				}
+				 			}else if(paredesNo.length > 0){
+				 				if(temParedeAEsquerda(celula,".north")){
+				 					paredes= paredes.concat(paredesNo);
+				 				}
+				 			}
+		 					break;
+		 				case "left-up":
+		 					paredesEs = Array.from(celula.querySelectorAll(".parede.east"));
+				 			paredesSo =  Array.from(celula.querySelectorAll(".parede.south"));
+				 			if(paredesEs.length > 0 && paredesSo.length >0){
+				 				paredes= paredes.concat(paredesEs);
+				 				paredes= paredes.concat(paredesSo);
+				 			}else if(paredesEs.length > 0){
+				 				if(temParedeEmBaixo(celula,".west")){
+				 					paredes= paredes.concat(paredesEs);
+				 				}
+				 			}else if(paredesSo.length > 0){
+				 				if(temParedeADireita(celula,".south")){
+				 					paredes= paredes.concat(paredesSo);
+				 				}
+				 			}
+		 					break;
+		 				case "left-down":
+		 					paredesEs = Array.from(celula.querySelectorAll(".parede.east"));
+				 			paredesNo =  Array.from(celula.querySelectorAll(".parede.north"));
+				 			if(paredesEs.length > 0 && paredesNo.length >0){
+				 				paredes= paredes.concat(paredesEs);
+				 				paredes= paredes.concat(paredesSo);
+				 			}else if(paredesEs.length > 0){
+				 				if(temParedeEmBaixo(celula,".west")){
+				 					paredes= paredes.concat(paredesEs);
+				 				}
+				 			}else if(paredesNo.length > 0){
+				 				if(temParedeADireita(celula,".north")){
+				 					paredes= paredes.concat(paredesNo);
+				 				}
+				 			}
 		 					break;
 				 	}
-		 			if(parede!=null){
-		 				console.log("parede",parede);
-		 				parede.classList.add("naMira");
-		 				celula.classList.add("naMira");
-		 				alvoNaMira = true;
+		 			if(paredes.length > 0){
+		 				paredes.forEach(parede => {
+		 					parede.classList.add("naMira");
+		 				});
+		 				alvoNaMira = celula;
+			 			break;
 		 			}
-		 			
+
+				 	celula.classList.add("caminhoMira");
+		 			if(i>0){
+						let spanPercent = document.createElement("span");	
+						spanPercent.classList.add('percentPassagem');
+						diffHip = caminhoDeMira[i][1];
+						let percent = 100 * (300-diffHip) / 300;
+						spanPercent.innerHTML = percent.toFixed(0)+"%";
+						celula.appendChild(spanPercent);
+						celulaAnterior = caminhoDeMira[i-1][0];
+					}
+
+
 				 	// padroes: mosca - leve - medio - pesado - pesadissimo - ultrapesado - monstro
 					//se diff <= 40 = acerta mosca+
 					//se diff <= 45 = acerta leve+
@@ -82,45 +153,118 @@
 					//se diff <= 85 = acerta ultrapesado+
 					//se diff <= 100 = acerta monstro+
 					let peca = celula.querySelector('.peca');
-					if(peca != null){
+					if(peca != null && celula != celulaOrigem){
 						if(caminhoDeMira[i][1]<=50){
 			 				peca.classList.add("naMira");
 			 				celula.classList.add("naMira");
-		 					alvoNaMira = true;
+		 					alvoNaMira = celula;
+			 				break;
 						}
 					}
 
 					if(i<caminhoDeMira.length-1){
-					 	let direcaoVinda = direcaoUmParaOutro(celula, caminhoDeMira[i+1][0]);
-			 			let parede = false;
-					 	switch(direcaoVinda){
+					 	let direcaoIndo2 = direcaoUmParaOutro(celula, caminhoDeMira[i+1][0]);
+			 			let paredes = [], paredesEs, paredesNo, paredesWe, paredesSo;
+					 	switch(direcaoIndo2){
 					 		case "up":
-					 			parede = celula.querySelector(".parede.north");
+					 			paredes = Array.from(celula.querySelectorAll(".parede.north"));
 		 						break;
 					 		case "down":
-					 			parede = celula.querySelector(".parede.south");
+					 			paredes = Array.from(celula.querySelectorAll(".parede.south"));
 		 						break;
 					 		case "left":
-					 			parede = celula.querySelector(".parede.west");
+					 			paredes = Array.from(celula.querySelectorAll(".parede.west"));
 		 						break;
 					 		case "right":
-					 			parede = celula.querySelector(".parede.east");
+					 			paredes = Array.from(celula.querySelectorAll(".parede.east"));
 		 						break;
+			 				case "right-up":
+					 			paredesEs = Array.from(celula.querySelectorAll(".parede.east"));
+					 			paredesNo =  Array.from(celula.querySelectorAll(".parede.north"));
+					 			if(paredesEs.length > 0 && paredesNo.length >0){
+					 				paredes= paredes.concat(paredesEs);
+					 				paredes= paredes.concat(paredesNo);
+					 			}else if(paredesEs.length > 0){
+					 				if(temParedeEmCima(celula,".east")){
+					 					paredes= paredes.concat(paredesEs);
+					 				}
+					 			}else if(paredesNo.length > 0){
+					 				if(temParedeADireita(celula,".north")){
+					 					paredes= paredes.concat(paredesNo);
+					 				}
+					 			}
+			 					break;
+			 				case "right-down":
+			 					paredesEs = Array.from(celula.querySelectorAll(".parede.east"));
+					 			paredesSo =  Array.from(celula.querySelectorAll(".parede.south"));
+					 			log("paredesEs",paredesEs)
+					 			log("paredesSo",paredesSo)
+					 			log("celula",celula)
+					 			if(paredesEs.length > 0 && paredesSo.length >0){
+					 				paredes= paredes.concat(paredesWe);
+					 				paredes= paredes.concat(paredesSo);
+					 			}else if(paredesEs.length > 0){
+					 				if(temParedeEmBaixo(celula,".east")){
+					 					paredes= paredes.concat(paredesEs);
+					 				}
+					 			}else if(paredesSo.length > 0){
+					 				if(temParedeADireita(celula,".south")){
+					 					paredes= paredes.concat(paredesSo);
+					 				}
+					 			}
+			 					break;
+			 				case "left-up":
+			 					paredesWe = Array.from(celula.querySelectorAll(".parede.west"));
+					 			paredesNo =  Array.from(celula.querySelectorAll(".parede.north"));
+					 			if(paredesWe.length > 0 && paredesNo.length >0){
+					 				paredes= paredes.concat(paredesWe);
+					 				paredes= paredes.concat(paredesNo);
+					 			}else if(paredesWe.length > 0){
+					 				if(temParedeEmCima(celula,".west")){
+					 					paredes= paredes.concat(paredesWe);
+					 				}
+					 			}else if(paredesNo.length > 0){
+					 				if(temParedeAEsquerda(celula,".north")){
+					 					paredes= paredes.concat(paredesNo);
+					 				}
+					 			}
+			 					break;
+			 				case "left-down":
+			 					paredesWe = Array.from(celula.querySelectorAll(".parede.west"));
+					 			paredesSo =  Array.from(celula.querySelectorAll(".parede.south"));
+					 			if(paredesWe.length > 0 && paredesSo.length >0){
+					 				paredes= paredes.concat(paredesWe);
+					 				paredes= paredes.concat(paredesSo);
+					 			}else if(paredesWe.length > 0){
+					 				if(temParedeEmBaixo(celula,".west")){
+					 					paredes= paredes.concat(paredesWe);
+					 				}
+					 			}else if(paredesSo.length > 0){
+					 				if(temParedeAEsquerda(celula,".south")){
+					 					paredes= paredes.concat(paredesSo);
+					 				}
+					 			}
+			 					break;
 					 	}
-			 			if(parede!=null){
-			 				parede.classList.add("naMira");
+			 			if(paredes.length > 0){
+			 				paredes.forEach(parede => {
+			 					parede.classList.add("naMira");
+			 				});
 			 				celula.classList.add("naMira");
-			 				alvoNaMira = true;
+			 				alvoNaMira = celula;
+			 				break;
 			 			}
-			 		}
-			 		if(alvoNaMira){
-			 			break;
 			 		}
 				}
 
 				let beginX = celulaOrigem.offsetLeft + tabSize[percentualAtualTabSize]/2;
 				let beginY = celulaOrigem.offsetTop + tabSize[percentualAtualTabSize]/2;
 			
+				if(alvoNaMira!=null){
+					// destinoOffsetX = getOffsetXCelulaNoTab(alvoNaMira);
+					destinoOffsetX = alvoNaMira.offsetLeft + tabSize[percentualAtualTabSize]/2;
+					destinoOffsetY = alvoNaMira.offsetTop + tabSize[percentualAtualTabSize]/2;
+				}
 				desenhaMiraCanvasContextualized = () => desenhaMiraCanvas(beginX, beginY, destinoOffsetX, destinoOffsetY);
 				desenhaMiraCanvasContextualized();
 				desenhaMiraCanvasInterval = setInterval(desenhaMiraCanvasContextualized, 200);
@@ -140,15 +284,29 @@
 		}
 
 		function direcaoUmParaOutro(celulaAnterior,celulaPosterior){
+			if(celulaAnterior == null || celulaPosterior == null)return null;
+
 			let celulaAnteriorX = parseInt(celulaAnterior.dataset.coordX);
 			let celulaAnteriorY = parseInt(celulaAnterior.dataset.coordY);
 			let celulaPosteriorX = parseInt(celulaPosterior.dataset.coordX);
 			let celulaPosteriorY = parseInt(celulaPosterior.dataset.coordY);
 			if(celulaAnteriorX<celulaPosteriorX){
-				return "right";
+				if(celulaAnteriorY==celulaPosteriorY){
+					return "right";
+				}else if(celulaAnteriorY>celulaPosteriorY){
+					return "right-up";
+				}else{
+					return "right-down";
+				}
 			}
 			if(celulaAnteriorX>celulaPosteriorX){
-				return "left";
+				if(celulaAnteriorY==celulaPosteriorY){
+					return "left";
+				}else if(celulaAnteriorY>celulaPosteriorY){
+					return "left-up";
+				}else{
+					return "left-down";
+				}
 			}
 			if(celulaAnteriorY<celulaPosteriorY){
 				return "down";
@@ -157,6 +315,49 @@
 				return "up";
 			}
 			return null;
+		}
+
+		function temParedeEmCima(celula, classDirecao){
+			let celX = parseInt(celula.dataset.coordX);
+			let celY = parseInt(celula.dataset.coordY);
+			if(celY>0){
+				return temParede(arrayCelulas[celY-1][celX], classDirecao);
+			}
+			return false;
+		}
+
+		function temParedeEmBaixo(celula, classDirecao){
+			let celX = parseInt(celula.dataset.coordX);
+			let celY = parseInt(celula.dataset.coordY);
+			if(celY<QUANT_CELULAS-1){
+				return temParede(arrayCelulas[celY+1][celX], classDirecao);
+			}
+			return false;
+		}
+
+		function temParedeAEsquerda(celula, classDirecao){
+			let celX = parseInt(celula.dataset.coordX);
+			let celY = parseInt(celula.dataset.coordY);
+			if(celY>0){
+				return temParede(arrayCelulas[celY][celX-1], classDirecao);
+			}
+			return false;
+		}
+
+		function temParedeADireita(celula, classDirecao){
+			let celX = parseInt(celula.dataset.coordX);
+			let celY = parseInt(celula.dataset.coordY);
+			if(celY<QUANT_CELULAS-1){
+				return temParede(arrayCelulas[celY][celX+1], classDirecao);
+			}
+			return false;
+		}
+
+		function temParede(celula, classDirecao){
+			if(celula.querySelector(classDirecao)!=null){
+				return true;
+			}
+			return false;
 		}
 
 		let offsetDash = 0;
@@ -189,9 +390,7 @@
 		}
 
 		function tracaCaminhoDeMiraPorHipotenusa(celulaOrigem,celulaDestino){
-
-			avisos.innerHTML = ""; //TODO << REMOVER!!!!!!!!!!!!
-			if(celulaOrigem == celulaDestino) return null;
+			if(celulaOrigem == celulaDestino) return [];
 			let origemX = parseInt(celulaOrigem.dataset.coordX);
 			let origemY = parseInt(celulaOrigem.dataset.coordY);
 			let destinoX = parseInt(celulaDestino.dataset.coordX);
@@ -199,13 +398,12 @@
 
 			let hipotenusa = getHipotenusaCelulas(celulaOrigem,celulaDestino);
 
-			avisos.innerHTML+="hipotenusa "+hipotenusa.toFixed(3)+" <br/>"
-
 			let incremetacaoX = (origemX==destinoX)?0:(origemX<destinoX)?1:-1;
 			let incremetacaoY = (origemY==destinoY)?0:(origemY<destinoY)?1:-1;
 
 
 			let caminhoDeMira = [];
+			caminhoDeMira.push([celulaOrigem,0]);
 			let proxCelula = celulaOrigem;
 			let menorSomaCatetos = 0;
 
@@ -234,20 +432,15 @@
 
 				if      (somaCatetosX == somaCatetosY){
 					proxCelula = arrayCelulas[proxCelulaY+incremetacaoY][proxCelulaX+incremetacaoX];
-					avisos.innerHTML +="== "
 				}else if(somaCatetosX < somaCatetosY){
 					proxCelula = proxCelulaIncreX;
-					avisos.innerHTML +="IncreX "
 					menorSomaCatetos = (somaCatetosX-hipotenusa)*1000;
 				}else if(somaCatetosX > somaCatetosY){
 					proxCelula = proxCelulaIncreY;
-					avisos.innerHTML +="IncreY " 
 					menorSomaCatetos = (somaCatetosY-hipotenusa)*1000;
 				}else{
-					console.log("breaking ","areaX",somaCatetosX,"areaY",somaCatetosY);
 					break;
 				}
-				avisos.innerHTML +=" > menorSomaCatetos "+menorSomaCatetos.toFixed(2)+" > x "+proxCelula.dataset.coordX+" - y "+proxCelula.dataset.coordY+" <br /> ";
 				caminhoDeMira.push([proxCelula,menorSomaCatetos]);
 			}
 			return caminhoDeMira;

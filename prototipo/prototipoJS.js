@@ -63,6 +63,29 @@
 			arrayCelulas[1][7].appendChild(getParede('west'));
 			arrayCelulas[1][7].appendChild(getParede('east'));
 
+
+
+			arrayCelulas[10][10].appendChild(getParede('east'));
+			arrayCelulas[10][11].appendChild(getParede('east'));
+			arrayCelulas[11][10].appendChild(getParede('east'));
+			arrayCelulas[10][12].appendChild(getParede('east'));
+			arrayCelulas[10][9].appendChild(getParede('north'));
+			arrayCelulas[10][11].appendChild(getParede('north'));
+			arrayCelulas[10][12].appendChild(getParede('north'));
+			arrayCelulas[9][12].appendChild(getParede('north'));
+			arrayCelulas[12][12].appendChild(getParede('west'));
+			arrayCelulas[11][12].appendChild(getParede('west'));
+			arrayCelulas[11][11].appendChild(getParede('west'));
+			arrayCelulas[13][11].appendChild(getParede('west'));
+			arrayCelulas[14][11].appendChild(getParede('west'));
+			arrayCelulas[15][11].appendChild(getParede('west'));
+			arrayCelulas[16][11].appendChild(getParede('west'));
+			arrayCelulas[17][11].appendChild(getParede('west'));
+			arrayCelulas[11][13].appendChild(getParede('south'));
+			arrayCelulas[11][9].appendChild(getParede('south'));
+			arrayCelulas[9][9].appendChild(getParede('south'));
+			arrayCelulas[12][9].appendChild(getParede('south'));
+
 			tabuleiro.style.top = posAtualTabTop+"px";
 			tabuleiro.style.left = posAtualTabLeft+"px";
 			tabuleiro.style.width = sizeAtualTabuleiro+"px";
@@ -131,3 +154,6 @@
 			});
 		}
 
+		function log(... text){
+			return console.log(text);
+		}
