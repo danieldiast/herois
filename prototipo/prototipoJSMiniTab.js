@@ -28,7 +28,6 @@
 			for(let i= 0; i<(QUANT_CELULAS); i++){
 				for(let j=0;j<(QUANT_CELULAS);j++){
 
-
 					if(i%2 == 0 && j%2 == 1||
 					   j%2 == 0 && i%2 == 1){
 	    				ctxMT.fillStyle = '#ccc';
@@ -64,7 +63,6 @@
 			let mtTop = Math.round(posAtualTabTop / sizeAtualTabuleiro * SIZE_MT *-1 );
 			let mtLeft = Math.round(posAtualTabLeft / sizeAtualTabuleiro  * SIZE_MT *-1);
 			
-
 		    ctxMT.strokeStyle = 'red';
 		    ctxMT.lineWidth = 1;
 
@@ -117,10 +115,17 @@
 		controlTab.addEventListener('contextmenu', event => event.preventDefault());
 		
 		canvasMiniTab.addEventListener('mousedown', mouseDownMiniTab, false);
+
+		canvasMiniTab.addEventListener('mousewheel', mouseWheelMiniTab, false);
 		
 		window.addEventListener('mouseup', mouseUpMiniTab, false);
 
+		function mouseWheelMiniTab(e){
 
+			// origemLeft = e.offsetX;
+			// origemTop = e.offsetY;
+			resizeTabuleiro(e);
+		}
     
 		function mouseDownMiniTab(e) {
 			if(e.button == 0){ // botao esquerdo
@@ -191,11 +196,8 @@
 
 			posAtualTabTop = Math.round(origemTop * sizeAtualTabuleiro / SIZE_MT  *-1 )
 			posAtualTabLeft = Math.round(origemLeft * sizeAtualTabuleiro / SIZE_MT  *-1 )
-	
 
 			moveTabuleiroLimitaRange();
-
-
 
 		}
 
