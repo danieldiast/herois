@@ -170,7 +170,7 @@
 			#tabuleiro .linha {
 				/*width: 6600px;
 				height: 66px;*/
-				background-color: blue;
+				background-color: white;
 			}
 
 			#tabuleiro .celula {
@@ -191,6 +191,7 @@
 				position: absolute;
 				background-color: brown;
 				z-index: 10;
+				box-sizing: border-box;
 			}
 			#tabuleiro .celula .parede.west{
 				width: 16%;
@@ -209,15 +210,23 @@
 				bottom: 0px;
 			}
 
+			#tabuleiro .celula .parede.naMira{
+				background-color: rgba(255,0,0,0.5);
+			}
+
 
 			#tabuleiro .celula.caminhoSimulado {
-				
 				background-color: rgba(115, 115, 115,0.5);
 			}
+
 			#tabuleiro .celula.caminhoParcial {
-				
 				background-color: rgba(195, 195, 195,0.6);
 			}
+
+			#tabuleiro .celula.caminhoMira {
+				background-color: rgba(255, 100, 100,0.6);
+			}
+
 			#tabuleiro .celula span.passo {
  				vertical-align: middle;
   				display: inline-flex;
@@ -311,4 +320,16 @@
 
 			.spanCelula{
 				display: none;
+			}
+
+			#tabuleiro .celula.naMira{
+				background-color: rgba(255,0,0,0.5);
+			}
+
+			.peca.naMira .person{
+  				transition: all 0s;
+				filter: drop-shadow(2px 0px 0 red) 
+						drop-shadow(-1px 0px 0 red)
+						drop-shadow(0px 2px 0 red) 
+						drop-shadow(0px -1px 0 red);
 			}

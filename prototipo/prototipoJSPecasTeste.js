@@ -161,8 +161,13 @@
 		
 		function ativaMirar(e){
 			console.log("ativaMirar");
-			pad.classList.remove("noPointerEvents")
-			pad.addEventListener('mousemove', mirar, false);
+			//pad.classList.remove("noPointerEvents")
+			//pad.addEventListener('mousemove', mirar, false);
+			tabuleiro.querySelectorAll(".parede").forEach(parede => {
+				parede.classList.add("noPointerEvents");
+			});
+			tabuleiro.addEventListener('mousemove', mirar, false);
+
 			avisos.innerHTML = "ESC: sair";
 			this.removeEventListener('click', ativaMirar, false);
 			this.addEventListener('click', desativaMirar, false);
@@ -170,9 +175,19 @@
 		
 		function desativaMirar(){
 			console.log("desativaMirar");
+
+			removeClassSelection(".naMira","naMira");	
+			removeClassSelection(".caminhoMira", "caminhoMira")
 			avisos.innerHTML = "";
-			pad.classList.add("noPointerEvents")
-			pad.removeEventListener('mousemove', mirar, false);
+			//pad.classList.add("noPointerEvents")
+			// pad.removeEventListener('mousemove', mirar, false);
+			tabuleiro.removeEventListener('mousemove', mirar, false);
+			tabuleiro.querySelectorAll(".parede").forEach(parede => {
+				parede.classList.remove("noPointerEvents");
+			});
+
+
+			clearInterval(desenhaMiraCanvasInterval); // var on canvas js file...
 			limpaCanvas();
 			document.querySelector("button#mirar").addEventListener('click', ativaMirar, false);
 			document.querySelector("button#mirar").removeEventListener('click', desativaMirar, false)

@@ -4,8 +4,8 @@
 		var tabuleiro = document.getElementById("tabuleiro");
 		var arrayCelulas = [];
 
-		var posAtualTabTop = 100;
-		var posAtualTabLeft = -500;
+		var posAtualTabTop = -60;
+		var posAtualTabLeft = -100;
 
 		const QUANT_CELULAS = 100;
 		const OUTSIDE_BORDER_CELULA_ADD = 0;
@@ -100,7 +100,7 @@
 			}
 			panelMouseOver.innerHTML = "";
 			if(celula != null){
-				panelMouseOver.innerHTML +="celula "+celula.dataset.coordX+" - "+celula.dataset.coordY+" <br /> ";
+				panelMouseOver.innerHTML +="celula x "+celula.dataset.coordX+" - y "+celula.dataset.coordY+" <br /> ";
 			}
 			if(e.target.classList.contains("parede")){
 				panelMouseOver.innerHTML +=" parede "+e.target.dataset.posicao+" <br />";
@@ -123,5 +123,11 @@
 		      break;
 		    }
 		  }
+		}
+
+		function removeClassSelection(selector, classToRemove){
+			document.querySelectorAll(selector).forEach(selecionado => {
+				selecionado.classList.remove(classToRemove);
+			});
 		}
 

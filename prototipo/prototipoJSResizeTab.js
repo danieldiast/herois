@@ -8,6 +8,7 @@
 		console.log('resizeTabuleiro');
 		console.dir(e.target);
 		e.preventDefault();  
+		clearInterval(desenhaMiraCanvasInterval);
 
 		let celulaCentroResize = e.target;
 		while(!celulaCentroResize.dataset.coordX){ //ate chegar na celula, caso haja algo dentro
