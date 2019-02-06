@@ -298,28 +298,28 @@
 			}
 
 			.person.spiderman{
-				background-image:  url('spiderman_GIF.gif');
+				background-image:  url('chars/spiderman_GIF.gif');
 				/*filter:  grayscale(100%);*/
 			}
 
 			.person.wolverine{
-				background-image:  url('wolverine_128.gif');
+				background-image:  url('chars/wolverine_128.gif');
 			}
 
 			.person.cyclops{
-				background-image:  url('cyclops.gif');
+				background-image:  url('chars/cyclops.gif');
 			}
 
 			.person.subzero{
-				background-image:  url('subzero_128.gif');
+				background-image:  url('chars/subzero_128.gif');
 			}
 
 			.person.soldier{
-				background-image:  url('soldier_regular.gif');
+				background-image:  url('chars/soldier_regular.gif');
 			}
 
 			.garra .person.wolverine{
-				background-image:  url('wolverine-garra_128.gif');
+				background-image:  url('chars/wolverine-garra_128.gif');
 				/*filter:  grayscale(100%);*/
 			}
 
