@@ -410,15 +410,21 @@
 			while(proxCelula!=celulaDestino||proxCelula==null){
 				let proxCelulaX = parseInt(proxCelula.dataset.coordX);
 				let proxCelulaY = parseInt(proxCelula.dataset.coordY);
+				var proxCelulaIncreX = null, proxCelulaIncreY = null;
+				
+				if(proxCelulaX+incremetacaoX>=0 && proxCelulaX+incremetacaoX <QUANT_CELULAS){
+					proxCelulaIncreX = arrayCelulas[proxCelulaY][proxCelulaX+incremetacaoX];
+					var hipotenusaX = getHipotenusaCelulas(proxCelulaIncreX,celulaDestino);
+					var catetoX = getHipotenusaCelulas(celulaOrigem,proxCelulaIncreX)
+					var somaCatetosX = catetoX +hipotenusaX;
+				}
 
-				let proxCelulaIncreX = arrayCelulas[proxCelulaY][proxCelulaX+incremetacaoX];
-				let hipotenusaX = getHipotenusaCelulas(proxCelulaIncreX,celulaDestino);
-
-				let proxCelulaIncreY = arrayCelulas[proxCelulaY+incremetacaoY][proxCelulaX];
-				let hipotenusaY = getHipotenusaCelulas(proxCelulaIncreY,celulaDestino);
-
-				let catetoX = getHipotenusaCelulas(celulaOrigem,proxCelulaIncreX)
-				let catetoY = getHipotenusaCelulas(celulaOrigem,proxCelulaIncreY)
+				if(proxCelulaY+incremetacaoY>=0 && proxCelulaY+incremetacaoY <QUANT_CELULAS){
+					proxCelulaIncreY = arrayCelulas[proxCelulaY+incremetacaoY][proxCelulaX];
+					var hipotenusaY = getHipotenusaCelulas(proxCelulaIncreY,celulaDestino);
+					var catetoY = getHipotenusaCelulas(celulaOrigem,proxCelulaIncreY)
+					var somaCatetosY = catetoY +hipotenusaY;
+				}
 
 				// formula de heron para se achar as areas
 				// let semiperimetroX = (hipotenusa+hipotenusaX+catetoX)/2;
@@ -426,19 +432,15 @@
 
 				// let areaX = Math.sqrt(semiperimetroX*(semiperimetroX-hipotenusa)*(semiperimetroX-hipotenusaX)*(semiperimetroX-catetoX));
 				// let areaY = Math.sqrt(semiperimetroY*(semiperimetroY-hipotenusa)*(semiperimetroY-hipotenusaY)*(semiperimetroY-catetoY));
-
-				let somaCatetosX = catetoX +hipotenusaX;
-				let somaCatetosY = catetoY +hipotenusaY;
-
-				if      (somaCatetosX == somaCatetosY){
-					proxCelula = arrayCelulas[proxCelulaY+incremetacaoY][proxCelulaX+incremetacaoX];
-				}else if(somaCatetosX < somaCatetosY){
-					proxCelula = proxCelulaIncreX;
-					menorSomaCatetos = (somaCatetosX-hipotenusa)*1000;
-				}else if(somaCatetosX > somaCatetosY){
+				if(proxCelulaIncreX == null || somaCatetosX > somaCatetosY){
 					proxCelula = proxCelulaIncreY;
 					menorSomaCatetos = (somaCatetosY-hipotenusa)*1000;
-				}else{
+				}else if(proxCelulaIncreY == null || somaCatetosY > somaCatetosX){
+					proxCelula = proxCelulaIncreX;
+					menorSomaCatetos = (somaCatetosX-hipotenusa)*1000;
+				}else if (somaCatetosX == somaCatetosY){
+					proxCelula = arrayCelulas[proxCelulaY+incremetacaoY][proxCelulaX+incremetacaoX];
+				}else {
 					break;
 				}
 				caminhoDeMira.push([proxCelula,menorSomaCatetos]);
