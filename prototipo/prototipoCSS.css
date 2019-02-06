@@ -303,23 +303,23 @@
 			}
 
 			.person.wolverine{
-				background-image:  url('Wolverine_128.gif');
+				background-image:  url('wolverine_128.gif');
 			}
 
 			.person.cyclops{
-				background-image:  url('Cyclops.gif');
+				background-image:  url('cyclops.gif');
 			}
 
 			.person.subzero{
-				background-image:  url('Subzero_128.gif');
+				background-image:  url('subzero_128.gif');
 			}
 
 			.person.soldier{
-				background-image:  url('Soldier_regular.gif');
+				background-image:  url('soldier_regular.gif');
 			}
 
 			.garra .person.wolverine{
-				background-image:  url('Wolverine-garra_128.gif');
+				background-image:  url('wolverine-garra_128.gif');
 				/*filter:  grayscale(100%);*/
 			}
 
