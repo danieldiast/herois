@@ -29,15 +29,15 @@
 		}else if(e.shiftKey){
 			factor = 15
 		}
-
-		var y = e.deltaY;		
-		if (y > 0) {
-			factor = factor*-1;
-		} 
-		if (Math.abs(y) > 175) {
-			factor = factor*2
+		if(e.type == 'mousewheel'){
+			var y = e.deltaY;		
+			if (y > 0) {
+				factor = factor*-1;
+			} 
+			if (Math.abs(y) > 175) {
+				factor = factor*2
+			}
 		}
-
 		return factor;
 	}
 
@@ -123,4 +123,13 @@
 				return;
 			}
 		}
+	}
+
+
+	function getCelulaCentralizada(){
+		var offsetMoldeX =  moldeWidth/2;
+		var offsetMoldeY = moldeHeight/2;
+		var x = Math.round(QUANT_CELULAS * (offsetMoldeX-posAtualTabLeft) / sizeAtualTabuleiro);
+		var y = Math.round(QUANT_CELULAS * (offsetMoldeY-posAtualTabTop) / sizeAtualTabuleiro);
+		return arrayCelulas[y][x];
 	}

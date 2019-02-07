@@ -14,7 +14,7 @@
 				<span id="panelMouseOver" ></span>
 			</div>	
 			<div id="molde">
-				<div id="tabuleiro">
+				<div id="tabuleiro" class="grid">
 					<canvas id="canvasTabuleiro"></canvas>
 					<div id="pad" class="noPointerEvents"></div>
 				</div>
@@ -33,10 +33,14 @@
 			<div id="controlTab">
 					<canvas id="canvasMiniTab"></canvas>
 					<div class="controlTabDivDireita">
-						<div id="zoom_menos"></div>
-						<span id="zoomVal">100%</span>
-						<div id="zoom_mais"></div>
-						<!-- <div id="controleDirecionais"></div>  -->
+						<span class="showGrid"><input type="checkbox" name="showGrid" class="showGrid" checked="checked" />show grid</span>
+						<div id="zoomControl">
+							<div id="zoom_menos"></div>
+							<span id="zoomVal">100%</span>
+							<div id="zoom_mais"></div>
+						</div>
+						<div id="controleDirecionais">
+						</div> 
 					</div>	
 			</div>	
 		</div>

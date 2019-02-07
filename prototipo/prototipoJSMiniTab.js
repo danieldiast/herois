@@ -116,25 +116,109 @@
 		
 		canvasMiniTab.addEventListener('mousedown', mouseDownMiniTab, false);
 
-		canvasMiniTab.addEventListener('mousewheel', mouseWheelMiniTab, false);
+		canvasMiniTab.addEventListener('mousewheel', resizeMiniTab, false);
+		controleDirecionais.addEventListener('mousewheel', resizeMiniTab, false);
+		zoom_mais.addEventListener('mousewheel', resizeMiniTab, false);
+		zoom_menos.addEventListener('mousewheel', resizeMiniTab, false);
+		zoomVal.addEventListener('mousewheel', resizeMiniTab, false);
+
+		zoom_mais.addEventListener('mousedown', mousedownZoom, false);
+		zoom_menos.addEventListener('mousedown', mousedownZoom, false);
+
+		controleDirecionais.addEventListener('mousedown', ativaMoveTabDirecionais, false);
 		
 		window.addEventListener('mouseup', mouseUpMiniTab, false);
 
-		function mouseWheelMiniTab(e){
+		function mouseUpMiniTab(e) {
+			clearInterval(zoomInterval);	
+			clearInterval(moveTabDirecionaisInterval);	
+			
+			controleDirecionais.removeEventListener('mousemove', moveTabDirecionais, false);
+		    canvasMiniTab.removeEventListener('mousemove', moveMiniTab, true);
+
+		    if(constroindoMoldeMiniTab){		    	
+				constroindoMoldeMiniTab = false;
+		    	canvasMiniTab.removeEventListener('mousemove', constroiMoldeMiniTab, true);
+		    	executaNovoMoldeMT();
+		    }
+
+			controleDirecionais.classList.remove("intense");
+		}
+
+
+		let zoomInterval;
+		function mousedownZoom(e){
+			resizeMiniTab(e);
+			zoomInterval = setInterval(event => {resizeMiniTab(e)}, 100);
+		}
+
+		function resizeMiniTab(e){
 			e.preventDefault();
-
-			moveMiniTab(e);
-			let origemLeft = e.offsetX;
-			let origemTop = e.offsetY;
-
-			let x = Math.round(QUANT_CELULAS * origemLeft / SIZE_MT);
-			let y = Math.round(QUANT_CELULAS * origemTop / SIZE_MT);
-
-			let celulaCentroResize = arrayCelulas[y][x];
-
 			let offsetXCelula = tabSize[percentualAtualTabSize]/2;
 			let offsetYCelula = tabSize[percentualAtualTabSize]/2;
-			resizeTabuleiro2(e, celulaCentroResize, offsetXCelula, offsetYCelula, getFactorResize(e));
+			var factor = getFactorResize(e);
+			if(e.target == zoom_menos){
+				factor = -factor;
+			}
+			resizeTabuleiro2(e, getCelulaCentralizada(), offsetXCelula, offsetYCelula, factor);
+		}
+
+
+		function ativaMoveTabDirecionais(e){
+			controleDirecionais.addEventListener('mousemove', moveTabDirecionais, false);
+			moveTabDirecionais(e);
+		}
+
+		let moveTabDirecionaisInterval;
+		function moveTabDirecionais(e){
+			clearInterval(moveTabDirecionaisInterval);	
+			controleDirecionais.classList.remove("intense");
+			controleDirecionais.classList.remove("right");
+			controleDirecionais.classList.remove("left");
+			controleDirecionais.classList.remove("down");
+			controleDirecionais.classList.remove("up");
+
+			const SIZE_DIREC = controleDirecionais.offsetWidth;
+			const PERCENT_DIREC = SIZE_DIREC/100;
+			const CENTRO_DIREC = SIZE_DIREC/2;
+			let moveDireita = 0;
+			let moveBaixo = 0;
+			let moveFactor = tabSize[percentualAtualTabSize]/4;
+
+			if(e.offsetX > PERCENT_DIREC*60){
+				moveDireita = -moveFactor;
+				controleDirecionais.classList.add("right");
+			}else if(e.offsetX <  PERCENT_DIREC*40){
+				moveDireita = moveFactor;
+				controleDirecionais.classList.add("left");
+			}
+			if(e.offsetX < PERCENT_DIREC*15 || e.offsetX > PERCENT_DIREC*85){
+				moveDireita *= 2;
+				controleDirecionais.classList.add("intense");
+			}
+
+			if(e.offsetY > PERCENT_DIREC*60){
+				moveBaixo = -moveFactor;
+				controleDirecionais.classList.add("down");
+			}else if(e.offsetY < PERCENT_DIREC*40){
+				moveBaixo = moveFactor;
+				controleDirecionais.classList.add("up");
+			}
+			if(e.offsetY < PERCENT_DIREC*15 || e.offsetY > PERCENT_DIREC*85){
+				moveBaixo *= 2;
+				controleDirecionais.classList.add("intense");
+			}
+
+			posAtualTabLeft = posAtualTabLeft + moveDireita;
+			posAtualTabTop = posAtualTabTop + moveBaixo;
+			moveTabuleiroLimitaRange();
+
+			moveTabDirecionaisInterval = setInterval(() => {
+
+				posAtualTabLeft = posAtualTabLeft + moveDireita;
+				posAtualTabTop = posAtualTabTop + moveBaixo;
+				moveTabuleiroLimitaRange();
+			}, 50);
 		}
     
 		function mouseDownMiniTab(e) {
@@ -148,16 +232,7 @@
 				canvasMiniTab.addEventListener('mousemove', constroiMoldeMiniTab, true);
 			}
 		}
-		
-		function mouseUpMiniTab(e) {
-		    canvasMiniTab.removeEventListener('mousemove', moveMiniTab, true);
-		    if(constroindoMoldeMiniTab){		    	
-				constroindoMoldeMiniTab = false;
-		    	canvasMiniTab.removeEventListener('mousemove', constroiMoldeMiniTab, true);
-		    	executaNovoMoldeMT();
-		    }
 
-		}
 
 
 		function moveMiniTab(e) {

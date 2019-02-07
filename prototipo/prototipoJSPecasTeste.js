@@ -71,6 +71,15 @@
 			pecaWolv.addEventListener('mousedown', mouseDownPeca, false);
 			pecaSubz.addEventListener('mousedown', mouseDownPeca, false);
 			pecaCyclops.addEventListener('mousedown', mouseDownPeca, false);
+
+			let itemAwp = document.createElement("div");	
+			itemAwp.classList.add('item');
+			itemAwp.classList.add('awp');
+			itemAwp.dataset.looking = "up";
+			itemAwp.dataset.item = "awp";
+			arrayCelulas[6][1].appendChild(itemAwp);
+
+
 		}
 		
 		function createSoldier(){
@@ -79,7 +88,20 @@
 			pecaSoldier.classList.add('peca');
 			personSoldier.classList.add('person');
 			personSoldier.classList.add('soldier');
-			pecaSoldier.dataset.looking = "down";
+			switch(getRandomInt(0, 3)){
+				case 0:
+					pecaSoldier.dataset.looking = "down";
+					break;
+				case 1:
+					pecaSoldier.dataset.looking = "up";
+					break;
+				case 2:
+					pecaSoldier.dataset.looking = "left";
+					break;
+				case 3:
+					pecaSoldier.dataset.looking = "right";
+					break;
+			}
 			pecaSoldier.dataset.char = "soldier";
 			pecaSoldier.appendChild(personSoldier);	
 			pecaSoldier.addEventListener('mousedown', mouseDownPeca, false);

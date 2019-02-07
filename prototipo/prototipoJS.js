@@ -35,6 +35,14 @@
 					
 					celula.dataset.coordX = j;
 					celula.dataset.coordY = i;
+					if(i<1 || j<=1 ||  i>=QUANT_CELULAS-50 ||  j>=QUANT_CELULAS-50){
+						celula.dataset.type = "grass";
+					}else if((j>2 && j<=7) &&  (i>=2 && i<=6)){
+						celula.dataset.type = "floor";
+					}else{
+						celula.dataset.type = "ground";
+					}
+
 					arrayCelulas[i][j]=celula;
 				}
 				tabuleiro.appendChild(linha);	
@@ -58,33 +66,34 @@
 			arrayCelulas[2][6].appendChild(getParede('north'));
 			arrayCelulas[2][5].appendChild(getParede('north'));
 
-			arrayCelulas[1][7].appendChild(getParede('north'));
-			arrayCelulas[1][7].appendChild(getParede('south'));
-			arrayCelulas[1][7].appendChild(getParede('west'));
-			arrayCelulas[1][7].appendChild(getParede('east'));
+			arrayCelulas[3][9].appendChild(getParede('north'));
+			arrayCelulas[3][9].appendChild(getParede('south'));
+			arrayCelulas[3][9].appendChild(getParede('west'));
+			arrayCelulas[3][9].appendChild(getParede('east'));
+			arrayCelulas[3][9].dataset.type = "floor";
 
 
 
-			arrayCelulas[10][10].appendChild(getParede('east'));
-			arrayCelulas[10][11].appendChild(getParede('east'));
-			arrayCelulas[11][10].appendChild(getParede('east'));
-			arrayCelulas[10][12].appendChild(getParede('east'));
-			arrayCelulas[10][9].appendChild(getParede('north'));
-			arrayCelulas[10][11].appendChild(getParede('north'));
-			arrayCelulas[10][12].appendChild(getParede('north'));
-			arrayCelulas[9][12].appendChild(getParede('north'));
-			arrayCelulas[12][12].appendChild(getParede('west'));
-			arrayCelulas[11][12].appendChild(getParede('west'));
-			arrayCelulas[11][11].appendChild(getParede('west'));
-			arrayCelulas[13][11].appendChild(getParede('west'));
-			arrayCelulas[14][11].appendChild(getParede('west'));
-			arrayCelulas[15][11].appendChild(getParede('west'));
-			arrayCelulas[16][11].appendChild(getParede('west'));
-			arrayCelulas[17][11].appendChild(getParede('west'));
-			arrayCelulas[11][13].appendChild(getParede('south'));
-			arrayCelulas[11][9].appendChild(getParede('south'));
-			arrayCelulas[9][9].appendChild(getParede('south'));
-			arrayCelulas[12][9].appendChild(getParede('south'));
+			// arrayCelulas[10][10].appendChild(getParede('east'));
+			// arrayCelulas[10][11].appendChild(getParede('east'));
+			// arrayCelulas[11][10].appendChild(getParede('east'));
+			// arrayCelulas[10][12].appendChild(getParede('east'));
+			// arrayCelulas[10][9].appendChild(getParede('north'));
+			// arrayCelulas[10][11].appendChild(getParede('north'));
+			// arrayCelulas[10][12].appendChild(getParede('north'));
+			// arrayCelulas[9][12].appendChild(getParede('north'));
+			// arrayCelulas[12][12].appendChild(getParede('west'));
+			// arrayCelulas[11][12].appendChild(getParede('west'));
+			// arrayCelulas[11][11].appendChild(getParede('west'));
+			// arrayCelulas[13][11].appendChild(getParede('west'));
+			// arrayCelulas[14][11].appendChild(getParede('west'));
+			// arrayCelulas[15][11].appendChild(getParede('west'));
+			// arrayCelulas[16][11].appendChild(getParede('west'));
+			// arrayCelulas[17][11].appendChild(getParede('west'));
+			// arrayCelulas[11][13].appendChild(getParede('south'));
+			// arrayCelulas[11][9].appendChild(getParede('south'));
+			// arrayCelulas[9][9].appendChild(getParede('south'));
+			// arrayCelulas[12][9].appendChild(getParede('south'));
 
 			tabuleiro.style.top = posAtualTabTop+"px";
 			tabuleiro.style.left = posAtualTabLeft+"px";
@@ -109,6 +118,15 @@
 
 		tabuleiro.addEventListener('contextmenu', event => event.preventDefault());
 		tabuleiro.addEventListener('mouseover', mouseOverObjs);
+
+		document.querySelector("input.showGrid").addEventListener('click', e =>{
+			if(e.target.checked){
+				tabuleiro.classList.add("grid");
+			}else{
+				tabuleiro.classList.remove("grid");
+			}
+		});
+
 		
 		function mouseOverObjs(e){
 			//e.target;
@@ -136,6 +154,10 @@
 				peca = e.target; 
 				panelMouseOver.innerHTML +="char "+peca.dataset.char+" <br />" ;
 			}
+			if(e.target.classList.contains("item")){
+				item = e.target; 
+				panelMouseOver.innerHTML +="item "+item.dataset.item+" <br />" ;
+			}
 		}
 
 		
@@ -156,4 +178,10 @@
 
 		function log(... text){
 			return console.log(text);
+		}
+
+		function getRandomInt(min, max) {
+		  min = Math.ceil(min);
+		  max = Math.floor(max);
+		  return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
