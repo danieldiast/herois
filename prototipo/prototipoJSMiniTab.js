@@ -27,23 +27,58 @@
 
 			for(let i= 0; i<(QUANT_CELULAS); i++){
 				for(let j=0;j<(QUANT_CELULAS);j++){
+					let celula = arrayCelulas[j][i];
+
+					switch(celula.dataset.type){
+						case 'grass':
+	    					ctxMT.fillStyle = 'lightgreen';
+	    					break;
+						case 'floor':
+	    					ctxMT.fillStyle = 'white';
+	    					break;
+						case 'street':
+	    					ctxMT.fillStyle = 'lightgray';
+	    					break;
+						case 'ground':
+	    					ctxMT.fillStyle = 'lightyellow';
+	    					break;
+						default:
+	    					ctxMT.fillStyle = 'white';
+	    					break;
+					}
+					ctxMT.fillRect(i*2+1,j*2+1,2,2);
 
 					if(i%2 == 0 && j%2 == 1||
 					   j%2 == 0 && i%2 == 1){
-	    				ctxMT.fillStyle = '#ccc';
+	    				ctxMT.fillStyle = 'rgba(204,204,204,0.2)';
 						ctxMT.fillRect(i*2+1,j*2+1,2,2);
 					}
 
-					let celula = arrayCelulas[j][i];
 					let paredes = celula.querySelectorAll(".parede")
 					desenhaParedes(paredes,i,j);
 
+					if(celula.querySelector(".item") != null){
+		    			ctxMT.fillStyle = 'black';
+						ctxMT.fillRect(i*2+1,j*2+1,2,2);
+
+					}
+
+					if(celula.querySelector(".scenario") != null){
+						fillRectCelula(i,j,'green');
+					}
+
+
+					if(celula.querySelector(".vehi") != null){
+		    			ctxMT.fillStyle = 'purple'; 
+						ctxMT.fillRect(i*2+1,j*2+1,2,2);
+
+					}
+
 					peca = celula.querySelector(".peca");
 					if(peca != null){
-						//console.log("PECA x="+celula.dataset.coordX, "y="+celula.dataset.coordY);
-		    			ctxMT.fillStyle = 'green';
+		    			ctxMT.fillStyle = '#E7A303'; // dark yellow
 		    			if(peca.classList.contains("selected")){
-		    				ctxMT.fillStyle = 'orange';
+		    				ctxMT.fillStyle = '#8D0244';  //dark purple
 		    			}
 						ctxMT.fillRect(i*2+1,j*2+1,2,2);
 					}
@@ -52,6 +87,9 @@
 					}
 					if(celula.classList.contains("caminhoSimulado")){
 						fillRectCelula(i,j,'blue');
+					}
+					if(celula.classList.contains("caminhoMira")){
+						fillRectCelula(i,j,'rgba(255,0,0,0.4)');
 					}
 
 				}
@@ -143,6 +181,10 @@
 		    }
 
 			controleDirecionais.classList.remove("intense");
+			controleDirecionais.classList.remove("right");
+			controleDirecionais.classList.remove("left");
+			controleDirecionais.classList.remove("down");
+			controleDirecionais.classList.remove("up");
 		}
 
 

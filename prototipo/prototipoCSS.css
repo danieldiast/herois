@@ -172,6 +172,7 @@
 			    width: 28px;
   				font-weight: bold; 
 			}
+
 			#controleDirecionais {
 				background-image: url('setas.png');
   				background-size: cover;
@@ -196,13 +197,11 @@
     			--bs-direc-color: red;
 			}
 
-
 			#tabuleiro .linha {
 				/*width: 6600px;
 				height: 66px;*/
 				background-color: white;
 			}
-
 
 			#tabuleiro .celula {
 				width: 64px;
@@ -222,6 +221,9 @@
 			}
 			#tabuleiro .celula[data-type='ground'] {
 				background-image:  url('tileset/ground.png');
+			}
+			#tabuleiro .celula[data-type='street'] {
+				background-image:  url('tileset/street3.png');
 			}
 
 			#tabuleiro.grid .celula {
@@ -316,28 +318,113 @@
 			}
 
 
+			#tabuleiro .celula .vehi,
+			#tabuleiro .celula .scenario {
+  				position: absolute;
+				background-size: cover;
+  				width: 100%;
+  				height: 100%;
+  				z-index: 5;
+    			--vehiColor: white;
+				filter: drop-shadow(2px 0px 0 var(--vehiColor)) 
+						drop-shadow(-1px 0px 0 var(--vehiColor))
+						drop-shadow(0px 2px 0 var(--vehiColor)) 
+						drop-shadow(0px -1px 0 var(--vehiColor));
+			}
+			#tabuleiro .celula .scenario:not(:hover) {
+				filter: none;
+			}
+			#tabuleiro .celula .vehi:hover,
+			#tabuleiro .celula .scenario:hover {
+    			--vehiColor: yellow;
+			}
+
+			#tabuleiro .celula .vehi[data-cells-w='2'], 
+			#tabuleiro .celula .scenario[data-cells-w='2']{ 
+  				width: 200%;
+			}
+			#tabuleiro .celula .vehi[data-cells-w='3'] { 
+  				width: 300%;
+			}
+			#tabuleiro .celula .vehi[data-cells-h='2'], 
+			#tabuleiro .celula .scenario[data-cells-w='2']{ 
+  				height: 200%;
+			}
+			#tabuleiro .celula .vehi[data-cells-h='3'] { 
+  				height: 300%;
+			}
+			.vehi.rolls {
+				background-image: url('vehi/rolls.png'); 
+			}
+			.scenario.tree1 {
+				background-image: url('scenario/tree1.png'); 
+			}
+			.scenario.tree2 {
+				background-image: url('scenario/tree2.png'); 
+			}
+			.scenario.tree3 {
+				background-image: url('scenario/tree3.png'); 
+			}
+
+
 			#tabuleiro .celula .item {
   				position: absolute;
 				background-size: cover;
   				width: 100%;
   				height: 100%;
   				z-index: 2;
-				filter: drop-shadow(2px 0px 0 white) 
-						drop-shadow(-1px 0px 0 white)
-						drop-shadow(0px 2px 0 white) 
-						drop-shadow(0px -1px 0 white);
+    			--item-color: white;
+				filter: drop-shadow(2px 0px 0 var(--item-color)) 
+						drop-shadow(-1px 0px 0 var(--item-color))
+						drop-shadow(0px 2px 0 var(--item-color)) 
+						drop-shadow(0px -1px 0 var(--item-color));
 			}
 
 			#tabuleiro .celula .item:hover {
-				filter: drop-shadow(2px 0px 0 yellow) 
-						drop-shadow(-1px 0px 0 yellow)
-						drop-shadow(0px 2px 0 yellow) 
-						drop-shadow(0px -1px 0 yellow);
+    			--item-color: yellow;
 			}
 
-			.item.awp {
-				background-image: url('items/awp_m.png');
+
+			.item.ak47 {
+				background-image: url('items/ak47.png'); 
 			}
+			.item.colt {
+				background-image: url('items/colt.png'); 
+			}
+			.item.granade {
+				background-image: url('items/granade.png');
+			}
+			.item.sword_case {
+				background-image: url('items/sword_case.png');
+			}
+			.item.uzi {
+				background-image: url('items/uzi.png');
+			}
+			.item.awp {
+				background-image: url('items/awp_m.png');   
+			}
+			.item.deagle {
+				background-image: url('items/deagle.png');
+			}
+			.item.machine {
+				background-image: url('items/machine.png'); 
+			}
+			.item.sword1 {
+				background-image: url('items/sword1.png');
+			}
+			.item.bazooka {
+				background-image: url('items/bazooka.png'); 
+			}
+			.item.glock {
+				background-image: url('items/glock.png');
+			}
+			.item.molotov {
+				background-image: url('items/molotov.png'); 
+			}
+			.item.sword2 {
+				background-image: url('items/sword2.png');
+			}
+
 
 			.celula .peca, .person{
 				background-size: cover;

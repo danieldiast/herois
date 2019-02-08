@@ -197,9 +197,6 @@
 			 				case "right-down":
 			 					paredesEs = Array.from(celula.querySelectorAll(".parede.east"));
 					 			paredesSo =  Array.from(celula.querySelectorAll(".parede.south"));
-					 			log("paredesEs",paredesEs)
-					 			log("paredesSo",paredesSo)
-					 			log("celula",celula)
 					 			if(paredesEs.length > 0 && paredesSo.length >0){
 					 				paredes= paredes.concat(paredesWe);
 					 				paredes= paredes.concat(paredesSo);
@@ -280,6 +277,7 @@
 	    		var degrees = (radians * (180 / Math.PI) * -1) + 180; 
 	    		person.style.transition = 'none';
 	    		person.style.transform = 'rotate('+degrees+'deg)';
+	    		atualizaMiniTab();
 	    		
 		}
 

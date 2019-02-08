@@ -63,23 +63,71 @@
 			arrayCelulas[10][12].appendChild(createSoldier());
 			arrayCelulas[11][11].appendChild(createSoldier());
 			arrayCelulas[11][9].appendChild(createSoldier());
-			arrayCelulas[11][13].appendChild(createSoldier());
-			arrayCelulas[12][12].appendChild(createSoldier());
-			arrayCelulas[14][13].appendChild(createSoldier());
+			arrayCelulas[2][13].appendChild(createSoldier());
+			arrayCelulas[5][15].appendChild(createSoldier());
+			arrayCelulas[5][18].appendChild(createSoldier());
 
 			pecaSpider.addEventListener('mousedown', mouseDownPeca, false);
 			pecaWolv.addEventListener('mousedown', mouseDownPeca, false);
 			pecaSubz.addEventListener('mousedown', mouseDownPeca, false);
 			pecaCyclops.addEventListener('mousedown', mouseDownPeca, false);
 
-			let itemAwp = document.createElement("div");	
-			itemAwp.classList.add('item');
-			itemAwp.classList.add('awp');
-			itemAwp.dataset.looking = "up";
-			itemAwp.dataset.item = "awp";
-			arrayCelulas[6][1].appendChild(itemAwp);
+			arrayCelulas[6][1].appendChild(createItem('awp'));
+			arrayCelulas[6][11].appendChild(createItem('ak47'));
+			arrayCelulas[6][21].appendChild(createItem('colt'));
+			arrayCelulas[16][13].appendChild(createItem('granade'));
+			arrayCelulas[16][14].appendChild(createItem('sword_case'));
+			arrayCelulas[2][19].appendChild(createItem('deagle'));
+			arrayCelulas[26][21].appendChild(createItem('machine'));
+			arrayCelulas[26][22].appendChild(createItem('sword1'));
+			arrayCelulas[26][23].appendChild(createItem('bazooka'));
+			arrayCelulas[24][24].appendChild(createItem('glock'));
+			arrayCelulas[25][18].appendChild(createItem('molotov'));
+			arrayCelulas[27][17].appendChild(createItem('sword2'));
+
+			arrayCelulas[2][15].appendChild(createRolls('rolls'));
 
 
+			arrayCelulas[0][0].appendChild(createTree());
+			arrayCelulas[0][5].appendChild(createTree());
+			arrayCelulas[15][1].appendChild(createTree());
+			arrayCelulas[7][1].appendChild(createTree());
+			arrayCelulas[9][0].appendChild(createTree());
+			arrayCelulas[0][18].appendChild(createTree());
+			arrayCelulas[0][22].appendChild(createTree());
+
+
+		}
+
+		function createItem(itemStr, looking = getRandomLooking()){
+			let item = document.createElement("div");	
+			item.classList.add('item');
+			item.classList.add(itemStr);
+			item.dataset.looking = looking;
+			item.dataset.item = itemStr;
+			return item;
+		}
+
+		function createTree(scenarioStr = selectRandom('tree1','tree2','tree3'), looking = getRandomLooking()){
+			let scenario = document.createElement("div");	
+			scenario.classList.add('scenario');
+			scenario.classList.add(scenarioStr);
+			scenario.dataset.looking = looking;
+			scenario.dataset.cellsW = '1';
+			scenario.dataset.cellsH = '1';
+			scenario.dataset.scenario = scenarioStr;
+			return scenario;
+		}
+
+		function createRolls(looking = 'down'){
+			let vehi = document.createElement("div");	
+			vehi.classList.add('vehi');
+			vehi.classList.add('rolls');
+			vehi.dataset.looking = looking;
+			vehi.dataset.cellsW = '2';
+			vehi.dataset.cellsH = '3';
+			vehi.dataset.vech = 'rolls';
+			return vehi;
 		}
 		
 		function createSoldier(){
@@ -88,20 +136,7 @@
 			pecaSoldier.classList.add('peca');
 			personSoldier.classList.add('person');
 			personSoldier.classList.add('soldier');
-			switch(getRandomInt(0, 3)){
-				case 0:
-					pecaSoldier.dataset.looking = "down";
-					break;
-				case 1:
-					pecaSoldier.dataset.looking = "up";
-					break;
-				case 2:
-					pecaSoldier.dataset.looking = "left";
-					break;
-				case 3:
-					pecaSoldier.dataset.looking = "right";
-					break;
-			}
+			pecaSoldier.dataset.looking = getRandomLooking();
 			pecaSoldier.dataset.char = "soldier";
 			pecaSoldier.appendChild(personSoldier);	
 			pecaSoldier.addEventListener('mousedown', mouseDownPeca, false);
@@ -258,5 +293,16 @@
 			console.log("ativaGarra");
 			selecionado.classList.add("garra");
 			selecionado.classList.add("duasCelulas");
+
+			e.target.removeEventListener('click', ativaGarra, false);
+			e.target.addEventListener('click', desativaGarra, false);
 		}
 		
+		function desativaGarra(e){
+			console.log("ativaGarra");
+			selecionado.classList.remove("garra");
+			selecionado.classList.remove("duasCelulas");
+
+			e.target.removeEventListener('click', desativaGarra, false);
+			e.target.addEventListener('click', ativaGarra, false);
+		}

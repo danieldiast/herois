@@ -72,8 +72,6 @@
 			arrayCelulas[3][9].appendChild(getParede('east'));
 			arrayCelulas[3][9].dataset.type = "floor";
 
-
-
 			// arrayCelulas[10][10].appendChild(getParede('east'));
 			// arrayCelulas[10][11].appendChild(getParede('east'));
 			// arrayCelulas[11][10].appendChild(getParede('east'));
@@ -104,6 +102,18 @@
 
 			canvasTabuleiro.height = sizeAtualTabuleiro;
 			canvasTabuleiro.width = sizeAtualTabuleiro;
+
+
+			for(let i = 0;i<QUANT_CELULAS;i++){
+				arrayCelulas[i][13].dataset.type = "street";
+				arrayCelulas[i][14].dataset.type = "street";
+				arrayCelulas[i][15].dataset.type = "street";
+				arrayCelulas[i][16].dataset.type = "street";
+				arrayCelulas[28][i].dataset.type = "street";
+				arrayCelulas[29][i].dataset.type = "street";
+				arrayCelulas[30][i].dataset.type = "street";
+				arrayCelulas[31][i].dataset.type = "street";
+			}
 		}
 
 		function getParede(paredeClass){
@@ -180,8 +190,27 @@
 			return console.log(text);
 		}
 
+
+		function selectRandom(...array) {
+		  return array[getRandomInt(0, array.length-1)];
+		}
+
 		function getRandomInt(min, max) {
 		  min = Math.ceil(min);
 		  max = Math.floor(max);
 		  return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+
+		function getRandomLooking(){
+				switch(getRandomInt(0, 3)){
+					case 0:
+						return "down";
+					case 1:
+						return "up";
+					case 2:
+						return "left";
+					case 3:
+						return "right";
+			}
+			return null;
 		}
