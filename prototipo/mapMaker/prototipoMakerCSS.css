@@ -5,56 +5,55 @@
  				font-family: monospace;
   				color: rgb(47,79,79);
 
+
 				height: 100vh;
-				grid-template-columns: minmax(100px, 1fr) 600px minmax(350px, 1fr) minmax(100px, 1fr);
-				grid-template-rows: minmax(60px,1fr) 600px minmax(60px,1fr);
-				grid-column-gap: 0px;
-				grid-row-gap: 0px;
-	 			justify-items:  stretch; /*alinhamento horizontal dos items*/
-	 			align-items: stretch; /*alinhamento vertical*/
-	  			justify-content: stretch;	
-	 			align-content: stretch;	
-				grid-template-areas: 
-				    "leftmenu opponentPcs rightMenu logs"
-				    "leftmenu    tabArea     rightMenu logs"
-				    "leftmenu  playerPcs    rightMenu logs";
+
+			  grid-template-columns: minmax(60px,1fr) 600px 1fr 1fr;
+			  grid-template-rows: minmax(60px,1fr) 600px minmax(60px,1fr);
+			  grid-column-gap: 0px;
+			  grid-row-gap: 0px;
+ 			  justify-items:  stretch; /*alinhamento horizontal dos items*/
+ 			  align-items: stretch; /*alinhamento vertical*/
+  			  justify-content: stretch;	
+ 			  align-content: stretch;	
+			  grid-template-areas: 
+			    "opponentPcs opponentPcs rightMenu logs"
+			    "leftmenu    tabArea     rightMenu logs"
+			    "playerPcs  playerPcs    rightMenu logs";
 
   			}
+
 			
 
 			#pecasJogador, #pecasAdversario  {
+				/*width: 852px;
+				height: 66px;*/
 				border: 1px solid gray;
+				/*clear: left;*/
 				background-color: #aaa;
+  				justify-self: stretch;
 			}
 			#pecasAdversario  {
 				grid-area: opponentPcs;
 			}
 			#pecasJogador  {
+				/*width: 1284px;*/
 				grid-area: playerPcs;
 			}
 
 			#menuEsquerdo {
 				grid-area: leftmenu;
+				/*width: 230px;
+				height: 580px;
+				float: left; */
 				border: 1px solid gray;
-				float: left; 
 				background-color: #aaa;
 				padding: 10px;
 			}
-
+			
 			#paineisDireita {
 				grid-area: rightMenu;
-				display: inline-grid;
-				grid-template-columns: 1fr;
-				grid-template-rows: 1fr 3fr minmax(280px, 3fr);
-				grid-template-areas: 
-					"avisos"
-					"acoes"
-					"controlTab";
-	 			align-items: grid-end; /*alinhamento vertical*/
-	  			justify-content: grid-end;	
-	 			align-content: grid-end;	
 			}
-
 
 			#menuEsquerdo #panelMouseOver{
   				color: slategrey;
@@ -65,8 +64,7 @@
 				margin-right: 0px;
 				width: 600px;
 				height: 600px;
-				border: 2px solid #a52929;
-  				 box-sizing: border-box;
+				border: 1px solid gray;
 				overflow: hidden;
 				background-color: dimgray;
 				float: left;
@@ -75,7 +73,7 @@
 			#avisos {
 				/*width: 430px;
 				min-height: 168px;*/
-				grid-area: avisos;
+				height: auto;
 				border: 1px solid gray;
 				overflow: hidden;
 				margin-bottom: 0px;
@@ -83,7 +81,8 @@
 			}
 
 			#acoes {
-				grid-area: acoes;
+				/*width: 400px;*/
+				min-height: 300px;
 				height: auto;
 				border: 1px solid gray;
 				padding: 15px;
@@ -105,7 +104,9 @@
 			}
 
 			#controlTab {
-				grid-area: controlTab;
+				/*width: 400px;*/
+				min-height: 204px;
+				height: auto;
 				border: 1px solid gray;
 				padding: 15px;
 				overflow: hidden;
@@ -113,8 +114,10 @@
 				display: inline-flex;
 			}
 
+
 			#painelFinal {
 				grid-area: logs;
+				/*min-width: 200px;*/
 				border: 1px solid gray;
 				padding: 15px;
 				overflow: hidden;

@@ -121,6 +121,15 @@
         <file id="19" name="hulk/hulk2/mao_dir.png" width="34" height="33" pivot_x="0.5" pivot_y="0.5"/>
         <file id="20" name="hulk/hulk2/mao_esq.png" width="34" height="33" pivot_x="0.5" pivot_y="0.5"/>
     </folder>
+    <folder id="10" name="batman">
+        <file id="0" name="batman/mao_esq.png" width="26" height="25" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="1" name="batman/antebraco_dir.png" width="24" height="26" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="2" name="batman/antebraco_esq.png" width="24" height="26" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="3" name="batman/bota_dir.png" width="21" height="37" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="4" name="batman/bota_esq.png" width="21" height="37" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="5" name="batman/corpo.png" width="128" height="128" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="6" name="batman/mao_dir.png" width="26" height="25" pivot_x="0.5" pivot_y="0.5"/>
+    </folder>
     <entity id="0" name="Soldado Regular">
         <obj_info name="bone_000" type="bone" w="15.4945" h="10"/>
         <obj_info name="bone_001" type="bone" w="14.6863" h="10"/>
@@ -333,6 +342,17 @@
             <map folder="0" file="5" target_folder="9" target_file="18"/>
             <map folder="0" file="6" target_folder="9" target_file="19"/>
             <map folder="0" file="1" target_folder="9" target_file="20"/>
+        </character_map>
+        <character_map id="15" name="batman">
+            <map folder="0" file="0" target_folder="10" target_file="1"/>
+            <map folder="0" file="2" target_folder="10" target_file="2"/>
+            <map folder="0" file="3" target_folder="10" target_file="3"/>
+            <map folder="0" file="8" target_folder="10" target_file="4"/>
+            <map folder="0" file="5" target_folder="10" target_file="5"/>
+            <map folder="0" file="6" target_folder="10" target_file="6"/>
+            <map folder="0" file="1" target_folder="10" target_file="0"/>
+            <map folder="0" file="4"/>
+            <map folder="0" file="7"/>
         </character_map>
         <animation id="0" name="Soco left" length="1000" interval="100" l="-63" t="-63" r="64" b="64">
             <gline pos="-85"/>

@@ -129,11 +129,8 @@
 		tabuleiro.addEventListener('contextmenu', event => event.preventDefault());
 		tabuleiro.addEventListener('mouseover', mouseOverObjs);
 
-		document.querySelector("span.showGrid").addEventListener('click', e =>{
-			if(e.target != showGrid){
-				showGrid.checked = !showGrid.checked;
-			}
-			if(showGrid.checked){
+		document.querySelector("input.showGrid").addEventListener('click', e =>{
+			if(e.target.checked){
 				tabuleiro.classList.add("grid");
 			}else{
 				tabuleiro.classList.remove("grid");
