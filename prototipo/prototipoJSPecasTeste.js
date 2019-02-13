@@ -217,7 +217,7 @@
 		}
 
 		document.addEventListener('keydown', function (e){
-			console.log(e.key+" "+e.keyCode);
+			//console.log(e.key+" "+e.keyCode);
 			if(e.key === "Escape") {
 				console.log('desativa');
 				desativaMirar();

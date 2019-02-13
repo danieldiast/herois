@@ -1,0 +1,227 @@
+			body { 
+				margin: 0px; 
+				display: grid;
+				user-select: none;
+ 				font-family: monospace;
+  				color: rgb(47,79,79);
+
+				height: 100vh;
+				grid-template-columns: minmax(100px, 1fr) 600px minmax(350px, 1fr) minmax(100px, 1fr);
+				grid-template-rows: minmax(60px,1fr) 600px minmax(60px,1fr);
+				grid-column-gap: 0px;
+				grid-row-gap: 0px;
+	 			justify-items:  stretch; /*alinhamento horizontal dos items*/
+	 			align-items: stretch; /*alinhamento vertical*/
+	  			justify-content: stretch;	
+	 			align-content: stretch;	
+				grid-template-areas: 
+				    "leftmenu opponentPcs rightMenu logs"
+				    "leftmenu    tabArea     rightMenu logs"
+				    "leftmenu  playerPcs    rightMenu logs";
+
+  			}
+
+			.noPointerEvents {
+  				pointer-events: none;
+			}
+			
+
+			#pecasJogador, #pecasAdversario  {
+				border: 1px solid gray;
+				background-color: #aaa;
+			}
+			#pecasAdversario  {
+				grid-area: opponentPcs;
+			}
+			#pecasJogador  {
+				grid-area: playerPcs;
+			}
+
+			#menuEsquerdo {
+				grid-area: leftmenu;
+				/*border: 1px solid gray;*/
+				background-color: #aaa;
+				padding: 10px;
+			}
+
+			#paineisDireita {
+				grid-area: rightMenu;
+				display: inline-grid;
+				grid-template-columns: 1fr;
+				grid-template-rows: 1fr 3fr minmax(250px, 2fr);
+				grid-template-areas: 
+					"avisos"
+					"acoes"
+					"controlTab";
+			}
+
+
+			#menuEsquerdo #panelMouseOver{
+  				color: slategrey;
+			}
+
+			#molde {
+				grid-area: tabArea;
+				margin-right: 0px;
+				width: 600px;
+				height: 600px;
+				border: 2px solid #a52929;
+  				 box-sizing: border-box;
+				overflow: hidden;
+				background-color: dimgray;
+				float: left;
+			}
+
+			#avisos {
+				grid-area: avisos;
+				/*border: 1px solid gray;*/
+				overflow: hidden;
+				margin-bottom: 0px;
+				background-color: #aaa;
+			}
+
+			#acoes {
+				grid-area: acoes;
+				height: auto;
+				/*border: 1px solid gray;*/
+				padding: 15px;
+				overflow: hidden;
+				background-color: #aaa;
+				user-select: none;
+			}
+
+			#acoes img.portrait {
+				width: 100px;
+				height: auto;
+				border: 1px solid gray;
+				float: left;
+				margin-right: 10px;
+			}
+			#acoes button {
+				margin: 1px;
+
+			}
+
+			#controlTab {
+				grid-area: controlTab;
+				/*border: 1px solid gray;*/
+				padding: 15px;
+				overflow: hidden;
+				background-color: #aaa;
+				display: inline-grid;
+				grid-template-areas: 
+					"miniTab showGrid"
+					"miniTab zoomControl"
+					"miniTab direcionais";
+	  			justify-content: space-evenly; /*alinhamento horizontal*/	
+	 			align-content: end; /*alinhamento vertical*/	 
+
+	 			justify-items:  center; /*alinhamento horizontal dos items*/
+	 			align-items: stretch; /*alinhamento vertical*/
+			}
+
+			span.showGrid {
+				grid-area: showGrid;
+				display: inline-flex;
+			}
+
+			#canvasMiniTab {
+				grid-area: miniTab;
+  				width: 202px;
+  				height: 202px;
+				border: 1px solid gray;
+				background-color: white;
+			}
+
+			#painelFinal {
+				grid-area: logs;
+				/*border: 1px solid gray;*/
+				padding: 15px;
+				overflow: hidden;
+				background-color: #aaa;
+				display: inline-grid;
+				grid-template-columns: 1fr;
+				grid-template-rows: 8fr minmax(50px, 2fr);
+
+			}
+
+			#logs{
+				border: 1px solid gray;
+				margin-bottom: 5px;
+
+			}
+
+			#painelFinal textarea {
+				resize: none;
+				overflow:auto;
+				background: none;
+				border: 1px solid gray;
+			}
+
+
+
+			#zoomControl  {
+				grid-area: zoomControl;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				justify-self: center; /*sobrepondo relativo à grid que está inserido*/
+
+				display: inline-flex;
+				flex-direction: row;
+	  			justify-content: center; /*alinhamento horizontal*/	
+	 			justify-items:  center;
+	 			align-items: flex-end;
+			}
+
+			#zoom_menos, #zoom_mais  {
+  				background-size: cover;
+  				background-repeat: no-repeat;
+  				position: relative;
+				width: 50px;
+				height: 50px;
+			}
+
+			#zoom_menos {
+				background-image: url('zoom_menos.png');
+				left: 10px;
+			}
+			#zoom_mais {
+				background-image: url('zoom_mais.png');
+				left: -10px;
+			}
+			#zoomVal, #inputZoomVal {
+			    position: relative;
+			    width: 28px;
+  				height: 1.3em;
+  				font-weight: bold; 
+			}
+			 #inputZoomVal {
+			    width: 28px;
+			    display: none;
+			 }
+
+			#controleDirecionais {
+				grid-area: direcionais;
+				background-image: url('setas.png');
+  				background-size: cover;
+  				background-repeat: no-repeat;
+  				position: relative;
+				width: 100px;
+				height: 100px;
+			}
+		
+			#controleDirecionais:hover {
+    			--bs-direc-color: white;
+				filter: drop-shadow(1px 0px 0 var(--bs-direc-color)) 
+						drop-shadow(-1px 0px 0 var(--bs-direc-color))
+						drop-shadow(0px 1px 0 var(--bs-direc-color)) 
+						drop-shadow(0px -1px 0 var(--bs-direc-color));
+			}
+			#controleDirecionais:active {
+    			--bs-direc-color: orange;
+			}
+			#controleDirecionais.intense:active {
+    			--bs-direc-color: red;
+			}
+
+			

@@ -1,128 +1,3 @@
-			body { 
-				margin: 0px; 
-				display: grid;
-				user-select: none;
- 				font-family: monospace;
-  				color: rgb(47,79,79);
-
-				height: 100vh;
-				grid-template-columns: minmax(100px, 1fr) 600px minmax(350px, 1fr) minmax(100px, 1fr);
-				grid-template-rows: minmax(60px,1fr) 600px minmax(60px,1fr);
-				grid-column-gap: 0px;
-				grid-row-gap: 0px;
-	 			justify-items:  stretch; /*alinhamento horizontal dos items*/
-	 			align-items: stretch; /*alinhamento vertical*/
-	  			justify-content: stretch;	
-	 			align-content: stretch;	
-				grid-template-areas: 
-				    "leftmenu opponentPcs rightMenu logs"
-				    "leftmenu    tabArea     rightMenu logs"
-				    "leftmenu  playerPcs    rightMenu logs";
-
-  			}
-			
-
-			#pecasJogador, #pecasAdversario  {
-				border: 1px solid gray;
-				background-color: #aaa;
-			}
-			#pecasAdversario  {
-				grid-area: opponentPcs;
-			}
-			#pecasJogador  {
-				grid-area: playerPcs;
-			}
-
-			#menuEsquerdo {
-				grid-area: leftmenu;
-				border: 1px solid gray;
-				float: left; 
-				background-color: #aaa;
-				padding: 10px;
-			}
-
-			#paineisDireita {
-				grid-area: rightMenu;
-				display: inline-grid;
-				grid-template-columns: 1fr;
-				grid-template-rows: 1fr 3fr minmax(280px, 3fr);
-				grid-template-areas: 
-					"avisos"
-					"acoes"
-					"controlTab";
-	 			align-items: grid-end; /*alinhamento vertical*/
-	  			justify-content: grid-end;	
-	 			align-content: grid-end;	
-			}
-
-
-			#menuEsquerdo #panelMouseOver{
-  				color: slategrey;
-			}
-
-			#molde {
-				grid-area: tabArea;
-				margin-right: 0px;
-				width: 600px;
-				height: 600px;
-				border: 2px solid #a52929;
-  				 box-sizing: border-box;
-				overflow: hidden;
-				background-color: dimgray;
-				float: left;
-			}
-
-			#avisos {
-				/*width: 430px;
-				min-height: 168px;*/
-				grid-area: avisos;
-				border: 1px solid gray;
-				overflow: hidden;
-				margin-bottom: 0px;
-				background-color: #aaa;
-			}
-
-			#acoes {
-				grid-area: acoes;
-				height: auto;
-				border: 1px solid gray;
-				padding: 15px;
-				overflow: hidden;
-				background-color: #aaa;
-				user-select: none;
-			}
-
-			#acoes img.portrait {
-				width: 100px;
-				height: auto;
-				border: 1px solid gray;
-				float: left;
-				margin-right: 10px;
-			}
-			#acoes button {
-				margin: 1px;
-
-			}
-
-			#controlTab {
-				grid-area: controlTab;
-				border: 1px solid gray;
-				padding: 15px;
-				overflow: hidden;
-				background-color: #aaa;
-				display: inline-flex;
-			}
-
-			#painelFinal {
-				grid-area: logs;
-				border: 1px solid gray;
-				padding: 15px;
-				overflow: hidden;
-				background-color: #aaa;
-			}
-
-
-
 			#tabuleiro {
 				/*margin: 15px;*/
 				top: -60px;
@@ -139,9 +14,6 @@
   				position: absolute;
   				z-index: 30;
 			}
-			.noPointerEvents {
-  				pointer-events: none;
-			}
 
 			#canvasTabuleiro {
   				width: 100%;
@@ -151,69 +23,6 @@
   				position: absolute;
   				pointer-events: none;
   				border: 0;
-			}
-
-			#canvasMiniTab {
-  				width: 202px;
-  				height: 202px;
-				border: 1px solid gray;
-				background-color: white;
-				float: left;
-				margin-right: 10px;
-			}
-
-			.showGrid {
-
-			}
-
-			#zoomControl  {
-				display: inline-flex;
-				margin-top: 10px;
-				margin-bottom: 10px;
-			}
-
-			#zoom_menos, #zoom_mais  {
-				background-image: url('zoom_menos.png');
-  				background-size: cover;
-  				background-repeat: no-repeat;
-  				position: relative;
-				width: 50px;
-				height: 50px;
-			}
-			#zoom_mais {
-				background-image: url('zoom_mais.png');
-				left: -20px;
-			}
-			span#zoomVal {
-			    top: 35px;
-			    left: -10px;
-			    position: relative;
-			    width: 28px;
-  				font-weight: bold; 
-			}
-
-			#controleDirecionais {
-				background-image: url('setas.png');
-  				background-size: cover;
-  				background-repeat: no-repeat;
-  				position: relative;
-				width: 100px;
-				height: 100px;
-				margin-left: 5px;
-			}
-		
-			#controleDirecionais:hover {
-    			--bs-direc-color: white;
-				filter: drop-shadow(1px 0px 0 var(--bs-direc-color)) 
-						drop-shadow(-1px 0px 0 var(--bs-direc-color))
-						drop-shadow(0px 1px 0 var(--bs-direc-color)) 
-						drop-shadow(0px -1px 0 var(--bs-direc-color));
-			}
-			#controleDirecionais:active {
-    			--bs-direc-color: orange;
-			}
-			#controleDirecionais.intense:active {
-    			--bs-direc-color: red;
 			}
 
 			#tabuleiro .linha {
@@ -259,19 +68,19 @@
 				box-sizing: border-box;
 			}
 			#tabuleiro .celula .parede.west{
-				width: 16%;
+				width: 8%;
 				left: 0px;
 			}
 			#tabuleiro .celula .parede.east{
-				width: 16%;
+				width: 8%;
 				right: 0px;
 			}
 			#tabuleiro .celula .parede.north{
-				height: 16%;
+				height: 8%;
 				top: 0px;
 			}
 			#tabuleiro .celula .parede.south{
-				height: 16%;
+				height: 8%;
 				bottom: 0px;
 			}
 

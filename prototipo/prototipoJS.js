@@ -131,7 +131,7 @@
 
 		document.querySelector("span.showGrid").addEventListener('click', e =>{
 			if(e.target != showGrid){
-				showGrid.checked = !showGrid.checked;
+				showGrid.checked = !showGrid.checked; // se não cliclou no box (clicou no texto), inverte o valor do box
 			}
 			if(showGrid.checked){
 				tabuleiro.classList.add("grid");
@@ -139,6 +139,68 @@
 				tabuleiro.classList.remove("grid");
 			}
 		});
+
+		zoomVal.addEventListener('click', e =>{
+			// zoomVal.contentEditable = "true";
+			zoomVal.style.display = "none";
+			inputZoomVal.style.display = "unset";
+			inputZoomVal.value = percentualAtualTabSize;
+			inputZoomVal.select();
+			// inputZoomVal.setSelectionRange(0, inputZoomVal.value.length); // aparentemente, se Safari tem que ser assim
+
+		});
+
+		inputZoomVal.addEventListener("keydown", e =>{
+			if (e.key === "Enter") { // ENTER event.keyCode === 13
+				submitZoomVal();
+			}
+			if(e.key === "Escape") {
+				disableEditingZoomVal();
+			}
+			if ('0123456789'.includes(event.key) == false) {
+				e.preventDefault();
+			}
+		}, false);
+
+		inputZoomVal.addEventListener("blur", submitZoomVal, false);
+
+		function submitZoomVal(e){
+			mudaPercentual(inputZoomVal.value);
+			disableEditingZoomVal();
+		}
+
+		function disableEditingZoomVal(){
+			zoomVal.style.display = "unset";
+			inputZoomVal.style.display = "none";
+		}
+
+
+		sendChat.addEventListener("keydown", e =>{
+			if(event.key === "Enter" && event.ctrlKey == false && event.shiftKey == false) { 
+				submitChat();
+				e.preventDefault();
+			}
+			if(event.key === "Escape") {
+			}
+		}, false);
+
+
+		function submitChat(e){
+			loga(sendChat.value);
+			sendChat.value = "";
+		}
+
+		function loga(txt){
+			let time = new Date();
+			let log = "";
+			log+=time.getHours();
+			log+=":";
+			log+=time.getMinutes();
+			log+=" - ";
+			log+=txt;
+			logs.innerHTML+=log+"<br />";
+
+		}
 
 		
 		function mouseOverObjs(e){

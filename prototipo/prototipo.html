@@ -4,7 +4,8 @@
 		<meta charset="utf-8">
 		<title>Prototipo Tabuleiro</title>
 
- 		<link rel="stylesheet" type="text/css" href="prototipoCSS.css">
+ 		<link rel="stylesheet" type="text/css" href="prototipoCSSEstrutura.css">
+ 		<link rel="stylesheet" type="text/css" href="prototipoCSSTabuleiro.css">
 	</head>
 	<body>
 		<div id="pecasAdversario">
@@ -29,20 +30,22 @@
 				<!-- <button value="t1" title="t2">t3</button> -->
 			</div>	
 			<div id="controlTab">
-					<canvas id="canvasMiniTab"></canvas>
-					<div class="controlTabDivDireita">
-						<span class="showGrid"><input type="checkbox" name="showGrid"  id="showGrid" class="showGrid" checked="checked" />show grid</span>
-						<div id="zoomControl">
-							<div id="zoom_menos"></div>
-							<span id="zoomVal">100%</span>
-							<div id="zoom_mais"></div>
-						</div>
-						<div id="controleDirecionais">
-						</div> 
-					</div>	
+				<canvas id="canvasMiniTab"></canvas>
+				<span class="showGrid"><input type="checkbox" name="showGrid"  id="showGrid" class="showGrid" checked="checked" />show grid</span>
+				<div id="zoomControl">
+					<div id="zoom_menos"></div>
+					<span id="zoomVal" type="number">100%</span>
+					<input id="inputZoomVal" maxlength="3" min="1" max="200"/>
+					<div id="zoom_mais"></div>
+				</div>
+				<div id="controleDirecionais">
+				</div> 
 			</div>	
 		</div>
 		<div id="painelFinal">
+			<div id="logs">
+			</div>
+			<textarea id="sendChat" placeholder="send chat" ></textarea>
 		</div>
 	
 	<script type="text/javascript" src="prototipoJSTabSizes.js"></script>

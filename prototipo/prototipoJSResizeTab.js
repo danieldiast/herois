@@ -58,8 +58,6 @@
 		let sizeAntigoTabuleiro = sizeAtualTabuleiro;
 
 		newPercentual = percentualAtualTabSize + factor;
-		newPercentual = Math.max(newPercentual, 10);
-		newPercentual = Math.min(newPercentual, 200);
 
 		mudaPercentual(newPercentual);
 
@@ -78,6 +76,14 @@
 	};
 
 	function mudaPercentual(newPercentual){
+		
+		if(isNaN(parseInt(newPercentual))){
+			console.error("NaN", newPercentual);
+			return;
+		}
+
+		newPercentual = Math.max(newPercentual, 10);
+		newPercentual = Math.min(newPercentual, 200);
 
 		percentualAtualTabSize = newPercentual;
 
