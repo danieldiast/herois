@@ -6,8 +6,8 @@
   				color: rgb(47,79,79);
 
 				height: 100vh;
-				grid-template-columns: minmax(100px, 1fr) 600px minmax(350px, 1fr) minmax(100px, 1fr);
-				grid-template-rows: minmax(60px,1fr) 600px minmax(60px,1fr);
+				grid-template-columns: minmax(100px, 1fr) minmax(500px, max-content) minmax(350px, 1fr) minmax(100px, 1fr);
+				grid-template-rows: minmax(60px,1fr) minmax(500px, max-content) minmax(60px,1fr);
 				grid-column-gap: 0px;
 				grid-row-gap: 0px;
 	 			justify-items:  stretch; /*alinhamento horizontal dos items*/
@@ -65,12 +65,13 @@
 				margin-right: 0px;
 				width: 600px;
 				height: 600px;
-				border: 2px solid #a52929;
+				border: 4px solid #5a5656;
   				 box-sizing: border-box;
 				overflow: hidden;
 				background-color: dimgray;
 				float: left;
 			}
+
 
 			#avisos {
 				grid-area: avisos;
@@ -148,6 +149,7 @@
 			#logs{
 				border: 1px solid gray;
 				margin-bottom: 5px;
+				padding: 5px;
 
 			}
 

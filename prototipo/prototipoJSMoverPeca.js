@@ -82,14 +82,12 @@
 
 		function moverPecaAnimar(personSelecionada, pecaSelecionada, celulaAnterior, animTop, animLeft){
 			if(arrayCaminhosParciais.length > 0) {
-				console.log('moverPecaAnimar - arrayCaminhosParciais.length = '+arrayCaminhosParciais.length);
 				let caminhoParcial = arrayCaminhosParciais[0];
 				if(caminhoParcial.length == 0){
 					arrayCaminhosParciais.shift();
 					return moverPecaAnimar(personSelecionada, pecaSelecionada, celulaAnterior, animTop, animLeft);
 				}
 				if(caminhoParcial.length > 0) {
-					console.log('moverPecaAnimar - caminhoParcial.length = '+caminhoParcial.length);
 					let proxCelula = caminhoParcial.shift();
 					let animTopFinal = animTop;
 					let animLeftFinal = animLeft;
@@ -130,7 +128,16 @@
 			    	
 				}
 			}else{
-				console.log('ultimaCelula - '+celulaAnterior)
+				let logAcao = pecaSelecionada.dataset.char;
+				logAcao+=" moveu de ";
+				logAcao+="x"+pecaSelecionada.parentElement.dataset.coordX;
+				logAcao+="-";
+				logAcao+="y"+pecaSelecionada.parentElement.dataset.coordY;
+				logAcao+=" para ";
+				logAcao+="x"+celulaAnterior.dataset.coordX;
+				logAcao+="-";
+				logAcao+="y"+celulaAnterior.dataset.coordY;
+				loga(logAcao);
 				celulaAnterior.appendChild(pecaSelecionada);
 				desativaAndar();
 			}

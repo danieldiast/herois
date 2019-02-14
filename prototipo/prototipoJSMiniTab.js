@@ -339,17 +339,19 @@
 			moveTabuleiroLimitaRange();
 			let destinoLeft = e.offsetX;
 			let destinoTop = e.offsetY;
+
+			let razaoMoldeW_H = moldeWidth / moldeHeight;
+			let razaoMoldeH_W = moldeHeight / moldeWidth;
 		
 			sizeLateral = origemLeft - destinoLeft;
 			sizeVertical = origemTop - destinoTop;
 			if(Math.abs(sizeVertical)>Math.abs(sizeLateral)){
-				sizeLateral = -1*Math.abs(sizeVertical)*Math.sign(sizeLateral);
+				sizeLateral = -razaoMoldeW_H*Math.abs(sizeVertical)*Math.sign(sizeLateral);
 				sizeVertical = -sizeVertical;
 			}else{
-				sizeVertical = -1*Math.abs(sizeLateral)*Math.sign(sizeVertical);
+				sizeVertical = -razaoMoldeH_W*Math.abs(sizeLateral)*Math.sign(sizeVertical);
 				sizeLateral = -sizeLateral;
 			}
-
 
 			ctxMT.beginPath();
 			ctxMT.strokeStyle = 'yellow';
@@ -359,22 +361,6 @@
 							sizeLateral, 
 							sizeVertical);
 
-
-		    // ctxMT.moveTo(origemLeft,origemTop);
-		    // ctxMT.lineTo(origemLeft,destinoTop);
-		    // ctxMT.lineTo(destinoLeft,destinoTop);
-		    // ctxMT.lineTo(destinoLeft,origemTop);
-		    // ctxMT.lineTo(origemLeft,origemTop);
-		    // ctxMT.stroke();
-
-			// let mtMoldeHeight = Math.round(moldeHeight * SIZE_MT / sizeAtualTabuleiro);
-			// let mtMoldeWidth = Math.round(moldeWidth * SIZE_MT / sizeAtualTabuleiro);
-
-			// let centerLeft = e.offsetX - mtMoldeWidth/2;
-			// let centerTop = e.offsetY - mtMoldeHeight/2;
-
-			// posAtualTabTop = Math.round(centerTop * sizeAtualTabuleiro / SIZE_MT  *-1 )
-			// posAtualTabLeft = Math.round(centerLeft * sizeAtualTabuleiro / SIZE_MT  *-1 )
 		}
 
 

@@ -13,6 +13,7 @@
 		var sizeAtualTabuleiro = (tabSize[100]+OUTSIDE_BORDER_CELULA_ADD)*QUANT_CELULAS;
 		var moldeWidth = 600;
 		var moldeHeight = 600;
+		const BORDER_MOLDE = 4;
 
 		var selecionado;
 
@@ -99,6 +100,9 @@
 			tabuleiro.style.height = sizeAtualTabuleiro+"px";
 			canvasTabuleiro.style.width = sizeAtualTabuleiro+"px";
 			canvasTabuleiro.style.height = sizeAtualTabuleiro+"px";
+
+			molde.style.width = moldeWidth+"px";
+			molde.style.height = moldeWidth+"px";
 
 			canvasTabuleiro.height = sizeAtualTabuleiro;
 			canvasTabuleiro.width = sizeAtualTabuleiro;
@@ -193,9 +197,17 @@
 		function loga(txt){
 			let time = new Date();
 			let log = "";
-			log+=time.getHours();
+			let hour= time.getHours();
+			if(hour<10){
+				log+="0";
+			}
+			log+=hour;
 			log+=":";
-			log+=time.getMinutes();
+			let minutes=time.getMinutes();
+			if(minutes<10){
+				log+="0";
+			}
+			log+=minutes;
 			log+=" - ";
 			log+=txt;
 			logs.innerHTML+=log+"<br />";
