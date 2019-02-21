@@ -58,6 +58,7 @@
 
 			#menuEsquerdo #panelMouseOver{
   				color: slategrey;
+  				height: 20px;
 			}
 
 			#molde {

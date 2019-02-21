@@ -1,413 +1,51 @@
-			body { 
-				margin: 0px; 
-				display: grid;
-				user-select: none;
- 				font-family: monospace;
-  				color: rgb(47,79,79);
-
-
-				height: 100vh;
-
-			  grid-template-columns: minmax(60px,1fr) 600px 1fr 1fr;
-			  grid-template-rows: minmax(60px,1fr) 600px minmax(60px,1fr);
-			  grid-column-gap: 0px;
-			  grid-row-gap: 0px;
- 			  justify-items:  stretch; /*alinhamento horizontal dos items*/
- 			  align-items: stretch; /*alinhamento vertical*/
-  			  justify-content: stretch;	
- 			  align-content: stretch;	
-			  grid-template-areas: 
-			    "opponentPcs opponentPcs rightMenu logs"
-			    "leftmenu    tabArea     rightMenu logs"
-			    "playerPcs  playerPcs    rightMenu logs";
-
-  			}
-
 			
 
-			#pecasJogador, #pecasAdversario  {
-				/*width: 852px;
-				height: 66px;*/
-				border: 1px solid gray;
-				/*clear: left;*/
-				background-color: #aaa;
-  				justify-self: stretch;
-			}
-			#pecasAdversario  {
-				grid-area: opponentPcs;
-			}
-			#pecasJogador  {
-				/*width: 1284px;*/
-				grid-area: playerPcs;
-			}
-
-			#menuEsquerdo {
-				grid-area: leftmenu;
-				/*width: 230px;
-				height: 580px;
-				float: left; */
-				border: 1px solid gray;
-				background-color: #aaa;
-				padding: 10px;
-			}
-			
-			#paineisDireita {
-				grid-area: rightMenu;
-			}
-
-			#menuEsquerdo #panelMouseOver{
-  				color: slategrey;
-			}
-
-			#molde {
-				grid-area: tabArea;
-				margin-right: 0px;
-				width: 600px;
-				height: 600px;
-				border: 1px solid gray;
-				overflow: hidden;
-				background-color: dimgray;
-				float: left;
-			}
-
-			#avisos {
-				/*width: 430px;
-				min-height: 168px;*/
-				height: auto;
-				border: 1px solid gray;
-				overflow: hidden;
-				margin-bottom: 0px;
-				background-color: #aaa;
-			}
-
-			#acoes {
-				/*width: 400px;*/
-				min-height: 300px;
-				height: auto;
-				border: 1px solid gray;
-				padding: 15px;
-				overflow: hidden;
-				background-color: #aaa;
-				user-select: none;
-			}
-
-			#acoes img.portrait {
-				width: 100px;
-				height: auto;
-				border: 1px solid gray;
-				float: left;
-				margin-right: 10px;
-			}
-			#acoes button {
-				margin: 1px;
-
-			}
-
-			#controlTab {
-				/*width: 400px;*/
-				min-height: 204px;
-				height: auto;
-				border: 1px solid gray;
-				padding: 15px;
-				overflow: hidden;
-				background-color: #aaa;
-				display: inline-flex;
-			}
-
-
-			#painelFinal {
-				grid-area: logs;
-				/*min-width: 200px;*/
-				border: 1px solid gray;
-				padding: 15px;
-				overflow: hidden;
-				background-color: #aaa;
-			}
-
-
-
-			#tabuleiro {
-				/*margin: 15px;*/
-				top: -60px;
-				left: -16px;
-				position: relative;
-				background-color: yellow;
-				user-select: none;
-			}
-
-			#pad {
-  				width: 100%;
-  				height: 100%;
-  				border: 0;
-  				position: absolute;
-  				z-index: 30;
-			}
-			.noPointerEvents {
-  				pointer-events: none;
-			}
-
-			#canvasTabuleiro {
-  				width: 100%;
-  				height: 100%;
-  				z-index: 30;
-  				/*background: rgba(0,233,23,0.1); */
-  				position: absolute;
-  				pointer-events: none;
-  				border: 0;
-			}
-
-			#canvasMiniTab {
-  				width: 202px;
-  				height: 202px;
-				border: 1px solid gray;
-				background-color: white;
-				float: left;
-				margin-right: 10px;
-			}
-
-			.showGrid {
-
-			}
-
-			#zoomControl  {
-				display: inline-flex;
-				margin-top: 10px;
-				margin-bottom: 10px;
-			}
-
-			#zoom_menos, #zoom_mais  {
-				background-image: url('zoom_menos.png');
-  				background-size: cover;
-  				background-repeat: no-repeat;
-  				position: relative;
-				width: 50px;
-				height: 50px;
+			#zoom_menos {
+				background-image: url('../zoom_menos.png');
 			}
 			#zoom_mais {
-				background-image: url('zoom_mais.png');
-				left: -20px;
-			}
-			span#zoomVal {
-			    top: 35px;
-			    left: -10px;
-			    position: relative;
-			    width: 28px;
-  				font-weight: bold; 
+				background-image: url('../zoom_mais.png');
 			}
 
 			#controleDirecionais {
-				background-image: url('setas.png');
-  				background-size: cover;
-  				background-repeat: no-repeat;
-  				position: relative;
-				width: 100px;
-				height: 100px;
-				margin-left: 5px;
+				background-image: url('../setas.png');
 			}
-		
-			#controleDirecionais:hover {
-    			--bs-direc-color: white;
-				filter: drop-shadow(1px 0px 0 var(--bs-direc-color)) 
-						drop-shadow(-1px 0px 0 var(--bs-direc-color))
-						drop-shadow(0px 1px 0 var(--bs-direc-color)) 
-						drop-shadow(0px -1px 0 var(--bs-direc-color));
+			.celula[data-type='grass'] {
+				background-image:  url('../tileset/grass.jpg');
 			}
-			#controleDirecionais:active {
-    			--bs-direc-color: orange;
+			.celula[data-type='floor'] {
+				background-image:  url('../tileset/floor1.png');
 			}
-			#controleDirecionais.intense:active {
-    			--bs-direc-color: red;
+			.celula[data-type='ground'] {
+				background-image:  url('../tileset/ground.png');
+			}
+			.celula[data-type='street'] {
+				background-image:  url('../tileset/street3.png');
 			}
 
-			#tabuleiro .linha {
-				/*width: 6600px;
-				height: 66px;*/
-				background-color: white;
+			div.pisos{
+				display: flex;
 			}
 
-			#tabuleiro .celula {
-				width: 64px;
-				height: 64px;
-				box-sizing: border-box;
-				float: left;
-				background-color: white;
-				text-align: center; 
-				position: relative;
-				background-size: cover;
-			}
-			#tabuleiro .celula[data-type='grass'] {
-				background-image:  url('tileset/grass.jpg');
-			}
-			#tabuleiro .celula[data-type='floor'] {
-				background-image:  url('tileset/floor1.png');
-			}
-			#tabuleiro .celula[data-type='ground'] {
-				background-image:  url('tileset/ground.png');
-			}
-			#tabuleiro .celula[data-type='street'] {
-				background-image:  url('tileset/street3.png');
-			}
-
-			#tabuleiro.grid .celula {
-				border-right: 1px solid rgba(0,0,0,1);
-				border-bottom: 1px solid rgba(0,0,0,1);
-			}
-
-			#tabuleiro .celula .parede{
-				width: 100%;
-				height: 100%;
-				position: absolute;
-				background-color: brown;
-				z-index: 10;
-				box-sizing: border-box;
-			}
-			#tabuleiro .celula .parede.west{
-				width: 16%;
-				left: 0px;
-			}
-			#tabuleiro .celula .parede.east{
-				width: 16%;
-				right: 0px;
-			}
-			#tabuleiro .celula .parede.north{
-				height: 16%;
-				top: 0px;
-			}
-			#tabuleiro .celula .parede.south{
-				height: 16%;
-				bottom: 0px;
-			}
-
-			#tabuleiro .celula .parede.naMira{
-				background-color: rgba(255,0,0,0.5);
-			}
-
-
-			#tabuleiro .celula.caminhoSimulado:after,
-			#tabuleiro .celula.caminhoParcial:after, 
-			#tabuleiro .celula.caminhoMira:after {
-			  position: absolute;
-			  content:"";
-			  top:0;
-			  left:0;
-			  width:100%;
-			  height:100%;
-			}
-
-			#tabuleiro .celula.caminhoSimulado:after {
-			 	background-color: rgba(115, 115, 115,0.5);
-			}
-
-			#tabuleiro .celula.caminhoParcial:after {
-				background-color: rgba(195, 195, 195,0.6);
-			}
-
-			#tabuleiro .celula.caminhoMira:after {
-				background-color: rgba(255, 100, 100,0.6);
-			}
-
-			#tabuleiro .celula span.passo {
- 				vertical-align: middle;
-  				display: inline-flex;
-  				pointer-events: none;
-  				position: absolute;
-  				top: 35%;
-				color: grey;
-				filter: drop-shadow(1px 0px 0 white) 
-						drop-shadow(-1px 0px 0 white)
-						drop-shadow(0px 1px 0 white) 
-						drop-shadow(0px -1px 0 white);
-			}
-			#tabuleiro .celula span.percentPassagem {
- 				vertical-align: middle;
-  				pointer-events: none;
-  				position: relative;
-  				top: 16%;
-  				color: white;
-  				font-size: 100%;
-				filter: drop-shadow(1px 0px 0 grey) 
-						drop-shadow(-1px 0px 0 grey)
-						drop-shadow(0px 1px 0 grey) 
-						drop-shadow(0px -1px 0 grey);
-			}
+			div.pisos .celula {
+				margin: 5px;
+				border: 2px solid black;
+			} 
+			div.pisos .celula.selected {
+				border-color: yellow;
+			} 
 			
-			#tabuleiro .celula span.passo[data-parcial=true] {
-				color: white;
-				filter: drop-shadow(1px 0px 0 grey) 
-						drop-shadow(-1px 0px 0 grey)
-						drop-shadow(0px 1px 0 grey) 
-						drop-shadow(0px -1px 0 grey);
+			div.pisos span{
+				float: left;
 			}
 
-
-			#tabuleiro .celula .vehi,
-			#tabuleiro .celula .scenario {
-  				position: absolute;
-				background-size: cover;
-  				width: 100%;
-  				height: 100%;
-  				z-index: 5;
-    			--vehiColor: white;
-				filter: drop-shadow(2px 0px 0 var(--vehiColor)) 
-						drop-shadow(-1px 0px 0 var(--vehiColor))
-						drop-shadow(0px 2px 0 var(--vehiColor)) 
-						drop-shadow(0px -1px 0 var(--vehiColor));
-			}
-			#tabuleiro .celula .scenario:not(:hover) {
-				filter: none;
-			}
-			#tabuleiro .celula .vehi:hover,
-			#tabuleiro .celula .scenario:hover {
-    			--vehiColor: yellow;
+			div.pisos span::after {
+				content: "\A";
+				white-space: pre;
+    			display: block;
 			}
 
-			#tabuleiro .celula .vehi[data-cells-w='2'], 
-			#tabuleiro .celula .scenario[data-cells-w='2']{ 
-  				width: 200%;
-			}
-			#tabuleiro .celula .vehi[data-cells-w='3'] { 
-  				width: 300%;
-			}
-			#tabuleiro .celula .vehi[data-cells-h='2'], 
-			#tabuleiro .celula .scenario[data-cells-w='2']{ 
-  				height: 200%;
-			}
-			#tabuleiro .celula .vehi[data-cells-h='3'] { 
-  				height: 300%;
-			}
-			.vehi.rolls {
-				background-image: url('vehi/rolls.png'); 
-			}
-			.scenario.tree1 {
-				background-image: url('scenario/tree1.png'); 
-			}
-			.scenario.tree2 {
-				background-image: url('scenario/tree2.png'); 
-			}
-			.scenario.tree3 {
-				background-image: url('scenario/tree3.png'); 
-			}
-
-
-			#tabuleiro .celula .item {
-  				position: absolute;
-				background-size: cover;
-  				width: 100%;
-  				height: 100%;
-  				z-index: 2;
-    			--item-color: white;
-				filter: drop-shadow(2px 0px 0 var(--item-color)) 
-						drop-shadow(-1px 0px 0 var(--item-color))
-						drop-shadow(0px 2px 0 var(--item-color)) 
-						drop-shadow(0px -1px 0 var(--item-color));
-			}
-
-			#tabuleiro .celula .item:hover {
-    			--item-color: yellow;
-			}
-
-
-			.item.ak47 {
+			/*.item.ak47 {
 				background-image: url('items/ak47.png'); 
 			}
 			.item.colt {
@@ -447,62 +85,8 @@
 				background-image: url('items/sword2.png');
 			}
 
-
-			.celula .peca, .person{
-				background-size: cover;
-  				width: 100%;
-  				height: 100%;
-  				position: relative;
-  				z-index: 4;
-			}
-			.person{
-  				z-index: 5;
-  				transition: all 1s;
-  				pointer-events: none;
-			}
-			.duasCelulas .person{
-  				height: 200%;
-  				position: relative;
-  				z-index: 6;
-  				transition: all 0s;
-			}
-
-			.peca[data-looking='up'] .person, .item[data-looking='up'] { 
-			  	transform: rotate(0deg);
-			}
-			.peca[data-looking='down'] .person, .item[data-looking='down']{
-			  	transform: rotate(180deg);
-			}
-			.peca[data-looking='left'] .person, .item[data-looking='left']{
-			  	transform: rotate(270deg);
-			}
-			.peca[data-looking='right'] .person, .item[data-looking='right']{
-			  	transform: rotate(90deg);
-			}
-
-
-			.peca[data-looking='up'].duasCelulas .person{ 
-			  	/*transform-origin: top center;*/
-			  	top: -100%;
-			}
-			.peca[data-looking='down'].duasCelulas .person{
-			  	/*transform-origin: top center;*/
-
-			}
-			.peca[data-looking='left'].duasCelulas .person{
-			  	/*transform-origin: right center;*/
-				right: 50%;
-			  	top: -50%;
-			}
-			.peca[data-looking='right'].duasCelulas .person{
-			  	/*transform-origin: left center;*/
-				left: 50%;
-			  	top: -50%;
-			}
-
 			.person.spiderman{
 				background-image:  url('chars/spiderman_GIF.gif');
-				/*filter:  grayscale(100%);*/
 			}
 
 			.person.wolverine{
@@ -523,25 +107,5 @@
 
 			.garra .person.wolverine{
 				background-image:  url('chars/wolverine-garra_128.gif');
-				/*filter:  grayscale(100%);*/
 			}
-
-			.celula .peca.selected{
-				background-color: rgba(255,255,0,0.5);
-			}
-
-			.spanCelula{
-				display: none;
-			}
-
-			#tabuleiro .celula.naMira{
-				background-color: rgba(255,0,0,0.5);
-			}
-
-			.peca.naMira .person{
-  				transition: all 0s;
-				filter: drop-shadow(2px 0px 0 red) 
-						drop-shadow(-1px 0px 0 red)
-						drop-shadow(0px 2px 0 red) 
-						drop-shadow(0px -1px 0 red);
-			}
+*/

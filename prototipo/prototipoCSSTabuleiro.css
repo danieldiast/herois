@@ -31,7 +31,7 @@
 				background-color: white;
 			}
 
-			#tabuleiro .celula {
+			 .celula {
 				width: 64px;
 				height: 64px;
 				box-sizing: border-box;
@@ -41,16 +41,16 @@
 				position: relative;
 				background-size: cover;
 			}
-			#tabuleiro .celula[data-type='grass'] {
+			 .celula[data-type='grass'] {
 				background-image:  url('tileset/grass.jpg');
 			}
-			#tabuleiro .celula[data-type='floor'] {
+			 .celula[data-type='floor'] {
 				background-image:  url('tileset/floor1.png');
 			}
-			#tabuleiro .celula[data-type='ground'] {
+			 .celula[data-type='ground'] {
 				background-image:  url('tileset/ground.png');
 			}
-			#tabuleiro .celula[data-type='street'] {
+			 .celula[data-type='street'] {
 				background-image:  url('tileset/street3.png');
 			}
 

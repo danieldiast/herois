@@ -91,17 +91,17 @@
 		sizeAtualTabuleiro = ((sizeAtualCelula+OUTSIDE_BORDER_CELULA_ADD)*QUANT_CELULAS)
 		zoomVal.innerHTML = percentualAtualTabSize+"%";
 		
-		var celulas = document.getElementsByClassName("celula");
+		var celulas = tabuleiro.getElementsByClassName("celula");
 		for(var i=0;i<celulas.length;i++){
 			celulas[i].style.width = sizeAtualCelula + "px";
 			celulas[i].style.height = sizeAtualCelula + "px";
 		}
-		var pecas = document.getElementsByClassName("peca");
+		var pecas = tabuleiro.getElementsByClassName("peca");
 		for(var i=0;i<pecas.length;i++){
 			pecas[i].style.width = sizeAtualCelula + "px";
 			pecas[i].style.height = sizeAtualCelula + "px";
 		}
-		var linhas = document.getElementsByClassName("linha")
+		var linhas = tabuleiro.getElementsByClassName("linha")
 		for(var i=0;i<linhas.length;i++){
 			linhas[i].style.width = sizeAtualTabuleiro + "px";
 			linhas[i].style.height = sizeAtualCelula + "px";

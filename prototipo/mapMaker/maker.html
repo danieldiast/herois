@@ -5,6 +5,8 @@
 		<title>Prototipo Tabuleiro</title>
 
  		<!-- <link rel="stylesheet" type="text/css" href="../prototipoCSS.css"> -->
+ 		<link rel="stylesheet" type="text/css" href="../prototipoCSSEstrutura.css">
+ 		<link rel="stylesheet" type="text/css" href="../prototipoCSSTabuleiro.css">
  		<link rel="stylesheet" type="text/css" href="prototipoMakerCSS.css">
 	</head>
 	<body>
@@ -12,6 +14,14 @@
 		</div>	
 		<div id="menuEsquerdo">
 			<span id="panelMouseOver" ></span>
+			<div class="pisos">
+				<span>Pisos:</span>
+				<div class="celula selected" data-type="floor" style="width: 64px; height: 64px;"></div>
+				<div class="celula" data-type="ground" style="width: 64px; height: 64px;"></div>
+				<div class="celula" data-type="grass" style="width: 64px; height: 64px;"></div>
+				<div class="celula" data-type="street" style="width: 64px; height: 64px;"></div>
+
+			</div>
 		</div>	
 		<div id="molde">
 			<div id="tabuleiro" class="grid">
@@ -22,38 +32,43 @@
 
 		<div id="pecasJogador">
 		</div>	
-
 		<div id="paineisDireita">
+
 			<div id="avisos">
 			</div>	
 			<div id="acoes">
 				<!-- <button value="t1" title="t2">t3</button> -->
 			</div>	
 			<div id="controlTab">
-					<canvas id="canvasMiniTab"></canvas>
-					<div class="controlTabDivDireita">
-						<span class="showGrid"><input type="checkbox" name="showGrid" class="showGrid" checked="checked" />show grid</span>
-						<div id="zoomControl">
-							<div id="zoom_menos"></div>
-							<span id="zoomVal">100%</span>
-							<div id="zoom_mais"></div>
-						</div>
-						<div id="controleDirecionais">
-						</div> 
-					</div>	
+				<canvas id="canvasMiniTab"></canvas>
+				<span class="showGrid"><input type="checkbox" name="showGrid"  id="showGrid" class="showGrid" checked="checked"/>show grid</span>
+				<div id="zoomControl">
+					<div id="zoom_menos"></div>
+					<span id="zoomVal" type="number">100%</span>
+					<input id="inputZoomVal" maxlength="3" min="1" max="200"/>
+					<div id="zoom_mais"></div>
+				</div>
+				<div id="controleDirecionais">
+				</div> 
 			</div>	
 		</div>
 		<div id="painelFinal">
+			<div id="logs">
+			</div>
+			<textarea id="sendChat" placeholder="send chat" ></textarea>
 		</div>
 	
-	<script type="text/javascript" src="../prototipoJSTabSizes.js"></script>
-	<script type="text/javascript" src="mapMakerJS.js"></script>
-	<script type="text/javascript" src="../prototipoJSResizeTab.js"></script>
-	<script type="text/javascript" src="../prototipoJSMoveTab.js"></script>
-	<script type="text/javascript" src="../prototipoJSMoverPeca.js"></script>
-	<script type="text/javascript" src="../prototipoJSPecasTeste.js"></script>
-	<script type="text/javascript" src="../prototipoJSMiniTab.js"></script>
-	<script type="text/javascript" src="../prototipoJSCanvas.js"></script>
+		<script type="text/javascript" src="../prototipoJSTabSizes.js"></script>
+		<script type="text/javascript" src="../prototipoJS.js"></script>
+		<!-- <script type="text/javascript" src="prototipoJSTeste.js"></script> -->
+			<script type="text/javascript" src="mapMakerJS.js"></script>
+		<script type="text/javascript" src="../prototipoJSResizeTab.js"></script>
+		<script type="text/javascript" src="../prototipoJSResizeMolde.js"></script>
+		<script type="text/javascript" src="../prototipoJSMoveTab.js"></script>
+		<script type="text/javascript" src="../prototipoJSMoverPeca.js"></script>
+		<!-- <script type="text/javascript" src="../prototipoJSPecasTeste.js"></script> -->
+		<script type="text/javascript" src="../prototipoJSMiniTab.js"></script>
+		<script type="text/javascript" src="../prototipoJSCanvas.js"></script>
 	</body>
 	
 </html>
