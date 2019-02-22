@@ -1,5 +1,18 @@
 var tabSize = [];
 
+
+tabSize[0]=0
+tabSize[1]=1
+tabSize[2]=1
+tabSize[3]=2
+tabSize[4]=3
+tabSize[5]=3
+tabSize[6]=4
+tabSize[7]=4
+tabSize[8]=5
+tabSize[9]=5
+
+
 tabSize[10]=6
 tabSize[11]=7
 tabSize[12]=8

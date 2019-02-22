@@ -1,4 +1,6 @@
 	
+	var MIN_PERCENTUAL_TAB = 10;
+	var MAX_PERCENTUAL_TAB = 200;
 
 	tabuleiro.addEventListener('mousewheel', resizeTabuleiro, false);
 
@@ -80,8 +82,8 @@
 			return;
 		}
 
-		newPercentual = Math.max(newPercentual, 10);
-		newPercentual = Math.min(newPercentual, 200);
+		newPercentual = Math.max(newPercentual, MIN_PERCENTUAL_TAB);
+		newPercentual = Math.min(newPercentual, MAX_PERCENTUAL_TAB);
 
 		tabuleiroObj.percentualAtualTabSize = newPercentual;
 
@@ -121,8 +123,8 @@
 	}
 
 	function changeTabuleiroTamanhoTotalIdeal(tamanhoIdeal){
-		for(let i=10;i<=200;i++){
-			if(tamanhoIdeal<=tabSize[i]*QUANT_CELULAS || i==200){
+		for(let i=MIN_PERCENTUAL_TAB;i<=MAX_PERCENTUAL_TAB;i++){
+			if(tamanhoIdeal<=tabSize[i]*QUANT_CELULAS || i==MAX_PERCENTUAL_TAB){
 				mudaPercentual(i);
 				return;
 			}
