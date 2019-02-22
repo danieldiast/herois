@@ -1,4 +1,4 @@
-
+ 
 		
 	const MOLDE_MAX_WIDTH_POSSIBLE = 800;
 	const MOLDE_MAX_HEIGHT_POSSIBLE = 800;
@@ -10,10 +10,10 @@
 		molde.style.cursor = "default";
 		let lateral = false;
 		let vertical = false;
-		if(e.offsetX >= moldeWidth - BORDER_MOLDE*2){
+		if(e.offsetX >= tabuleiroObj.moldeWidth - BORDER_MOLDE*2){
 			lateral = true;
 		}
-		if(e.offsetY >= moldeHeight - BORDER_MOLDE*2){
+		if(e.offsetY >= tabuleiroObj.moldeHeight - BORDER_MOLDE*2){
 			vertical = true;
 		}	
 		if(lateral){
@@ -38,14 +38,14 @@
 			return;
 		}
 
-		if(e.offsetX >= moldeWidth - BORDER_MOLDE*2){
+		if(e.offsetX >= tabuleiroObj.moldeWidth - BORDER_MOLDE*2){
 			console.log('resize molde lateral');
 			resizeMoldeWidth = true;
 			document.body.style.cursor = "w-resize";
 		}else{
 			resizeMoldeWidth = false;
 		}
-		if(e.offsetY >= moldeHeight - BORDER_MOLDE*2){
+		if(e.offsetY >= tabuleiroObj.moldeHeight - BORDER_MOLDE*2){
 			console.log('resize molde bottom');
 			resizeMoldeHeight = true;
 			if(resizeMoldeWidth){
@@ -75,17 +75,17 @@
 	var resizeMoldeHeight = false;
 	function resizeMolde(e) {
 		if(resizeMoldeWidth){
-			moldeWidth += e.movementX;
-			moldeWidth = Math.max(moldeWidth, MOLDE_MIN_WIDTH_POSSIBLE);
-			moldeWidth = Math.min(moldeWidth, MOLDE_MAX_WIDTH_POSSIBLE);
-			molde.style.width = moldeWidth;
+			tabuleiroObj.moldeWidth += e.movementX;
+			tabuleiroObj.moldeWidth = Math.max(tabuleiroObj.moldeWidth, MOLDE_MIN_WIDTH_POSSIBLE);
+			tabuleiroObj.moldeWidth = Math.min(tabuleiroObj.moldeWidth, MOLDE_MAX_WIDTH_POSSIBLE);
+			molde.style.width = tabuleiroObj.moldeWidth;
 		}
 
 		if(resizeMoldeHeight){
-			moldeHeight += e.movementY;
-			moldeHeight = Math.max(moldeHeight, MOLDE_MIN_HEIGHT_POSSIBLE);
-			moldeHeight = Math.min(moldeHeight, MOLDE_MAX_HEIGHT_POSSIBLE);
-			molde.style.height = moldeHeight;
+			tabuleiroObj.moldeHeight += e.movementY;
+			tabuleiroObj.moldeHeight = Math.max(tabuleiroObj.moldeHeight, MOLDE_MIN_HEIGHT_POSSIBLE);
+			tabuleiroObj.moldeHeight = Math.min(tabuleiroObj.moldeHeight, MOLDE_MAX_HEIGHT_POSSIBLE);
+			molde.style.height = tabuleiroObj.moldeHeight;
 		}
 		atualizaMiniTab();
 	};

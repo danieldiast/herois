@@ -1,4 +1,4 @@
-// peca teste
+// peca teste 
 		console.log('pecas teste');
 		{
 			let pecaSpider = document.createElement("div");	
@@ -44,57 +44,57 @@
 
 			// let celulas = document.getElementsByClassName("celula");
 			// celulas[4].appendChild(peca);	
-			arrayCelulas[4][4].appendChild(pecaSpider);
-			arrayCelulas[2][2].appendChild(pecaWolv);
-			arrayCelulas[5][2].appendChild(pecaSubz);
-			arrayCelulas[6][6].appendChild(pecaCyclops);
-			arrayCelulas[0][1].appendChild(createSoldier());
-			arrayCelulas[1][2].appendChild(createSoldier());
-			arrayCelulas[6][3].appendChild(createSoldier());
-			arrayCelulas[7][7].appendChild(createSoldier());
-			arrayCelulas[7][8].appendChild(createSoldier());
-			arrayCelulas[8][8].appendChild(createSoldier());
-			arrayCelulas[18][9].appendChild(createSoldier());
-			arrayCelulas[23][18].appendChild(createSoldier());
-			arrayCelulas[18][28].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[4][4].appendChild(pecaSpider);
+			tabuleiroObj.arrayCelulas[2][2].appendChild(pecaWolv);
+			tabuleiroObj.arrayCelulas[5][2].appendChild(pecaSubz);
+			tabuleiroObj.arrayCelulas[6][6].appendChild(pecaCyclops);
+			tabuleiroObj.arrayCelulas[0][1].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[1][2].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[6][3].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[7][7].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[7][8].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[8][8].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[18][9].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[23][18].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[18][28].appendChild(createSoldier());
 
 
-			arrayCelulas[10][10].appendChild(createSoldier());
-			arrayCelulas[10][12].appendChild(createSoldier());
-			arrayCelulas[11][11].appendChild(createSoldier());
-			arrayCelulas[11][9].appendChild(createSoldier());
-			arrayCelulas[2][13].appendChild(createSoldier());
-			arrayCelulas[5][15].appendChild(createSoldier());
-			arrayCelulas[5][18].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[10][10].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[10][12].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[11][11].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[11][9].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[2][13].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[5][15].appendChild(createSoldier());
+			tabuleiroObj.arrayCelulas[5][18].appendChild(createSoldier());
 
 			pecaSpider.addEventListener('mousedown', mouseDownPeca, false);
 			pecaWolv.addEventListener('mousedown', mouseDownPeca, false);
 			pecaSubz.addEventListener('mousedown', mouseDownPeca, false);
 			pecaCyclops.addEventListener('mousedown', mouseDownPeca, false);
 
-			arrayCelulas[6][1].appendChild(createItem('awp'));
-			arrayCelulas[6][11].appendChild(createItem('ak47'));
-			arrayCelulas[6][21].appendChild(createItem('colt'));
-			arrayCelulas[16][13].appendChild(createItem('granade'));
-			arrayCelulas[16][14].appendChild(createItem('sword_case'));
-			arrayCelulas[2][19].appendChild(createItem('deagle'));
-			arrayCelulas[26][21].appendChild(createItem('machine'));
-			arrayCelulas[26][22].appendChild(createItem('sword1'));
-			arrayCelulas[26][23].appendChild(createItem('bazooka'));
-			arrayCelulas[24][24].appendChild(createItem('glock'));
-			arrayCelulas[25][18].appendChild(createItem('molotov'));
-			arrayCelulas[27][17].appendChild(createItem('sword2'));
+			tabuleiroObj.arrayCelulas[6][1].appendChild(createItem('awp'));
+			tabuleiroObj.arrayCelulas[6][11].appendChild(createItem('ak47'));
+			tabuleiroObj.arrayCelulas[6][21].appendChild(createItem('colt'));
+			tabuleiroObj.arrayCelulas[16][13].appendChild(createItem('granade'));
+			tabuleiroObj.arrayCelulas[16][14].appendChild(createItem('sword_case'));
+			tabuleiroObj.arrayCelulas[2][19].appendChild(createItem('deagle'));
+			tabuleiroObj.arrayCelulas[26][21].appendChild(createItem('machine'));
+			tabuleiroObj.arrayCelulas[26][22].appendChild(createItem('sword1'));
+			tabuleiroObj.arrayCelulas[26][23].appendChild(createItem('bazooka'));
+			tabuleiroObj.arrayCelulas[24][24].appendChild(createItem('glock'));
+			tabuleiroObj.arrayCelulas[25][18].appendChild(createItem('molotov'));
+			tabuleiroObj.arrayCelulas[27][17].appendChild(createItem('sword2'));
 
-			arrayCelulas[2][15].appendChild(createRolls('rolls'));
+			tabuleiroObj.arrayCelulas[2][15].appendChild(createRolls('rolls'));
 
 
-			arrayCelulas[0][0].appendChild(createTree());
-			arrayCelulas[0][5].appendChild(createTree());
-			arrayCelulas[15][1].appendChild(createTree());
-			arrayCelulas[7][1].appendChild(createTree());
-			arrayCelulas[9][0].appendChild(createTree());
-			arrayCelulas[0][18].appendChild(createTree());
-			arrayCelulas[0][22].appendChild(createTree());
+			tabuleiroObj.arrayCelulas[0][0].appendChild(createTree());
+			tabuleiroObj.arrayCelulas[0][5].appendChild(createTree());
+			tabuleiroObj.arrayCelulas[15][1].appendChild(createTree());
+			tabuleiroObj.arrayCelulas[7][1].appendChild(createTree());
+			tabuleiroObj.arrayCelulas[9][0].appendChild(createTree());
+			tabuleiroObj.arrayCelulas[0][18].appendChild(createTree());
+			tabuleiroObj.arrayCelulas[0][22].appendChild(createTree());
 
 
 		}

@@ -27,7 +27,7 @@
 
 			for(let i= 0; i<(QUANT_CELULAS); i++){
 				for(let j=0;j<(QUANT_CELULAS);j++){
-					let celula = arrayCelulas[j][i];
+					let celula = tabuleiroObj.arrayCelulas[j][i];
 
 					switch(celula.dataset.type){
 						case 'grass':
@@ -95,11 +95,11 @@
 				}
 			}
 
-			let mtMoldeHeight = Math.round(moldeHeight * SIZE_MT / sizeAtualTabuleiro);
-			let mtMoldeWidth = Math.round(moldeWidth * SIZE_MT / sizeAtualTabuleiro);
+			let mtMoldeHeight = Math.round(tabuleiroObj.moldeHeight * SIZE_MT / tabuleiroObj.sizeAtualTabuleiro);
+			let mtMoldeWidth = Math.round(tabuleiroObj.moldeWidth * SIZE_MT / tabuleiroObj.sizeAtualTabuleiro);
 
-			let mtTop = Math.round(posAtualTabTop / sizeAtualTabuleiro * SIZE_MT *-1 );
-			let mtLeft = Math.round(posAtualTabLeft / sizeAtualTabuleiro  * SIZE_MT *-1);
+			let mtTop = Math.round(posAtualTabTop / tabuleiroObj.sizeAtualTabuleiro * SIZE_MT *-1 );
+			let mtLeft = Math.round(posAtualTabLeft / tabuleiroObj.sizeAtualTabuleiro  * SIZE_MT *-1);
 			
 		    ctxMT.strokeStyle = 'red';
 		    ctxMT.lineWidth = 1;
@@ -196,8 +196,8 @@
 
 		function resizeMiniTab(e){
 			e.preventDefault();
-			let offsetXCelula = tabSize[percentualAtualTabSize]/2;
-			let offsetYCelula = tabSize[percentualAtualTabSize]/2;
+			let offsetXCelula = tabSize[tabuleiroObj.percentualAtualTabSize]/2;
+			let offsetYCelula = tabSize[tabuleiroObj.percentualAtualTabSize]/2;
 			var factor = getFactorResize(e);
 			if(e.target == zoom_menos){
 				factor = -factor;
@@ -225,7 +225,7 @@
 			const CENTRO_DIREC = SIZE_DIREC/2;
 			let moveDireita = 0;
 			let moveBaixo = 0;
-			let moveFactor = tabSize[percentualAtualTabSize]/4;
+			let moveFactor = tabSize[tabuleiroObj.percentualAtualTabSize]/4;
 
 			if(e.offsetX > PERCENT_DIREC*60){
 				moveDireita = -moveFactor;
@@ -286,14 +286,14 @@
 				avisos.innerHTML += "<br/>Minimap Y: "+clickTop;
 
 
-				let mtMoldeHeight = Math.round(moldeHeight * SIZE_MT / sizeAtualTabuleiro);
-				let mtMoldeWidth = Math.round(moldeWidth * SIZE_MT / sizeAtualTabuleiro);
+				let mtMoldeHeight = Math.round(tabuleiroObj.moldeHeight * SIZE_MT / tabuleiroObj.sizeAtualTabuleiro);
+				let mtMoldeWidth = Math.round(tabuleiroObj.moldeWidth * SIZE_MT / tabuleiroObj.sizeAtualTabuleiro);
 
 				let disvioLeft = e.offsetX - mtMoldeWidth/2;
 				let desvioTop = e.offsetY - mtMoldeHeight/2;
 
-				posAtualTabTop = Math.round(desvioTop * sizeAtualTabuleiro / SIZE_MT  *-1 )
-				posAtualTabLeft = Math.round(disvioLeft * sizeAtualTabuleiro / SIZE_MT  *-1 )
+				posAtualTabTop = Math.round(desvioTop * tabuleiroObj.sizeAtualTabuleiro / SIZE_MT  *-1 )
+				posAtualTabLeft = Math.round(disvioLeft * tabuleiroObj.sizeAtualTabuleiro / SIZE_MT  *-1 )
 
 
 				moveTabuleiroLimitaRange();
@@ -316,13 +316,13 @@
 			}
 
 
-			let  idealSizeAtualTabuleiro = Math.round(moldeWidth * SIZE_MT / sizeLateral);
-			idealSizeAtualTabuleiro = Math.round(moldeHeight * SIZE_MT / sizeVertical);// por enquanto está redundante, pois tabuleiro é sempre quadrado
+			let  idealSizeAtualTabuleiro = Math.round(tabuleiroObj.moldeWidth * SIZE_MT / sizeLateral);
+			idealSizeAtualTabuleiro = Math.round(tabuleiroObj.moldeHeight * SIZE_MT / sizeVertical);// por enquanto está redundante, pois tabuleiro é sempre quadrado
 
 			changeTabuleiroTamanhoTotalIdeal(idealSizeAtualTabuleiro);
 
-			posAtualTabTop = Math.round(origemTop * sizeAtualTabuleiro / SIZE_MT  *-1 )
-			posAtualTabLeft = Math.round(origemLeft * sizeAtualTabuleiro / SIZE_MT  *-1 )
+			posAtualTabTop = Math.round(origemTop * tabuleiroObj.sizeAtualTabuleiro / SIZE_MT  *-1 )
+			posAtualTabLeft = Math.round(origemLeft * tabuleiroObj.sizeAtualTabuleiro / SIZE_MT  *-1 )
 
 			moveTabuleiroLimitaRange();
 
@@ -340,8 +340,8 @@
 			let destinoLeft = e.offsetX;
 			let destinoTop = e.offsetY;
 
-			let razaoMoldeW_H = moldeWidth / moldeHeight;
-			let razaoMoldeH_W = moldeHeight / moldeWidth;
+			let razaoMoldeW_H = tabuleiroObj.moldeWidth / tabuleiroObj.moldeHeight;
+			let razaoMoldeH_W = tabuleiroObj.moldeHeight / tabuleiroObj.moldeWidth;
 		
 			sizeLateral = origemLeft - destinoLeft;
 			sizeVertical = origemTop - destinoTop;

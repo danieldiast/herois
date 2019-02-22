@@ -1,7 +1,5 @@
 	
 
-
-
 	tabuleiro.addEventListener('mousewheel', resizeTabuleiro, false);
 
 	function resizeTabuleiro(e) {
@@ -46,7 +44,7 @@
 		let distanceLeftMolde;
 		let distanceTopMolde;
 		
-		let sizeAtualCelula = tabSize[percentualAtualTabSize];
+		let sizeAtualCelula = tabSize[tabuleiroObj.percentualAtualTabSize];
 		if(celulaCentroResize!=null){
 			distanceLeftMolde = (sizeAtualCelula * celulaCentroResize.dataset.coordX + posAtualTabLeft);
 			distanceTopMolde = (sizeAtualCelula * celulaCentroResize.dataset.coordY + posAtualTabTop);
@@ -55,20 +53,20 @@
 			distanceTopMolde = offsetYCelula + posAtualTabTop;
 		}
 
-		let sizeAntigoTabuleiro = sizeAtualTabuleiro;
+		let sizeAntigoTabuleiro = tabuleiroObj.sizeAtualTabuleiro;
 
-		newPercentual = percentualAtualTabSize + factor;
+		newPercentual = tabuleiroObj.percentualAtualTabSize + factor;
 
 		mudaPercentual(newPercentual);
 
-		sizeAtualCelula = tabSize[percentualAtualTabSize];
+		sizeAtualCelula = tabSize[tabuleiroObj.percentualAtualTabSize];
 		if(celulaCentroResize!=null){
 			posAtualTabTop =  (-1 * sizeAtualCelula * celulaCentroResize.dataset.coordY + distanceTopMolde);
 			posAtualTabLeft = (-1 * sizeAtualCelula * celulaCentroResize.dataset.coordX + distanceLeftMolde);
 		}else{ //se não é celula, é o Pad (tamanho do Tabuleiro)
 
-			posAtualTabTop =  (-1 * (offsetYCelula * sizeAtualTabuleiro / sizeAntigoTabuleiro) + distanceTopMolde);
-			posAtualTabLeft = (-1 * (offsetXCelula * sizeAtualTabuleiro / sizeAntigoTabuleiro) + distanceLeftMolde);
+			posAtualTabTop =  (-1 * (offsetYCelula * tabuleiroObj.sizeAtualTabuleiro / sizeAntigoTabuleiro) + distanceTopMolde);
+			posAtualTabLeft = (-1 * (offsetXCelula * tabuleiroObj.sizeAtualTabuleiro / sizeAntigoTabuleiro) + distanceLeftMolde);
 		}
 
 		moveTabuleiroLimitaRange();
@@ -85,11 +83,11 @@
 		newPercentual = Math.max(newPercentual, 10);
 		newPercentual = Math.min(newPercentual, 200);
 
-		percentualAtualTabSize = newPercentual;
+		tabuleiroObj.percentualAtualTabSize = newPercentual;
 
-		let sizeAtualCelula = tabSize[percentualAtualTabSize];
-		sizeAtualTabuleiro = ((sizeAtualCelula+OUTSIDE_BORDER_CELULA_ADD)*QUANT_CELULAS)
-		zoomVal.innerHTML = percentualAtualTabSize+"%";
+		let sizeAtualCelula = tabSize[tabuleiroObj.percentualAtualTabSize];
+		tabuleiroObj.sizeAtualTabuleiro = ((sizeAtualCelula+OUTSIDE_BORDER_CELULA_ADD)*QUANT_CELULAS)
+		zoomVal.innerHTML = tabuleiroObj.percentualAtualTabSize+"%";
 		
 		var celulas = tabuleiro.getElementsByClassName("celula");
 		for(var i=0;i<celulas.length;i++){
@@ -103,23 +101,23 @@
 		}
 		var linhas = tabuleiro.getElementsByClassName("linha")
 		for(var i=0;i<linhas.length;i++){
-			linhas[i].style.width = sizeAtualTabuleiro + "px";
+			linhas[i].style.width = tabuleiroObj.sizeAtualTabuleiro + "px";
 			linhas[i].style.height = sizeAtualCelula + "px";
 		}
 
 
-		tabuleiro.style.width = sizeAtualTabuleiro + "px";
-		tabuleiro.style.height = sizeAtualTabuleiro + "px";
+		tabuleiro.style.width = tabuleiroObj.sizeAtualTabuleiro + "px";
+		tabuleiro.style.height = tabuleiroObj.sizeAtualTabuleiro + "px";
 		var canvasTabuleiro = document.getElementById("canvasTabuleiro");
-		canvasTabuleiro.style.width = sizeAtualTabuleiro + "px";
-		canvasTabuleiro.style.height = sizeAtualTabuleiro + "px";
-		pad.style.width = sizeAtualTabuleiro + "px";
-		pad.style.height = sizeAtualTabuleiro + "px";
+		canvasTabuleiro.style.width = tabuleiroObj.sizeAtualTabuleiro + "px";
+		canvasTabuleiro.style.height = tabuleiroObj.sizeAtualTabuleiro + "px";
+		pad.style.width = tabuleiroObj.sizeAtualTabuleiro + "px";
+		pad.style.height = tabuleiroObj.sizeAtualTabuleiro + "px";
 
 
 
-		canvasTabuleiro.height = sizeAtualTabuleiro;
-		canvasTabuleiro.width = sizeAtualTabuleiro;
+		canvasTabuleiro.height = tabuleiroObj.sizeAtualTabuleiro;
+		canvasTabuleiro.width = tabuleiroObj.sizeAtualTabuleiro;
 	}
 
 	function changeTabuleiroTamanhoTotalIdeal(tamanhoIdeal){
@@ -133,9 +131,9 @@
 
 
 	function getCelulaCentralizada(){
-		var offsetMoldeX =  moldeWidth/2;
-		var offsetMoldeY = moldeHeight/2;
-		var x = Math.round(QUANT_CELULAS * (offsetMoldeX-posAtualTabLeft) / sizeAtualTabuleiro);
-		var y = Math.round(QUANT_CELULAS * (offsetMoldeY-posAtualTabTop) / sizeAtualTabuleiro);
-		return arrayCelulas[y][x];
+		var offsetMoldeX =  tabuleiroObj.moldeWidth/2;
+		var offsetMoldeY = tabuleiroObj.moldeHeight/2;
+		var x = Math.round(QUANT_CELULAS * (offsetMoldeX-posAtualTabLeft) / tabuleiroObj.sizeAtualTabuleiro);
+		var y = Math.round(QUANT_CELULAS * (offsetMoldeY-posAtualTabTop) / tabuleiroObj.sizeAtualTabuleiro);
+		return tabuleiroObj.arrayCelulas[y][x];
 	}

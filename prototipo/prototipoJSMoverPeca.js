@@ -1,4 +1,4 @@
-
+ 
 
 		function ativaAndar(e){
 			console.log("ativaAndar");
@@ -237,9 +237,9 @@
 					else {x--; direcao = 'l'}
 					let celulaAnterior = arrayCaminho[arrayCaminho.length-1]
 					if(celulaAnterior == null){
-						celulaAnterior = arrayCelulas[yOrigem][xOrigem];
+						celulaAnterior = tabuleiroObj.arrayCelulas[yOrigem][xOrigem];
 					}
-					if(!pushCelula(arrayCaminho, arrayCelulas[yOrigem][x], direcao, celulaAnterior)){
+					if(!pushCelula(arrayCaminho, tabuleiroObj.arrayCelulas[yOrigem][x], direcao, celulaAnterior)){
 						return bloqueiaPreparaCaminho();
 					}
 				}
@@ -250,9 +250,9 @@
 					else {y--; direcao = 'u'}
 					let celulaAnterior = arrayCaminho[arrayCaminho.length-1]
 					if(celulaAnterior == null){
-						celulaAnterior = arrayCelulas[yOrigem][xOrigem];
+						celulaAnterior = tabuleiroObj.arrayCelulas[yOrigem][xOrigem];
 					}
-					if(!pushCelula(arrayCaminho, arrayCelulas[y][xDest], direcao, celulaAnterior)){
+					if(!pushCelula(arrayCaminho, tabuleiroObj.arrayCelulas[y][xDest], direcao, celulaAnterior)){
 						return bloqueiaPreparaCaminho();
 					}
 				}
@@ -264,9 +264,9 @@
 					else {y--; direcao = 'u'}
 					let celulaAnterior = arrayCaminho[arrayCaminho.length-1]
 					if(celulaAnterior == null){
-						celulaAnterior = arrayCelulas[yOrigem][xOrigem];
+						celulaAnterior = tabuleiroObj.arrayCelulas[yOrigem][xOrigem];
 					}
-					if(!pushCelula(arrayCaminho, arrayCelulas[y][xOrigem], direcao, celulaAnterior)){
+					if(!pushCelula(arrayCaminho, tabuleiroObj.arrayCelulas[y][xOrigem], direcao, celulaAnterior)){
 						return bloqueiaPreparaCaminho();
 					}
 				}
@@ -277,9 +277,9 @@
 					else {x--; direcao = 'l'}
 					let celulaAnterior = arrayCaminho[arrayCaminho.length-1]
 					if(celulaAnterior == null){
-						celulaAnterior = arrayCelulas[yOrigem][xOrigem];
+						celulaAnterior = tabuleiroObj.arrayCelulas[yOrigem][xOrigem];
 					}
-					if(!pushCelula(arrayCaminho, arrayCelulas[yDest][x], direcao, celulaAnterior)){
+					if(!pushCelula(arrayCaminho, tabuleiroObj.arrayCelulas[yDest][x], direcao, celulaAnterior)){
 						return bloqueiaPreparaCaminho();
 					}
 				}

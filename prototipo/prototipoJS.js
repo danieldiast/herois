@@ -1,23 +1,61 @@
 
 		console.log('inicio');
 
-		var arrayCelulas = [];
+		// var arrayCelulas = [];
 
 		var posAtualTabTop = -60;
 		var posAtualTabLeft = -100;
 
 		const QUANT_CELULAS = 100;
 		const OUTSIDE_BORDER_CELULA_ADD = 0;
-		var percentualAtualTabSize = 100;
-		var sizeAtualTabuleiro = (tabSize[100]+OUTSIDE_BORDER_CELULA_ADD)*QUANT_CELULAS;
-		var moldeWidth = 600;
-		var moldeHeight = 600;
+		// var percentualAtualTabSize = 100;
+		// var sizeAtualTabuleiro = (tabSize[100]+OUTSIDE_BORDER_CELULA_ADD)*QUANT_CELULAS;
+		// var moldeWidth = 600;
+		// var moldeHeight = 600;
 		const BORDER_MOLDE = 4;
 
 		var selecionado;
 
 		tabuleiro.addEventListener('contextmenu', event => event.preventDefault());
 		tabuleiro.addEventListener('mouseover', mouseOverObjs);
+
+		var tabuleiroObj = null;
+		class Tabuleiro {
+		    constructor(sizeX,sizeY,tabuleiroHTML){
+				this.percentualAtualTabSize = 100;
+				this.sizeAtualTabuleiro = (tabSize[100]+OUTSIDE_BORDER_CELULA_ADD)*sizeX;
+				this.moldeWidth = 600;
+				this.moldeHeight = 600;
+				this.arrayCelulas = [];
+				this.tabuleiroHTML = tabuleiroHTML;
+
+
+			    let sizeAtualCelula = tabSize[100]; //tamanho em px da celula quando zoom em 100%
+				for(let i= 0;i<sizeY;i++){
+					let linha = document.createElement("div");	
+					linha.classList.add('linha');
+					linha.dataset.coordX = i;
+					linha.style.width = this.sizeAtualTabuleiro+"px";
+					linha.style.height = sizeAtualCelula+"px";
+					this.arrayCelulas[i] = [];
+					for(var j= 0;j<sizeX ;j++){
+						let celula = document.createElement("div");	
+						celula.style.width = sizeAtualCelula+"px";
+						celula.style.height = sizeAtualCelula+"px";
+						celula.classList.add('celula');
+						linha.appendChild(celula);	
+						
+						celula.dataset.coordX = j;
+						celula.dataset.coordY = i;
+
+						this.arrayCelulas[i][j]=celula;
+					}
+					tabuleiroHTML.appendChild(linha);	
+				}
+
+		    }
+
+		}
 
 		document.querySelector("span.showGrid").addEventListener('click', e =>{
 			if(e.target != showGrid){
@@ -34,7 +72,7 @@
 			// zoomVal.contentEditable = "true";
 			zoomVal.style.display = "none";
 			inputZoomVal.style.display = "unset";
-			inputZoomVal.value = percentualAtualTabSize;
+			inputZoomVal.value = tabuleiroObj.percentualAtualTabSize;
 			inputZoomVal.select();
 			// inputZoomVal.setSelectionRange(0, inputZoomVal.value.length); // aparentemente, se Safari tem que ser assim
 

@@ -50,15 +50,15 @@
 
 		function moveTabuleiroLimitaRange(){
 			const ESPACO_EXTRA= 100;
-			if(posAtualTabTop < -sizeAtualTabuleiro + moldeHeight - ESPACO_EXTRA){
-				posAtualTabTop = -sizeAtualTabuleiro + moldeHeight - ESPACO_EXTRA;
+			if(posAtualTabTop < -tabuleiroObj.sizeAtualTabuleiro + tabuleiroObj.moldeHeight - ESPACO_EXTRA){
+				posAtualTabTop = -tabuleiroObj.sizeAtualTabuleiro + tabuleiroObj.moldeHeight - ESPACO_EXTRA;
 			}
-			if(posAtualTabLeft < -sizeAtualTabuleiro + moldeWidth - ESPACO_EXTRA){
-				posAtualTabLeft = -sizeAtualTabuleiro + moldeWidth - ESPACO_EXTRA;
+			if(posAtualTabLeft < -tabuleiroObj.sizeAtualTabuleiro + tabuleiroObj.moldeWidth - ESPACO_EXTRA){
+				posAtualTabLeft = -tabuleiroObj.sizeAtualTabuleiro + tabuleiroObj.moldeWidth - ESPACO_EXTRA;
 			}
-			if(posAtualTabLeft < -sizeAtualTabuleiro + moldeWidth - ESPACO_EXTRA){
-				posAtualTabLeft = -sizeAtualTabuleiro + moldeWidth - ESPACO_EXTRA;
-			}
+			if(posAtualTabLeft < -tabuleiroObj.sizeAtualTabuleiro + tabuleiroObj.moldeWidth - ESPACO_EXTRA){
+				posAtualTabLeft = -tabuleiroObj.sizeAtualTabuleiro + tabuleiroObj.moldeWidth - ESPACO_EXTRA;
+			} ///CONFERIR
 			if(posAtualTabLeft > ESPACO_EXTRA){
 				posAtualTabLeft = ESPACO_EXTRA;
 			}

@@ -4,7 +4,8 @@
 
 		//event de mouse move
 		function limpaCanvas(){
-			ctx.clearRect(0,0,sizeAtualTabuleiro,sizeAtualTabuleiro);
+			let size = tabuleiroObj.sizeAtualTabuleiro
+			ctx.clearRect(0,0,size,size);
 		}
 
 
@@ -25,8 +26,8 @@
 				 		return;
 				 	}
 				 }
-				let destinoOffsetX = e.offsetX + (celulaDestino.dataset.coordX * tabSize[percentualAtualTabSize]);
-				let destinoOffsetY = e.offsetY + (celulaDestino.dataset.coordY * tabSize[percentualAtualTabSize]);
+				let destinoOffsetX = e.offsetX + (celulaDestino.dataset.coordX * tabSize[tabuleiroObj.percentualAtualTabSize]);
+				let destinoOffsetY = e.offsetY + (celulaDestino.dataset.coordY * tabSize[tabuleiroObj.percentualAtualTabSize]);
 				
 				 // ctx.fillRect(0,0,250,200);
 				var selecionado = document.querySelector('.peca.selected');
@@ -254,13 +255,13 @@
 			 		}
 				}
 
-				let beginX = celulaOrigem.offsetLeft + tabSize[percentualAtualTabSize]/2;
-				let beginY = celulaOrigem.offsetTop + tabSize[percentualAtualTabSize]/2;
+				let beginX = celulaOrigem.offsetLeft + tabSize[tabuleiroObj.percentualAtualTabSize]/2;
+				let beginY = celulaOrigem.offsetTop + tabSize[tabuleiroObj.percentualAtualTabSize]/2;
 			
 				if(alvoNaMira!=null){
 					// destinoOffsetX = getOffsetXCelulaNoTab(alvoNaMira);
-					destinoOffsetX = alvoNaMira.offsetLeft + tabSize[percentualAtualTabSize]/2;
-					destinoOffsetY = alvoNaMira.offsetTop + tabSize[percentualAtualTabSize]/2;
+					destinoOffsetX = alvoNaMira.offsetLeft + tabSize[tabuleiroObj.percentualAtualTabSize]/2;
+					destinoOffsetY = alvoNaMira.offsetTop + tabSize[tabuleiroObj.percentualAtualTabSize]/2;
 				}
 				desenhaMiraCanvasContextualized = () => desenhaMiraCanvas(beginX, beginY, destinoOffsetX, destinoOffsetY);
 				desenhaMiraCanvasContextualized();
@@ -319,7 +320,7 @@
 			let celX = parseInt(celula.dataset.coordX);
 			let celY = parseInt(celula.dataset.coordY);
 			if(celY>0){
-				return temParede(arrayCelulas[celY-1][celX], classDirecao);
+				return temParede(tabuleiroObj.arrayCelulas[celY-1][celX], classDirecao);
 			}
 			return false;
 		}
@@ -328,7 +329,7 @@
 			let celX = parseInt(celula.dataset.coordX);
 			let celY = parseInt(celula.dataset.coordY);
 			if(celY<QUANT_CELULAS-1){
-				return temParede(arrayCelulas[celY+1][celX], classDirecao);
+				return temParede(tabuleiroObj.arrayCelulas[celY+1][celX], classDirecao);
 			}
 			return false;
 		}
@@ -337,7 +338,7 @@
 			let celX = parseInt(celula.dataset.coordX);
 			let celY = parseInt(celula.dataset.coordY);
 			if(celY>0){
-				return temParede(arrayCelulas[celY][celX-1], classDirecao);
+				return temParede(tabuleiroObj.arrayCelulas[celY][celX-1], classDirecao);
 			}
 			return false;
 		}
@@ -346,7 +347,7 @@
 			let celX = parseInt(celula.dataset.coordX);
 			let celY = parseInt(celula.dataset.coordY);
 			if(celY<QUANT_CELULAS-1){
-				return temParede(arrayCelulas[celY][celX+1], classDirecao);
+				return temParede(tabuleiroObj.arrayCelulas[celY][celX+1], classDirecao);
 			}
 			return false;
 		}
@@ -363,13 +364,13 @@
 				limpaCanvas();
 			    ctx.strokeStyle = 'rgba(255,0,0,0.8)';
 			    ctx.lineWidth = 3;
-			    if(percentualAtualTabSize>50){
+			    if(tabuleiroObj.percentualAtualTabSize>50){
 			   		ctx.strokeStyle = 'rgba(255,0,0,0.6)';
 			    	ctx.lineWidth = 4;
-			    }else if(percentualAtualTabSize>100){
+			    }else if(tabuleiroObj.percentualAtualTabSize>100){
 			   		ctx.strokeStyle = 'rgba(255,0,0,0.4)';
 			    	ctx.lineWidth = 5;
-			    }else if(percentualAtualTabSize>150){
+			    }else if(tabuleiroObj.percentualAtualTabSize>150){
 			    	ctx.strokeStyle = 'rgba(255,0,0,0.3)';
 			    	ctx.lineWidth = 6;
 			    }
@@ -411,14 +412,14 @@
 				var proxCelulaIncreX = null, proxCelulaIncreY = null;
 				
 				if(proxCelulaX+incremetacaoX>=0 && proxCelulaX+incremetacaoX <QUANT_CELULAS){
-					proxCelulaIncreX = arrayCelulas[proxCelulaY][proxCelulaX+incremetacaoX];
+					proxCelulaIncreX = tabuleiroObj.arrayCelulas[proxCelulaY][proxCelulaX+incremetacaoX];
 					var hipotenusaX = getHipotenusaCelulas(proxCelulaIncreX,celulaDestino);
 					var catetoX = getHipotenusaCelulas(celulaOrigem,proxCelulaIncreX)
 					var somaCatetosX = catetoX +hipotenusaX;
 				}
 
 				if(proxCelulaY+incremetacaoY>=0 && proxCelulaY+incremetacaoY <QUANT_CELULAS){
-					proxCelulaIncreY = arrayCelulas[proxCelulaY+incremetacaoY][proxCelulaX];
+					proxCelulaIncreY = tabuleiroObj.arrayCelulas[proxCelulaY+incremetacaoY][proxCelulaX];
 					var hipotenusaY = getHipotenusaCelulas(proxCelulaIncreY,celulaDestino);
 					var catetoY = getHipotenusaCelulas(celulaOrigem,proxCelulaIncreY)
 					var somaCatetosY = catetoY +hipotenusaY;
@@ -437,7 +438,7 @@
 					proxCelula = proxCelulaIncreX;
 					menorSomaCatetos = (somaCatetosX-hipotenusa)*1000;
 				}else if (somaCatetosX == somaCatetosY){
-					proxCelula = arrayCelulas[proxCelulaY+incremetacaoY][proxCelulaX+incremetacaoX];
+					proxCelula = tabuleiroObj.arrayCelulas[proxCelulaY+incremetacaoY][proxCelulaX+incremetacaoX];
 				}else {
 					break;
 				}
