@@ -23,7 +23,7 @@
 				background-image:  url('../tileset/street3.png');
 			}
 
-			div.pisos{
+			div.pisos, div.paredes{
 				display: flex;
 			}
 
@@ -50,7 +50,6 @@
 
 
 			#tabuleiro div.celula.selectionColocaPiso{
-
 				border: 2px solid orange;
 			}
 
@@ -71,6 +70,11 @@
 						drop-shadow(0px 1px 0 var(--bs-bucket-color)) 
 						drop-shadow(0px -1px 0 var(--bs-bucket-color));
 			} 
+
+
+			 .celula .parede.selcted{
+				background-color: yellow;
+			 }
 
 			/*.item.ak47 {
 				background-image: url('items/ak47.png'); 
