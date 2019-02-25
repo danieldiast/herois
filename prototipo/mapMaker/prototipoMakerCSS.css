@@ -45,6 +45,33 @@
     			display: block;
 			}
 
+
+			/* ------------------------------------------------------------------------------- */
+
+
+			#tabuleiro div.celula.selectionColocaPiso{
+
+				border: 2px solid orange;
+			}
+
+
+			span.bucket{
+				content: "";
+  				background-size: cover;
+  				background-repeat: no-repeat;
+				background-image:  url('../bucket_icon.png');
+				width: 32px;
+				height: 32px;
+
+			}
+			span.bucket.selected {
+    			--bs-bucket-color: yellow;
+				filter: drop-shadow(1px 0px 0 var(--bs-bucket-color)) 
+						drop-shadow(-1px 0px 0 var(--bs-bucket-color))
+						drop-shadow(0px 1px 0 var(--bs-bucket-color)) 
+						drop-shadow(0px -1px 0 var(--bs-bucket-color));
+			} 
+
 			/*.item.ak47 {
 				background-image: url('items/ak47.png'); 
 			}

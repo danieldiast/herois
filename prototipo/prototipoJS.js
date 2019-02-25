@@ -55,6 +55,70 @@
 
 		    }
 
+		    getCoordsCelula(celula){
+				for(let y=0;y<  this.arrayCelulas.length; y++){
+					for(let x=0;x<  this.arrayCelulas[y].length; x++){
+						if(celula ==  this.arrayCelulas[y][x]){
+							return {x, y};
+						}
+					}
+				}
+				return null;
+			}
+
+			getCelulaAcima(celula){
+				let coords = this.getCoordsCelula(celula);
+				if(coords != null && coords.y>0){
+					return this.arrayCelulas[coords.y-1][coords.x];
+				}
+				return null;
+			}
+
+			getCelulaAbaixo(celula){
+				let coords = this.getCoordsCelula(celula);
+				if(coords != null && coords.y<this.arrayCelulas.length-1){
+					return this.arrayCelulas[coords.y+1][coords.x];
+				}
+				return null;
+			}
+
+			getCelulaAEsquerda(celula){
+				let coords = this.getCoordsCelula(celula);
+				if(coords != null && coords.x>0){
+					return this.arrayCelulas[coords.y][coords.x-1];
+				}
+				return null;
+			}
+
+			getCelulaADireita(celula){
+				let coords = this.getCoordsCelula(celula);
+				if(coords != null && coords.x<this.arrayCelulas[coords.y].length-1){
+					return this.arrayCelulas[coords.y][coords.x+1];
+				}
+				return null;
+			}
+
+			getCelulaAcima2(celula){
+				for(let y=0;y< arrayCelulas.length; y++){
+					for(let x=0;x< arrayCelulas[y].length; x++){
+						if(celula == arrayCelulas[y][x]){
+							if(y>0){
+								return arrayCelulas[y-1][x];
+							} else{
+								return null;
+							}
+						}
+					}
+				}
+				return false;
+			}
+
+
+
+			// let celulaAbaixo = tabuleiroObj.getCelulaAcima(celula);
+			// let celulaADireita = tabuleiroObj.getCelulaAcima(celula);
+			// let celulaAEsquerda = tabuleiroObj.getCelulaAcima(celula);
+
 		}
 
 		document.querySelector("span.showGrid").addEventListener('click', e =>{
