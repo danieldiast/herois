@@ -1,0 +1,134 @@
+<section class="data-binding-component">
+
+    <!-- aula 8 -->
+    <!-- <article>
+        <h3>Interpolation/Interpolação</h3>
+        <p>String opr interpolação: {{ url }} </p>
+        <p>Resultado de 1 + 1 = {{1+1}}</p>
+        <p>Resultado de 1 + 1 não é {{1+1+getValor()}}</p>
+        <p>Soma de booleans: {{ cursoAngular && getCurtirCurso()}} </p>
+    </article> -->
+
+    <!-- aula 9 -->
+    <!-- <article>
+        <h3>Property Biding</h3>
+        <img [src]="urlImagem" />
+        <img bind-src="urlImagem" />
+    </article> -->
+
+    <!-- aula 10 -->
+    <!-- <article>
+        <h3>Class e Style Binding</h3>
+        <div>
+            Selecione uma classe:
+            <select #classe (change)="0">
+                <option value="alert-success">Sucesso</option>
+                <option value="alert-danger">Danger</option>
+                <option value="alert-warning">Warning</option>
+                <option value="alert-info">Info</option>
+                <option value="alert-primary">Primary</option>
+                <option value="alert-secondary">Secondary</option>
+            </select>
+            <br><br>
+                <div class="alert {{ classe.value }}" role="">texto colorido conforme cor da seleção</div>
+              <div class="alert " [class.alert-success]="classe.value == 'alert-success'" role="alert">
+                A simple success alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+              </div>
+              <div class="alert " [class.alert-danger]="classe.value == 'alert-danger'" role="alert">
+                A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+              </div>
+              <div class="alert " [class.alert-warning]="classe.value == 'alert-warning'" role="alert">
+                A simple warning alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+              </div>
+              <div class="alert " [class.alert-info]="classe.value == 'alert-info'" role="alert">
+                A simple info alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+              </div>
+
+              <div class="alert " role="alert" [class.alert-primary]="classe.value == 'alert-primary'">
+                A simple primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+            </div>
+            <div class="alert " [class.alert-secondary]="classe.value == 'alert-secondary'" role="alert">
+                A simple secondary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+            </div>
+            <div class="alert alert-danger" role="alert" [style.display]="classe.value == 'alert-danger' ? 'block':'none'">
+              A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+            </div>
+
+        </div>
+    </article> -->
+
+    
+
+    <!-- aula 11 -->
+    <!-- <article>
+        <h3>Event Biding</h3>
+        <div>
+            <button (click)="botaoClicado()" class="btn btn-primary">me clique!</button>
+            
+            <input #campoInput type="text" name="" value="" 
+            (keyup)="onKeyUp($event)" 
+            (keyup.enter)="salvarValor($event.target.value)"
+            (blur)="salvarValor(campoInput.value)"/>
+            <p>valor atual: {{ valorAtual }}</p>
+            <p>valor salvo: {{ valorSalvo }}</p>
+            <span [class.hlt]="isMouseOver"
+                (mouseover)="onMouseOver()"
+                (mouseout)="onMouseOut()">
+            passe o mouse aqui!</span>
+        </div>
+
+    </article>
+    <hr /> -->
+
+
+
+    <!-- aula 12 -->
+    <!-- <article>
+        <h3>Two-way Data Biding</h3>
+        <div>
+            
+            <input type="text"
+                [value]="nome2w"
+                (input)="nome2w = $event.target.value"
+            />
+            <input type="text"
+                [ngModel]="nome2w"
+                (ngModelChange)="nome2w = $event"
+            />
+
+            <input type="text"
+                [(ngModel)]="nome2w"
+            />
+
+            <input type="text"
+                bindon-ngModel="nome2w"
+            />
+            <p>
+                voce digitou: {{ nome2w }}
+            </p>
+        </div>
+        <div>
+            <input type="text" [(ngModel)]="pessoa.nome" />
+            <input type="text" [(ngModel)]="pessoa.idade" />
+            <p>
+                meu nome é {{ pessoa.nome }} e tenho {{ pessoa.idade }} anos.
+            </p>
+        </div>
+
+    </article> -->
+
+</section>
+<section>
+    <!-- aula 13 -->
+    <article>
+        <h3>Input/Output Properties</h3> 
+        <app-curso [nome]="nomeDoCurso"></app-curso>
+    </article>
+
+    <!-- aula 14 -->
+    <article>
+        <h3>Eventos Output Properties</h3>
+    </article>
+
+</section>
+
