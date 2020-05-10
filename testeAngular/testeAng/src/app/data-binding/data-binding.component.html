@@ -123,12 +123,14 @@
     <article>
         <h3>Input/Output Properties</h3> 
         <app-curso [nome]="nomeDoCurso"></app-curso>
+
+        
+        <!-- aula 14 -->
+        <contador valor='22'  (mudouValor)="onMudouValor($event)"></contador>
+        <contador [valor]='valorInicial' (mudouValor)="onMudouValor($event)"></contador>
+
     </article>
 
-    <!-- aula 14 -->
-    <article>
-        <h3>Eventos Output Properties</h3>
-    </article>
 
 </section>
 
