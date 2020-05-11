@@ -161,7 +161,7 @@
 
 			let imgPortrait = document.createElement("img");	
 			imgPortrait.classList.add("portrait");
-			imgPortrait.src = "portrait/"+selecionado.dataset.char+".jpg";
+			imgPortrait.src = "portrait/"+selecionado.dataset.char+".png";
 			acoes.appendChild(imgPortrait);	
 
 			//acoes.innerHTML = "Orientação: ";
