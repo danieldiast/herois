@@ -67,8 +67,8 @@
 			}
 		}
 
-		const VELO_MOVER_PECA = 200; //maior =  mais lento
-		let animation;
+		const VELO_MOVER_PECA = 300; //maior =  mais lento
+		// let animation;
 		function moverPeca(){
 			if(arrayCaminhosParciais.length == 0){
 				return;
@@ -77,21 +77,31 @@
 			let pecaSelecionada = personSelecionada.parentElement;
 			let celulaAtual = pecaSelecionada.parentElement;
 			//let celulaAnterior = celulaAtual;
+			testI =0;
+			console.log(arrayCaminhosParciais);
+			printCaminhos(arrayCaminhosParciais);
+			arrayProximosParametros = [];
 			setTimeout(moverPecaAnimar(personSelecionada, pecaSelecionada, celulaAtual, 0, 0),0);
 		}
 
+		var testI =0;
+		var arrayProximosParametros = [];
 		function moverPecaAnimar(personSelecionada, pecaSelecionada, celulaAnterior, animTop, animLeft){
+			console.log("iteração "+testI+" - ");
 			if(arrayCaminhosParciais.length > 0) {
 				let caminhoParcial = arrayCaminhosParciais[0];
+				console.dir(caminhoParcial);
 				if(caminhoParcial.length == 0){
 					arrayCaminhosParciais.shift();
+					console.log('aqui-------------------');
 					return moverPecaAnimar(personSelecionada, pecaSelecionada, celulaAnterior, animTop, animLeft);
 				}
 				if(caminhoParcial.length > 0) {
 					let proxCelula = caminhoParcial.shift();
 					let animTopFinal = animTop;
 					let animLeftFinal = animLeft;
-					console.dir(proxCelula);
+					console.log('celulaAnterior x='+celulaAnterior.dataset.coordX+' y='+celulaAnterior.dataset.coordY);
+					console.log('proxCelula x='+proxCelula.dataset.coordX+' y='+proxCelula.dataset.coordY);
 					if(parseInt(proxCelula.dataset.coordX) > parseInt(celulaAnterior.dataset.coordX)){
 						console.log('right')
 						pecaSelecionada.dataset.looking = 'right';
@@ -105,18 +115,33 @@
 						pecaSelecionada.dataset.looking = 'down';
 						animTopFinal += 100;
 					} if(parseInt(proxCelula.dataset.coordY) < parseInt(celulaAnterior.dataset.coordY)){
-						console.log('right')
+						console.log('up')
 						pecaSelecionada.dataset.looking = 'up';
 						animTopFinal -= 100;
 					}
-					animation = personSelecionada.animate([
+					
+					console.log(testI+' entrando em animation com proxCelula x='+proxCelula.dataset.coordX+' y='+proxCelula.dataset.coordY);
+					let animation = personSelecionada.animate([
 			   			 {top: animTop+"%",left: animLeft+"%"},
 			   			 {top: animTopFinal+"%",left: animLeftFinal+"%"}
 			   			],VELO_MOVER_PECA
 					);
-					animation.onfinish = function(){
-						moverPecaAnimar(personSelecionada, pecaSelecionada, proxCelula, animTopFinal, animLeftFinal);
+					testI++;
+					arrayProximosParametros.push({personSelecionada, pecaSelecionada, proxCelula, animTopFinal, animLeftFinal});
+					console.log(testI+' proxCelula x='+proxCelula.dataset.coordX+' y='+proxCelula.dataset.coordY);
+					var callBackRecursivo = function(){
+						let p = arrayProximosParametros.shift();
+						if(p ==null || !p.hasOwnProperty('proxCelula')){
+							return;
+						}
+						console.log(arrayProximosParametros);
+						console.log(testI+' chamando recursivo com proxCelula x='+proxCelula.dataset.coordX+' y='+proxCelula.dataset.coordY);
+					  //moverPecaAnimar(personSelecionada, pecaSelecionada, celulaAnterior, animTop, animLeft)
+					    moverPecaAnimar(p.personSelecionada, p.pecaSelecionada, p.proxCelula, p.animTopFinal, p.animLeftFinal);
+						console.log(testI+' saindo recursivo com proxCelula x='+proxCelula.dataset.coordX+' y='+proxCelula.dataset.coordY);
 					};
+					animation.onfinish = callBackRecursivo;
+					
 			    	passos = Array.from(proxCelula.querySelectorAll('.passo[data-parcial=true]'));
 			    	if(passos.length > 0){
 			    		proxCelula.removeChild(passos.shift());
@@ -124,18 +149,18 @@
 			    	if(passos.length == 0){	
 			    		proxCelula.classList.remove("caminhoParcial");
 			    	}	
-			    	celulaAnterior = proxCelula;
+					celulaAnterior = proxCelula;
 			    	
 				}
 			}else{
 				let logAcao = pecaSelecionada.dataset.char;
 				logAcao+=" moveu de ";
 				logAcao+="x"+pecaSelecionada.parentElement.dataset.coordX;
-				logAcao+="-";
+				logAcao+=" ";
 				logAcao+="y"+pecaSelecionada.parentElement.dataset.coordY;
 				logAcao+=" para ";
 				logAcao+="x"+celulaAnterior.dataset.coordX;
-				logAcao+="-";
+				logAcao+=" ";
 				logAcao+="y"+celulaAnterior.dataset.coordY;
 				loga(logAcao);
 				celulaAnterior.appendChild(pecaSelecionada);
@@ -353,3 +378,25 @@
 		}
 
 
+		function sleep(milliseconds) {
+			const date = Date.now();
+			let currentDate = null;
+			do {
+			  currentDate = Date.now();
+			} while (currentDate - date < milliseconds);
+		  }
+
+
+
+
+
+		  function printCaminhos(arrayCaminhos){
+			  let str = '';
+			//   arrayCaminhos.forEach({
+			// 	str= str+' '+this;
+			//   });
+			  for(c in arrayCaminhos){
+				str= str+' '+c;
+			  }
+			  console.log(str);
+		  }

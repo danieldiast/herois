@@ -263,7 +263,7 @@
 			}
 			.person{
   				z-index: 5;
-  				transition: all 1s;
+  				transition: all 0.2s;
   				pointer-events: none;
 			}
 			.duasCelulas .person{
@@ -280,7 +280,8 @@
 			  	transform: rotate(180deg);
 			}
 			.peca[data-looking='left'] .person, .item[data-looking='left']{
-			  	transform: rotate(270deg);
+			  	/* transform: rotate(270deg); */
+			  	transform: rotate(-90deg);
 			}
 			.peca[data-looking='right'] .person, .item[data-looking='right']{
 			  	transform: rotate(90deg);
@@ -293,6 +294,7 @@
 			}
 			.peca[data-looking='down'].duasCelulas .person{
 			  	/*transform-origin: top center;*/
+			  	top: 0%;
 
 			}
 			.peca[data-looking='left'].duasCelulas .person{
