@@ -144,7 +144,13 @@
 						console.log(testI+' saindo recursivo com proxCelula x='+proxCelula.dataset.coordX+' y='+proxCelula.dataset.coordY);
 					};
 					
-					animation.onfinish = callBackRecursivo;
+					var transitionEvent = whichTransitionEvent();
+					transitionEvent && personSelecionada.addEventListener(transitionEvent, function() {
+						console.log('Transition complete!!');
+						callBackRecursivo();
+					});
+
+					//animation.onfinish = callBackRecursivo;
 					
 			    	passos = Array.from(proxCelula.querySelectorAll('.passo[data-parcial=true]'));
 			    	if(passos.length > 0){
@@ -410,3 +416,29 @@
 
 
 
+
+		  /* From Modernizr -------------------------------------https://davidwalsh.name/css-animation-callback-----------------*/
+		function whichTransitionEvent(){
+			var t;
+			var el = document.createElement('fakeelement');
+			var transitions = {
+			'transition':'transitionend',
+			'OTransition':'oTransitionEnd',
+			'MozTransition':'transitionend',
+			'WebkitTransition':'webkitTransitionEnd'
+			}
+
+			for(t in transitions){
+				if( el.style[t] !== undefined ){
+					console.log("transition: "+transitions[t]);
+					return transitions[t];
+				}
+			}
+		}
+
+		// /* Listen for a transition! */
+		// var transitionEvent = whichTransitionEvent();
+		// transitionEvent && e.addEventListener(transitionEvent, function() {
+		// 	console.log('Transition complete!  This is the callback, no library needed!');
+		// });
+		  /* /From Modernizr ------------------------------------------------------------------------------------------*/
