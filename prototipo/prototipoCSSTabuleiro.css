@@ -272,6 +272,13 @@
   				z-index: 6;
   				transition: all 0s;
 			}
+			.person.aboutToMove {
+				/* transform: scale(1.1, 1.1);
+				width: 110%;
+				height: 110%; */
+				filter: contrast(150%);
+
+			}
 
 			.peca[data-looking='up'] .person, .item[data-looking='up'] { 
 			  	transform: rotate(0deg);

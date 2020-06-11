@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>snakes</title>
+	</head>
+	<body>
+		<canvas id="gameC" width="500" height="500" >tete << not canvas support</canvas>
+		<script type="text/javascript">
+			var canvas = document.getElementById('gameC');
+			var ctx = canvas.getContext("2d");
+			var w = canvas.width, h = canvas.height;
+			
+			var cellSize = 10;
+			var food;
+			var snake = [];
+			
+			ctx.strokeStyle = "black"			
+			ctx.strokeRect(0,0,w,h);
+			
+			function init(){
+				create_snake();
+				create_food();
+				
+				if(typeof game_loop != "undefined")
+					clearInterval(game_loop);
+				game_loop = setInterval(paintSnakeCanvas, 80);
+			}
+			init();
+			
+			
+			function create_snake(){
+				var snake_length = 4;
+			    snake = [];
+				for(var i= 3; i< snake_length+3; i++){
+					snake.push({x:i, y:3});
+				}
+			}
+			
+			function create_food(){
+				food = {
+					x: Math.round(Math.random()*(w-cellSize)/cellSize),
+					y: Math.round(Math.random()*(w-cellSize)/cellSize)
+				}
+			}
+			
+			
+			function paintSnakeCanvas() {
+				ctx.fillStyle = "#EEE";
+				ctx.fillRect(0,0,w,h);
+				ctx.strokeStyle = "#111"			
+				ctx.strokeRect(0,0,w,h);
+				//console.log(1);
+			}
+		</script>
+	</body>
+</html>

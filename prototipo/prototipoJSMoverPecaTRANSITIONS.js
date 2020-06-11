@@ -1,4 +1,4 @@
- 
+ //ESTE ARQUIVO EXISTE COMO UMA VERSAO ALTERNATIVA APENAS  PARA TESTAR A ANIMAÇÃO COM TRANSITIONS
 
 		function ativaAndar(e){
 			console.log("ativaAndar");
@@ -81,7 +81,18 @@
 			console.log(arrayCaminhosParciais);
 			printCaminhos(arrayCaminhosParciais);
 			arrayProximosParametros = [];
-			setTimeout(moverPecaAnimar(personSelecionada, pecaSelecionada, celulaAtual, 0, 0),0);
+			personSelecionada.style.transition = "all 0.1s linear 0s";
+			personSelecionada.classList.add("aboutToMove");
+			//setTimeout(()=>{moverPecaAnimar(personSelecionada, pecaSelecionada, celulaAtual, 0, 0)},10);
+			 //new Promise(()=>{moverPecaAnimar(personSelecionada, pecaSelecionada, celulaAtual, 0, 0)});
+			 
+			 personSelecionada.addEventListener('transitionend', function callBacktransitionend() {
+				console.log(' primeira transitionend!!!!!!!!!!!!!!!!!!!!');
+				personSelecionada.style.transition = "all 0.4s linear 0s";
+				personSelecionada.removeEventListener('transitionend',callBacktransitionend);
+				personSelecionada.classList.remove("aboutToMove");
+				moverPecaAnimar(personSelecionada, pecaSelecionada, celulaAtual, 0, 0);
+			});
 		}
 
 		var testI =0;
@@ -121,17 +132,6 @@
 					}
 					
 					
-					
-
-					console.log(testI+' entrando em animation com proxCelula x='+proxCelula.dataset.coordX+' y='+proxCelula.dataset.coordY);
-					let animation = personSelecionada.animate([
-			   			 {top: animTop+"%",left: animLeft+"%"},
-			   			 {top: animTopFinal+"%",left: animLeftFinal+"%"}
-			   			],VELO_MOVER_PECA
-					);
-					testI++;
-					arrayProximosParametros.push({personSelecionada, pecaSelecionada, proxCelula, animTopFinal, animLeftFinal});
-					console.log(testI+' proxCelula x='+proxCelula.dataset.coordX+' y='+proxCelula.dataset.coordY);
 					var callBackRecursivo = function(){
 						let p = arrayProximosParametros.shift();
 						if(p ==null || !p.hasOwnProperty('proxCelula')){
@@ -143,12 +143,30 @@
 					    moverPecaAnimar(p.personSelecionada, p.pecaSelecionada, p.proxCelula, p.animTopFinal, p.animLeftFinal);
 						console.log(testI+' saindo recursivo com proxCelula x='+proxCelula.dataset.coordX+' y='+proxCelula.dataset.coordY);
 					};
-					
+
 					var transitionEvent = whichTransitionEvent();
-					transitionEvent && personSelecionada.addEventListener(transitionEvent, function() {
-						console.log('Transition complete!!');
+					//transitionEvent && 
+					personSelecionada.addEventListener('transitionend', function callBacktransitionend() {
+						console.log(' Transition complete!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+						personSelecionada.removeEventListener('transitionend',callBacktransitionend);
 						callBackRecursivo();
+						
 					});
+
+					console.log(testI+' entrando em animation com proxCelula x='+proxCelula.dataset.coordX+' y='+proxCelula.dataset.coordY);
+					var novoTop = animTopFinal+"%"
+					var novoLeft = animLeftFinal+"%"
+					//personSelecionada.style.transition = "top 1s linear 0s, left 1s linear 0s"
+					personSelecionada.style.transition = "all 0.5s linear 0.1s";
+					console.log("transition "+personSelecionada.style.transition);
+					personSelecionada.style.top = novoTop;
+					personSelecionada.style.left = novoLeft;
+					testI++;
+					arrayProximosParametros.push({personSelecionada, pecaSelecionada, proxCelula, animTopFinal, animLeftFinal});
+					console.log(testI+' proxCelula x='+proxCelula.dataset.coordX+' y='+proxCelula.dataset.coordY);
+					
+					
+					
 
 					//animation.onfinish = callBackRecursivo;
 					
@@ -174,6 +192,9 @@
 				logAcao+=" ";
 				logAcao+="y"+celulaAnterior.dataset.coordY;
 				loga(logAcao);
+				personSelecionada.style.transition = "0"
+				personSelecionada.style.top = 0;
+				personSelecionada.style.left = 0;
 				celulaAnterior.appendChild(pecaSelecionada);
 				desativaAndar();
 			}
